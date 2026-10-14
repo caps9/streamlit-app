@@ -122,7 +122,7 @@
   </style>
 </head>
 
-<body class="bg-papier font-sans text-tinte antialiased">
+<body class="bg-papier font-sans text-tinte antialiased" id="top">
 
   <!-- Notdienst-Leiste -->
   <div class="bg-tanne text-papier">
@@ -135,7 +135,7 @@
   <!-- ============ HEADER ============ -->
   <header id="top-bar" class="sticky top-0 z-50 border-b border-transparent bg-papier transition-colors duration-300">
     <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
-      <a href="index.html" class="group flex items-center gap-3" aria-label="Kemner Hausverwaltung – zur Startseite">
+      <a href="#top" class="group flex items-center gap-3" aria-label="Kemner Hausverwaltung – zur Startseite">
         <svg class="h-11 w-11 shrink-0 transition-transform duration-500 group-hover:-translate-y-0.5" viewBox="0 0 44 44" aria-hidden="true">
           <rect width="44" height="44" fill="#1D3B33"/>
           <path d="M9 38V20h3v-4h3v-4h3V8h8v4h3v4h3v4h3v18" fill="none" stroke="#F3EEE4" stroke-width="2.4" stroke-linejoin="miter"/>
@@ -151,7 +151,7 @@
         <a class="link-draw hover:text-tinte" href="#mieter">Für Mieter</a>
         <a class="link-draw hover:text-tinte" href="#eigentuemer">Für Eigentümer</a>
         <a class="link-draw hover:text-tinte" href="#leistungen">Leistungen</a>
-        <a class="link-draw hover:text-tinte" href="team.html">Team</a>
+        <a class="link-draw hover:text-tinte" href="#team-page">Team</a>
         <a class="link-draw hover:text-tinte" href="#faq">FAQ</a>
       </nav>
 
@@ -168,7 +168,7 @@
         <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#mieter">Für Mieter <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
         <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#eigentuemer">Für Eigentümer <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
         <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#leistungen">Leistungen <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
-        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="team.html">Team <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#team-page">Team <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
         <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#faq">FAQ <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
         <a href="#kontakt" class="btn btn-klinker mt-6 w-full font-sans">Anliegen melden <i data-lucide="arrow-right"></i></a>
       </nav>
@@ -319,7 +319,7 @@
           </div>
         </div>
 
-        <a href="team.html" class="reveal group mt-16 inline-flex items-center gap-3 font-semibold" style="--d:200ms">
+        <a href="#team-page" class="reveal group mt-16 inline-flex items-center gap-3 font-semibold" style="--d:200ms">
           <span class="link-draw">Alle Menschen hinter Kemner kennenlernen</span>
           <i data-lucide="arrow-right" class="h-5 w-5 transition-transform group-hover:translate-x-1"></i>
         </a>
@@ -588,7 +588,204 @@
         </div>
       </div>
     </section>
-  </main>
+  
+<!-- merged from team.html -->
+<section id="team-page">
+<!-- ============ HERO ============ -->
+    <section class="mx-auto max-w-7xl px-5 pb-20 pt-14 md:px-8 md:pb-28 md:pt-20">
+      <nav class="fade-in flex items-center gap-2 text-[13px] text-tinte/55" aria-label="Brotkrumen" style="--d:40ms">
+        <a href="#top" class="link-draw hover:text-tinte">Start</a>
+        <i data-lucide="chevron-right" class="h-3.5 w-3.5"></i>
+        <span class="text-tinte">Team</span>
+      </nav>
+
+      <div class="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
+        <h1 class="serif-tight font-serif text-[clamp(3.2rem,7.4vw,7rem)] font-light leading-[0.95] lg:col-span-8">
+          <span class="word" style="--d:120ms">Wer</span>
+          <span class="word" style="--d:200ms">sich</span>
+          <span class="word" style="--d:280ms">um</span>
+          <span class="word" style="--d:360ms">Ihr</span>
+          <span class="word" style="--d:440ms">Zuhause</span>
+          <span class="word font-normal italic text-klinker" style="--d:540ms">kümmert.</span>
+        </h1>
+        <p class="fade-in max-w-md text-lg leading-relaxed text-tinte/70 lg:col-span-4" style="--d:800ms">
+          58 Menschen arbeiten bei der Kemner Hausverwaltung. Hier stellen wir einige von ihnen vor, die Mieter und Eigentümer im Alltag erleben.
+        </p>
+      </div>
+
+      <dl class="fade-in mt-20 grid grid-cols-2 border-y border-tinte/15 md:grid-cols-4" style="--d:950ms">
+        <div class="flex flex-col-reverse justify-end border-b border-r border-tinte/15 py-7 pr-4 md:border-b-0">
+          <dt class="eyebrow mt-2 text-[10.5px] text-tinte/55">Beschäftigte</dt>
+          <dd class="font-serif text-5xl font-light">58</dd>
+        </div>
+        <div class="flex flex-col-reverse justify-end border-b border-tinte/15 py-7 pl-5 md:border-b-0 md:border-r md:pr-4">
+          <dt class="eyebrow mt-2 text-[10.5px] text-tinte/55">im Mieterservice</dt>
+          <dd class="font-serif text-5xl font-light">14</dd>
+        </div>
+        <div class="flex flex-col-reverse justify-end border-r border-tinte/15 py-7 pr-4 md:pl-5">
+          <dt class="eyebrow mt-2 text-[10.5px] text-tinte/55">Hausmeister</dt>
+          <dd class="font-serif text-5xl font-light">9</dd>
+        </div>
+        <div class="flex flex-col-reverse justify-end py-7 pl-5">
+          <dt class="eyebrow mt-2 text-[10.5px] text-tinte/55">betreute Wohnungen</dt>
+          <dd class="font-serif text-5xl font-light">4.200</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ 01 · GESCHÄFTSFÜHRUNG ============ -->
+    <section class="border-t border-tinte/10" aria-labelledby="gf-title">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12 lg:gap-16">
+        <div class="person relative lg:col-span-5">
+          <figure class="arch relative mx-auto aspect-[4/5] w-full max-w-md bg-sandstein lg:max-w-none">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&crop=faces&w=900&h=1125&q=80" alt="Porträt von Martin Kemner" class="h-full w-full object-cover">
+            <span class="curtain" aria-hidden="true"></span>
+          </figure>
+        </div>
+
+        <div class="flex flex-col justify-center lg:col-span-7">
+          <p id="gf-title" class="reveal eyebrow text-klinker">01 · Geschäftsführung</p>
+          <h2 class="reveal serif-tight mt-6 font-serif text-[clamp(3rem,6vw,5.5rem)] font-light leading-[0.95]" style="--d:80ms">Martin Kemner</h2>
+          <p class="reveal eyebrow mt-4 text-[10.5px] text-tinte/55" style="--d:120ms">Geschäftsführer</p>
+          <p class="reveal mt-8 max-w-xl text-lg leading-relaxed text-tinte/75" style="--d:160ms">
+            Martin Kemner führt die Hausverwaltung und verantwortet die Weiterentwicklung des Mieterservice. Ein Ziel steht dabei vorn: Mieter sollen schneller eine gute Antwort bekommen, ohne dass die Sorgfalt leidet.
+          </p>
+          <blockquote class="reveal mt-12 border-l-2 border-klinker pl-6" style="--d:220ms">
+            <p class="font-serif text-[clamp(1.6rem,2.8vw,2.3rem)] font-light italic leading-snug">„Hinter jeder Anfrage steht jemand, der in seiner Wohnung einfach zu Hause sein möchte.“</p>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · MIETERSERVICE ============ -->
+    <section class="on-dark bg-tanne text-papier" aria-labelledby="ms-title">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <div class="reveal lg:sticky lg:top-32">
+            <p class="eyebrow text-klinker-light">02 · Mieterservice</p>
+            <h2 id="ms-title" class="serif-tight mt-6 font-serif text-[clamp(2.4rem,4.4vw,3.75rem)] font-light leading-[1]">Hier kommt jede Anfrage an.</h2>
+            <p class="mt-6 max-w-sm text-papier/70">Zwei Teamleitungen und vierzehn Kolleginnen und Kollegen in der Sachbearbeitung beantworten rund 2.300 Mieteranfragen im Monat.</p>
+          </div>
+        </div>
+
+        <div class="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
+          <article class="person reveal" style="--d:60ms">
+            <figure class="arch relative aspect-[4/5] bg-tanne-light">
+              <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Jens Wübbeling" loading="lazy" class="h-full w-full object-cover">
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Jens Wübbeling</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker-light">Teamleitung Mieterservice</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-papier/70">Verteilt jeden Morgen die neue Post, damit jede Anfrage bei der richtigen Person landet. Behält dabei auch die Details im Blick.</p>
+          </article>
+
+          <article class="person reveal" style="--d:140ms">
+            <figure class="arch relative aspect-[4/5] bg-tanne-light">
+              <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Sandra Pohl" loading="lazy" class="h-full w-full object-cover">
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Sandra Pohl</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker-light">Teamleitung Mieterservice</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-papier/70">Leitet das zweite Team im Mieterservice. Sorgt dafür, dass die Arbeit fair verteilt ist und kein Postfach überläuft.</p>
+          </article>
+
+          <article class="person reveal" style="--d:220ms">
+            <figure class="arch relative aspect-[4/5] bg-tanne-light">
+              <img src="https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Petra Lohmann" loading="lazy" class="h-full w-full object-cover">
+              <span class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-papier px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-tinte">seit 2004</span>
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Petra Lohmann</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker-light">Sachbearbeitung</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-papier/70">Seit 22 Jahren im Betrieb. Viele Mieter kennen den Namen, und die sorgfältigen Briefe, die dazugehören.</p>
+          </article>
+
+          <article class="person reveal" style="--d:60ms">
+            <figure class="arch relative aspect-[4/5] bg-tanne-light">
+              <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Can Aydın" loading="lazy" class="h-full w-full object-cover">
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Can Aydın</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker-light">Sachbearbeitung</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-papier/70">Hat ein genaues Auge dafür, was dringend ist. Ein Wasserschaden wartet hier nicht bis morgen.</p>
+          </article>
+
+          <article class="person reveal" style="--d:140ms">
+            <figure class="arch relative aspect-[4/5] bg-tanne-light">
+              <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Gisela Rammert" loading="lazy" class="h-full w-full object-cover">
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Gisela Rammert</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker-light">Sachbearbeitung</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-papier/70">Bleibt ruhig und gründlich, auch wenn ein Anliegen kompliziert wird. Nimmt sich Zeit für Mieter, die es lieber erklärt bekommen.</p>
+          </article>
+
+          <article class="reveal flex aspect-[4/5] flex-col justify-between rounded-t-full bg-klinker p-7 pt-16 text-papier" style="--d:220ms">
+            <i data-lucide="users" class="mx-auto h-7 w-7"></i>
+            <div class="text-center">
+              <p class="font-serif text-[clamp(4rem,8vw,5.5rem)] font-light leading-none">+11</p>
+              <p class="mt-3 font-serif text-xl leading-tight">weitere Kolleginnen und Kollegen in der Sachbearbeitung</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 · IM HINTERGRUND ============ -->
+    <section aria-labelledby="bg-title">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <div class="reveal lg:sticky lg:top-32">
+            <p class="eyebrow text-klinker">03 · Vor Ort und im Hintergrund</p>
+            <h2 id="bg-title" class="serif-tight mt-6 font-serif text-[clamp(2.4rem,4.4vw,3.75rem)] font-light leading-[1]">Damit im Haus alles läuft.</h2>
+            <p class="mt-6 max-w-sm text-tinte/70">Organisation und IT, die Hausmeister in den Wohnanlagen und die Buchhaltung halten dem Mieterservice den Rücken frei.</p>
+          </div>
+        </div>
+
+        <div class="grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-3">
+          <article class="person reveal" style="--d:60ms">
+            <figure class="arch relative aspect-[4/5] bg-sandstein">
+              <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Lea Brüning" loading="lazy" class="h-full w-full object-cover">
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Lea Brüning</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker">Organisation &amp; IT</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-tinte/70">Sorgt dafür, dass die Technik im Büro und die Hausmeister-App zuverlässig laufen. Wenn bei Kemner etwas Neues kommt, übernimmt Lea Brüning die Projektleitung.</p>
+          </article>
+
+          <article class="person reveal" style="--d:140ms">
+            <figure class="arch relative aspect-[4/5] bg-sandstein">
+              <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=700&h=875&q=80" alt="Hausmeister bei einer Reparatur" loading="lazy" class="h-full w-full object-cover">
+              <span class="absolute bottom-4 left-1/2 grid h-16 w-16 -translate-x-1/2 place-items-center rounded-full bg-tanne font-serif text-3xl text-papier">9</span>
+            </figure>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Unsere Hausmeister</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker">In den Wohnanlagen</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-tinte/70">Neun Hausmeister kümmern sich um Reparaturen vor Ort. Aufträge erreichen sie über die Hausmeister-App direkt auf dem Smartphone.</p>
+          </article>
+
+          <article class="reveal sm:col-span-2 lg:col-span-1" style="--d:220ms">
+            <div class="flex aspect-[4/5] flex-col items-center justify-center rounded-t-full border border-tinte/20 bg-sandstein/60 p-7 text-center sm:aspect-[8/5] lg:aspect-[4/5]">
+              <i data-lucide="calculator" class="h-7 w-7 text-klinker"></i>
+              <p class="mt-6 font-serif text-[clamp(4rem,8vw,5.5rem)] font-light leading-none">5</p>
+              <p class="mt-3 font-serif text-xl leading-tight">Kolleginnen und Kollegen<br>in der Buchhaltung</p>
+            </div>
+            <h3 class="mt-6 font-serif text-[28px] leading-tight">Buchhaltung</h3>
+            <p class="eyebrow mt-2 text-[10.5px] text-klinker">Nebenkostenabrechnung</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-tinte/70">Erstellt die Nebenkostenabrechnungen und beantwortet Fragen dazu, direkt und ohne Umweg.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="bg-sandstein">
+      <div class="mx-auto grid max-w-7xl items-end gap-10 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-12">
+        <div class="reveal lg:col-span-8">
+          <p class="eyebrow text-klinker">Kontakt</p>
+          <h2 class="serif-tight mt-6 font-serif text-[clamp(2.8rem,6vw,5.5rem)] font-light leading-[0.95]">Sie möchten Ihr Team <em class="text-klinker">erreichen?</em></h2>
+          <p class="mt-6 max-w-xl text-lg text-tinte/70">Schreiben Sie uns. Ihr Anliegen geht direkt an die zuständige Ansprechperson im Mieterservice.</p>
+        </div>
+        <div class="reveal lg:col-span-4 lg:justify-self-end" style="--d:120ms">
+          <a href="#kontakt" class="btn btn-klinker">Anliegen melden <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+</section>
+</main>
 
   <!-- ============ 10 · FOOTER & FINAL CTA ============ -->
   <footer class="bg-tinte text-papier">
@@ -602,7 +799,7 @@
 
       <div class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
         <div class="lg:col-span-4">
-          <a href="index.html" class="flex items-center gap-3" aria-label="Kemner Hausverwaltung – zur Startseite">
+          <a href="#top" class="flex items-center gap-3" aria-label="Kemner Hausverwaltung – zur Startseite">
             <svg class="h-11 w-11" viewBox="0 0 44 44" aria-hidden="true">
               <rect width="44" height="44" fill="#F3EEE4"/>
               <path d="M9 38V20h3v-4h3v-4h3V8h8v4h3v4h3v4h3v18" fill="none" stroke="#1D3B33" stroke-width="2.4"/>
@@ -622,7 +819,7 @@
             <li><a class="link-draw hover:text-papier" href="#mieter">Für Mieter</a></li>
             <li><a class="link-draw hover:text-papier" href="#eigentuemer">Für Eigentümer</a></li>
             <li><a class="link-draw hover:text-papier" href="#leistungen">Leistungen</a></li>
-            <li><a class="link-draw hover:text-papier" href="team.html">Team</a></li>
+            <li><a class="link-draw hover:text-papier" href="#team-page">Team</a></li>
           </ul>
         </div>
         <div class="lg:col-span-3">
