@@ -9,6 +9,19 @@ import streamlit.components.v1 as components
 
 WEBSITES = Path(__file__).resolve().parent / "websites"
 PAGE_HEIGHT = 900
+# Die Navigation innerhalb der eingebetteten Websites ist nur Deko:
+# Klicks auf Header-/Nav-Links werden abgefangen, damit niemand weg navigiert.
+NAV_GUARD = """
+<style>
+header a, nav a { pointer-events: none !important; cursor: default !important; }
+</style>
+<script>
+document.addEventListener('click', function (event) {
+  var link = event.target.closest ? event.target.closest('header a, nav a') : null;
+  if (link) { event.preventDefault(); event.stopPropagation(); }
+}, true);
+</script>
+"""
 WEBSITE_NAMES = {
     1: "Lüttkemeyer",
     2: "Kemner",
@@ -67,5 +80,10 @@ try:
 except (OSError, UnicodeError) as error:
     st.error(f"Die HTML-Datei konnte nicht gelesen werden: {error}")
     st.stop()
+
+if re.search(r"</body\s*>", document, re.IGNORECASE):
+    document = re.sub(r"</body\s*>", NAV_GUARD + "\n</body>", document, count=1, flags=re.IGNORECASE)
+else:
+    document += NAV_GUARD
 
 components.html(document, height=PAGE_HEIGHT, scrolling=True)
