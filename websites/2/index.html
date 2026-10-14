@@ -1,27 +1,792 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="no-js">
 <head>
-  <meta charset="utf-8" />
-  <title>Schulung 2</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Georgia, serif;
-      background: linear-gradient(160deg, #3a2a1a, #28180d);
-      color: #f8f4f0;
-      display: grid;
-      place-items: center;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spedition Lüttkemeyer GmbH – Transporte aus Osnabrück</title>
+  <meta name="description" content="Spedition Lüttkemeyer GmbH, Osnabrück: Komplett- und Teilladungen, Regionalverteilung, Lager und Umschlag. 140 Menschen, eigene Disposition, digitale Tourenplanung.">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            asphalt: '#111417',
+            graphite: '#1B2026',
+            steel: '#2A3139',
+            kalk: '#EDE8DE',
+            sand: '#E2DACB',
+            signal: { DEFAULT: '#F2561D', light: '#FF6E38', dark: '#B9400F' },
+            verkehrsblau: '#0B4F8A'
+          },
+          fontFamily: {
+            display: ['"Barlow Condensed"', 'sans-serif'],
+            sans: ['Barlow', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
     }
-    main { text-align: center; padding: 2rem; }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    p { opacity: 0.85; font-size: 1.15rem; }
+  </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root { --asphalt: #111417; --kalk: #EDE8DE; --signal: #F2561D; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+    body { background: var(--kalk); }
+    ::selection { background: var(--signal); color: var(--asphalt); }
+    :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+
+    /* Körnung auf dunklen Flächen */
+    .grain { position: relative; isolation: isolate; }
+    .grain::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .08;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* Header */
+    #top-bar.is-solid { background: rgba(17, 20, 23, .94); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(237, 232, 222, .08); }
+    .nav-link { position: relative; padding: .25rem 0; transition: color .25s; }
+    .nav-link::after { content: ""; position: absolute; left: 0; bottom: -2px; height: 2px; width: 100%; background: var(--signal); transform: scaleX(0); transform-origin: right; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .nav-link:hover { color: var(--kalk); }
+    .nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; font-family: "Barlow Condensed", sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .14em; text-transform: uppercase; padding: 1rem 1.5rem; transition: transform .25s cubic-bezier(.2,.7,.2,1), background-color .25s, color .25s, border-color .25s; }
+    .btn svg { width: 18px; height: 18px; transition: transform .25s cubic-bezier(.2,.7,.2,1); }
+    .btn:hover svg { transform: translateX(4px); }
+    .btn-signal { background: var(--signal); color: var(--asphalt); }
+    .btn-signal:hover { background: #FF6E38; transform: translateY(-2px); }
+    .btn-ghost { border: 1px solid rgba(237, 232, 222, .28); color: var(--kalk); }
+    .btn-ghost:hover { border-color: var(--signal); color: var(--signal); }
+    .btn-dark { background: var(--asphalt); color: var(--kalk); }
+    .btn-dark:hover { background: var(--signal); color: var(--asphalt); transform: translateY(-2px); }
+
+    /* Hero-Headline */
+    .line { display: block; overflow: hidden; padding-bottom: .04em; }
+    .line > span { display: inline-block; animation: rise 1.1s cubic-bezier(.2,.75,.15,1) both; animation-delay: var(--d, 0ms); }
+    @keyframes rise { from { transform: translateY(108%); } }
+    .fade-in { animation: fadeIn 1s ease both; animation-delay: var(--d, 0ms); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } }
+
+    /* Routen-Linien */
+    .route-draw { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 3.4s cubic-bezier(.6,.1,.2,1) .5s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    .route-dash { stroke-dasharray: 2 14; animation: dash 22s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -400; } }
+
+    /* Tour-Ticket */
+    .pulse-dot { width: 7px; height: 7px; border-radius: 999px; background: var(--signal); box-shadow: 0 0 0 0 rgba(242, 86, 29, .6); animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(242, 86, 29, 0); } 100% { box-shadow: 0 0 0 0 rgba(242, 86, 29, 0); } }
+    .tour-bar { animation: tour 7s cubic-bezier(.45,.05,.3,1) infinite; }
+    @keyframes tour { 0% { width: 4%; } 75% { width: 100%; } 88% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+
+    /* Laufband */
+    .marquee { animation: marquee 40s linear infinite; }
+    .marquee-wrap:hover .marquee { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* Scroll-Reveal */
+    .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+
+    /* Ablauf-Linie */
+    .step-track { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(.6,.1,.2,1) .2s; }
+    .is-in .step-track { transform: scaleX(1); }
+    @media (max-width: 767px) {
+      .step-track { transform: scaleY(0); transform-origin: top; }
+      .is-in .step-track { transform: scaleY(1); }
+    }
+
+    /* Bilder */
+    .clip-angle { clip-path: polygon(14% 0, 100% 0, 100% 100%, 0 100%, 0 12%); }
+    .img-zoom img { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+    .img-zoom:hover img { transform: scale(1.04); }
+
+    /* FAQ */
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details .faq-icon { transition: transform .35s cubic-bezier(.2,.7,.2,1), background-color .25s, color .25s; }
+    details[open] .faq-icon { transform: rotate(45deg); background: var(--signal); color: var(--asphalt); border-color: var(--signal); }
+    details[open] .faq-body { animation: fadeIn .45s ease both; }
+    details summary:hover h3 { color: #B9400F; }
+
+    /* Formular */
+    .field { width: 100%; background: transparent; border: 0; border-bottom: 1.5px solid rgba(17, 20, 23, .25); padding: .75rem 0; font-size: 1.05rem; color: var(--asphalt); transition: border-color .25s; border-radius: 0; }
+    .field:focus { outline: none; border-bottom-color: var(--signal); }
+    .field::placeholder { color: rgba(17, 20, 23, .35); }
+    select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23111417' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 2px center; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .route-draw { stroke-dashoffset: 0; }
+      .step-track { transform: none; }
+    }
   </style>
 </head>
-<body>
+
+<body class="bg-kalk font-sans text-asphalt antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header id="top-bar" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <a href="index.html" class="group flex items-center gap-3" aria-label="Spedition Lüttkemeyer – zur Startseite">
+        <svg class="h-10 w-10 shrink-0 transition-transform duration-300 group-hover:-rotate-3" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" fill="#F2561D"/>
+          <path d="M9 7h6v18h8v-5l8 8-8 8v-5H9z" fill="#111417"/>
+        </svg>
+        <span class="leading-none">
+          <span class="block font-display text-[22px] font-extrabold uppercase tracking-[0.06em] text-kalk">Lüttkemeyer</span>
+          <span class="mt-1 block font-mono text-[9.5px] uppercase tracking-[0.28em] text-kalk/55">Spedition · Osnabrück</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 font-display text-[15px] font-semibold uppercase tracking-[0.14em] text-kalk/70 lg:flex" aria-label="Hauptnavigation">
+        <a class="nav-link" href="#leistungen">Leistungen</a>
+        <a class="nav-link" href="#ablauf">Ablauf</a>
+        <a class="nav-link" href="#unternehmen">Unternehmen</a>
+        <a class="nav-link" href="team.html">Team</a>
+        <a class="nav-link" href="#karriere">Karriere</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#anfrage" class="btn btn-signal hidden !py-3 md:inline-flex">Transport anfragen <i data-lucide="arrow-right"></i></a>
+        <button id="menu-btn" class="grid h-11 w-11 place-items-center border border-kalk/25 text-kalk transition-colors hover:border-signal hover:text-signal lg:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-kalk/10 bg-asphalt lg:hidden">
+      <nav class="mx-auto flex max-w-7xl flex-col px-5 py-4 font-display text-2xl font-bold uppercase tracking-[0.08em] text-kalk md:px-8" aria-label="Mobile Navigation">
+        <a class="flex items-center justify-between border-b border-kalk/10 py-4 hover:text-signal" href="#leistungen">Leistungen <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-kalk/10 py-4 hover:text-signal" href="#ablauf">Ablauf <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-kalk/10 py-4 hover:text-signal" href="#unternehmen">Unternehmen <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-kalk/10 py-4 hover:text-signal" href="team.html">Team <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-kalk/10 py-4 hover:text-signal" href="#karriere">Karriere <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-kalk/10 py-4 hover:text-signal" href="#faq">FAQ <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a href="#anfrage" class="btn btn-signal mt-6 w-full">Transport anfragen <i data-lucide="arrow-right"></i></a>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Schulung Seite 2</h1>
-    <p>Platzhalter für Website 2.</p>
+
+    <!-- ============ 1 · HERO ============ -->
+    <section class="grain relative overflow-hidden bg-asphalt text-kalk">
+      <svg class="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g fill="none" stroke="#EDE8DE" stroke-opacity=".07" stroke-width="1.2">
+          <path d="M-20 720 C 240 640, 380 700, 560 560 S 900 380, 1460 300"/>
+          <path d="M-20 300 C 200 360, 420 260, 620 330 S 1000 520, 1460 470"/>
+          <path d="M300 -20 C 340 200, 260 420, 380 620 S 520 860, 480 920"/>
+          <path d="M880 -20 C 820 180, 940 360, 860 560 S 760 820, 820 920"/>
+          <path d="M-20 520 C 300 500, 600 520, 900 640 S 1300 760, 1460 820"/>
+        </g>
+        <path class="route-dash" d="M-20 520 C 300 500, 600 520, 900 640 S 1300 760, 1460 820" fill="none" stroke="#EDE8DE" stroke-opacity=".25" stroke-width="2"/>
+        <path class="route-draw" d="M720 930 C 760 800, 800 700, 860 620 S 960 470, 1060 372" fill="none" stroke="#F2561D" stroke-width="2.5"/>
+        <circle cx="1060" cy="372" r="7" fill="#111417" stroke="#F2561D" stroke-width="2.5"/>
+      </svg>
+
+      <div class="relative mx-auto grid max-w-7xl gap-14 px-5 pb-20 pt-36 md:px-8 lg:min-h-[100svh] lg:grid-cols-12 lg:gap-10 lg:pb-24 lg:pt-44">
+        <div class="flex flex-col justify-end lg:col-span-7">
+          <p class="fade-in mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.24em] text-kalk/60" style="--d:100ms">
+            <span class="h-px w-10 bg-signal"></span> Spedition · Osnabrück · 140 Beschäftigte
+          </p>
+          <h1 class="font-display text-[clamp(3.4rem,8.6vw,8rem)] font-extrabold uppercase leading-[0.86] tracking-[-0.005em]">
+            <span class="line"><span style="--d:150ms">Fracht aus</span></span>
+            <span class="line"><span style="--d:260ms">Osnabrück.</span></span>
+            <span class="line"><span class="text-signal" style="--d:380ms">Geplant bis</span></span>
+            <span class="line"><span class="text-signal" style="--d:490ms">zur Rampe.</span></span>
+          </h1>
+          <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-kalk/75 md:text-xl" style="--d:750ms">
+            Wir bewegen Komplett- und Teilladungen für Industrie und Handel. Unsere eigene Disposition plant jede Tour digital und prüft sie mit Erfahrung. Ihre Ware kommt so im richtigen Zeitfenster an.
+          </p>
+          <div class="fade-in mt-10 flex flex-wrap gap-4" style="--d:900ms">
+            <a href="#anfrage" class="btn btn-signal">Transport anfragen <i data-lucide="arrow-right"></i></a>
+            <a href="#leistungen" class="btn btn-ghost">Leistungen ansehen</a>
+          </div>
+          <dl class="fade-in mt-14 grid max-w-xl grid-cols-3 border-t border-kalk/15 pt-6" style="--d:1050ms">
+            <div class="pr-4">
+              <dt class="font-mono text-[10px] uppercase tracking-[0.2em] text-kalk/50">Team</dt>
+              <dd class="mt-1 font-display text-3xl font-bold">140</dd>
+            </div>
+            <div class="border-l border-kalk/15 px-4">
+              <dt class="font-mono text-[10px] uppercase tracking-[0.2em] text-kalk/50">Disposition</dt>
+              <dd class="mt-1 font-display text-3xl font-bold">11</dd>
+            </div>
+            <div class="border-l border-kalk/15 pl-4">
+              <dt class="font-mono text-[10px] uppercase tracking-[0.2em] text-kalk/50">Standort</dt>
+              <dd class="mt-1 font-display text-3xl font-bold">OS</dd>
+            </div>
+          </dl>
+        </div>
+
+        <div class="relative lg:col-span-5">
+          <figure class="fade-in img-zoom clip-angle relative aspect-[4/5] overflow-hidden bg-graphite lg:aspect-auto lg:h-full" style="--d:400ms">
+            <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1100&q=80" alt="Sattelzug auf der Autobahn" class="h-full w-full object-cover" fetchpriority="high">
+            <div class="absolute inset-0 bg-gradient-to-t from-asphalt/70 via-transparent to-transparent"></div>
+          </figure>
+
+          <div class="fade-in absolute -bottom-8 left-4 right-4 border-l-4 border-signal bg-kalk p-5 text-asphalt sm:left-auto sm:right-6 sm:w-[320px] lg:-left-14 lg:bottom-12 lg:right-auto" style="--d:1200ms" aria-label="Beispiel einer laufenden Tour">
+            <div class="flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.18em] text-asphalt/60">
+              <span>Tour 0417</span>
+              <span class="flex items-center gap-2 text-asphalt"><span class="pulse-dot"></span> unterwegs</span>
+            </div>
+            <p class="mt-3 font-display text-[26px] font-bold uppercase leading-none">Osnabrück <span class="text-signal">→</span> Hamm</p>
+            <div class="mt-4 h-[3px] w-full bg-asphalt/10"><div class="tour-bar h-full bg-signal"></div></div>
+            <div class="mt-3 flex justify-between font-mono text-[10.5px] uppercase tracking-[0.12em] text-asphalt/60">
+              <span>Ab 06:10</span><span>Rampe 3 · 08:45</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · BRANCHEN (Social Proof) ============ -->
+    <section aria-label="Branchen, für die wir fahren" class="marquee-wrap overflow-hidden border-y border-kalk/10 bg-graphite py-6 text-kalk">
+      <div class="flex items-center gap-8">
+        <p class="shrink-0 pl-5 font-mono text-[10.5px] uppercase tracking-[0.24em] text-signal md:pl-8">Wir fahren für</p>
+        <div class="relative flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_6%,#000_94%,transparent)]">
+          <ul class="marquee flex w-max items-center gap-10 font-display text-xl font-semibold uppercase tracking-[0.12em] text-kalk/45 md:text-2xl">
+            <li>Automobilzulieferer</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li>Lebensmittel &amp; Getränke</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li>Baustoffe</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li>Maschinenbau</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li>Groß- und Einzelhandel</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li>Agrar &amp; Futtermittel</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li aria-hidden="true">Automobilzulieferer</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li aria-hidden="true">Lebensmittel &amp; Getränke</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li aria-hidden="true">Baustoffe</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li aria-hidden="true">Maschinenbau</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li aria-hidden="true">Groß- und Einzelhandel</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+            <li aria-hidden="true">Agrar &amp; Futtermittel</li><li class="h-2 w-2 bg-signal/70" aria-hidden="true"></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3 · PROBLEM ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-signal-dark">Das kennen Sie</p>
+          <h2 class="mt-5 font-display text-[clamp(2.75rem,5.5vw,4.75rem)] font-extrabold uppercase leading-[0.9]">Wenn die Ware steht, steht&nbsp;alles.</h2>
+          <p class="mt-6 max-w-md text-lg leading-relaxed text-asphalt/70">Ein Transport ist nur so gut wie seine Planung. Jede Lücke darin kostet Sie Geld und am Ende das Vertrauen Ihrer eigenen Kunden.</p>
+        </div>
+
+        <div class="lg:col-span-7 lg:pt-4">
+          <article class="reveal group grid grid-cols-[auto,1fr] gap-x-6 border-t border-asphalt/15 py-8" style="--d:80ms">
+            <span class="font-display text-5xl font-extrabold leading-none text-asphalt/15 transition-colors duration-300 group-hover:text-signal">01</span>
+            <div>
+              <h3 class="font-display text-2xl font-bold uppercase md:text-3xl">Die Rampe wartet.</h3>
+              <p class="mt-2 text-asphalt/70">Der Lkw kommt außerhalb des Zeitfensters. Ihre Mannschaft steht, die Produktion beim Empfänger auch.</p>
+            </div>
+          </article>
+          <article class="reveal group grid grid-cols-[auto,1fr] gap-x-6 border-t border-asphalt/15 py-8" style="--d:160ms">
+            <span class="font-display text-5xl font-extrabold leading-none text-asphalt/15 transition-colors duration-300 group-hover:text-signal">02</span>
+            <div>
+              <h3 class="font-display text-2xl font-bold uppercase md:text-3xl">Der Lkw fährt leer zurück.</h3>
+              <p class="mt-2 text-asphalt/70">Leerkilometer stehen auf keiner Rechnung als eigener Posten. Bezahlt werden sie trotzdem, von Ihnen.</p>
+            </div>
+          </article>
+          <article class="reveal group grid grid-cols-[auto,1fr] gap-x-6 border-y border-asphalt/15 py-8" style="--d:240ms">
+            <span class="font-display text-5xl font-extrabold leading-none text-asphalt/15 transition-colors duration-300 group-hover:text-signal">03</span>
+            <div>
+              <h3 class="font-display text-2xl font-bold uppercase md:text-3xl">Niemand weiß, wo die Ladung ist.</h3>
+              <p class="mt-2 text-asphalt/70">Drei Anrufe, zwei Weiterleitungen, keine Antwort. Ihr Kunde fragt trotzdem bei Ihnen nach.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · TRANSFORMATION ============ -->
+    <section id="unternehmen" class="grain relative overflow-hidden bg-asphalt text-kalk">
+      <div class="mx-auto grid max-w-7xl lg:grid-cols-12">
+        <figure class="img-zoom relative min-h-[360px] overflow-hidden lg:col-span-5 lg:min-h-full">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1100&q=80" alt="Lagerhalle mit Regalen und Paletten" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
+          <div class="absolute inset-0 bg-asphalt/30"></div>
+          <figcaption class="absolute bottom-0 left-0 bg-signal px-5 py-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt">Standort Osnabrück</figcaption>
+        </figure>
+
+        <div class="px-5 py-24 md:px-12 md:py-32 lg:col-span-7 lg:pl-20">
+          <p class="reveal font-mono text-[11px] uppercase tracking-[0.24em] text-signal">So arbeiten wir</p>
+          <h2 class="reveal mt-5 font-display text-[clamp(2.75rem,5.5vw,4.75rem)] font-extrabold uppercase leading-[0.9]" style="--d:80ms">Eine Disposition, die Ihre Rampe&nbsp;kennt.</h2>
+          <p class="reveal mt-8 max-w-2xl text-lg leading-relaxed text-kalk/75" style="--d:160ms">
+            Bei Lüttkemeyer planen Menschen und Software gemeinsam. Unsere digitale Tourenplanung macht jeden Morgen Vorschläge für die Touren des Tages. Elf Disponentinnen und Disponenten prüfen und geben sie frei. Sie kennen die Ladezeiten, Rampenfenster und Eigenheiten jedes Kunden.
+          </p>
+
+          <div class="mt-14 grid gap-px bg-kalk/10 sm:grid-cols-2">
+            <div class="reveal bg-asphalt p-0 pb-8 sm:pb-0 sm:pr-8" style="--d:80ms">
+              <i data-lucide="route" class="h-7 w-7 text-signal"></i>
+              <h3 class="mt-5 font-display text-2xl font-bold uppercase">Weniger Leerfahrten</h3>
+              <p class="mt-2 text-kalk/65">Die Planung bündelt Hin- und Rückladungen. Das senkt Kosten und schont das Klima.</p>
+            </div>
+            <div class="reveal bg-asphalt pt-8 sm:pl-8 sm:pt-0" style="--d:160ms">
+              <i data-lucide="tablet-smartphone" class="h-7 w-7 text-signal"></i>
+              <h3 class="mt-5 font-display text-2xl font-bold uppercase">Tour auf dem Tablet</h3>
+              <p class="mt-2 text-kalk/65">Jede Fahrerin und jeder Fahrer bekommt die Tour digital ins Fahrerhaus, mit allen Angaben zur Rampe.</p>
+            </div>
+          </div>
+
+          <a href="team.html" class="reveal group mt-14 inline-flex items-center gap-3 font-display text-lg font-bold uppercase tracking-[0.12em] text-kalk" style="--d:240ms">
+            <span class="border-b-2 border-signal pb-1 transition-colors group-hover:text-signal">Das Team kennenlernen</span>
+            <i data-lucide="arrow-right" class="h-5 w-5 transition-transform group-hover:translate-x-1"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · LEISTUNGEN ============ -->
+    <section id="leistungen" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-signal-dark">Leistungen</p>
+          <h2 class="mt-5 font-display text-[clamp(2.75rem,5.5vw,4.75rem)] font-extrabold uppercase leading-[0.9]">Vier Wege für<br>Ihre Ware.</h2>
+        </div>
+        <p class="max-w-sm text-asphalt/70">Jede Leistung zeigt, was Sie davon haben, nicht nur, was wir tun.</p>
+      </div>
+
+      <div class="mt-16">
+        <article class="reveal group relative grid gap-4 border-t border-asphalt/15 py-9 md:grid-cols-12 md:gap-8 md:py-11">
+          <span class="absolute left-0 top-[-1px] h-[2px] w-0 bg-signal transition-all duration-500 group-hover:w-full"></span>
+          <span class="font-mono text-xs text-asphalt/45 md:col-span-1 md:pt-2">01</span>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-3xl font-bold uppercase leading-none transition-transform duration-300 group-hover:translate-x-2 md:text-4xl">Komplettladungen</h3>
+            <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-asphalt/50">FTL · bis 24 t · Planensattel</p>
+          </div>
+          <p class="text-asphalt/75 md:col-span-4">Ein Lkw, eine Ladung, ein direkter Weg. Ihre Ware fährt ohne Umschlag vom Werk zum Empfänger.</p>
+          <div class="border-l-2 border-signal pl-4 md:col-span-3">
+            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-signal-dark">Für Sie heißt das</p>
+            <p class="mt-1 font-medium">Kurze Laufzeiten und kein Risiko durch Umladen.</p>
+          </div>
+        </article>
+
+        <article class="reveal group relative grid gap-4 border-t border-asphalt/15 py-9 md:grid-cols-12 md:gap-8 md:py-11">
+          <span class="absolute left-0 top-[-1px] h-[2px] w-0 bg-signal transition-all duration-500 group-hover:w-full"></span>
+          <span class="font-mono text-xs text-asphalt/45 md:col-span-1 md:pt-2">02</span>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-3xl font-bold uppercase leading-none transition-transform duration-300 group-hover:translate-x-2 md:text-4xl">Teilladungen</h3>
+            <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-asphalt/50">LTL · ab einer Palette</p>
+          </div>
+          <p class="text-asphalt/75 md:col-span-4">Wir kombinieren Ihre Sendung mit passenden Ladungen auf derselben Strecke.</p>
+          <div class="border-l-2 border-signal pl-4 md:col-span-3">
+            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-signal-dark">Für Sie heißt das</p>
+            <p class="mt-1 font-medium">Sie zahlen nur für den Platz, den Ihre Ware braucht.</p>
+          </div>
+        </article>
+
+        <article class="reveal group relative grid gap-4 border-t border-asphalt/15 py-9 md:grid-cols-12 md:gap-8 md:py-11">
+          <span class="absolute left-0 top-[-1px] h-[2px] w-0 bg-signal transition-all duration-500 group-hover:w-full"></span>
+          <span class="font-mono text-xs text-asphalt/45 md:col-span-1 md:pt-2">03</span>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-3xl font-bold uppercase leading-none transition-transform duration-300 group-hover:translate-x-2 md:text-4xl">Regionalverteilung</h3>
+            <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-asphalt/50">Osnabrück · Münsterland · Emsland</p>
+          </div>
+          <p class="text-asphalt/75 md:col-span-4">Feste Touren im Umland, an jedem Werktag mit denselben Fahrerinnen und Fahrern.</p>
+          <div class="border-l-2 border-signal pl-4 md:col-span-3">
+            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-signal-dark">Für Sie heißt das</p>
+            <p class="mt-1 font-medium">Ihre Empfänger kennen den Fahrer, und der Fahrer kennt die Rampe.</p>
+          </div>
+        </article>
+
+        <article class="reveal group relative grid gap-4 border-y border-asphalt/15 py-9 md:grid-cols-12 md:gap-8 md:py-11">
+          <span class="absolute left-0 top-[-1px] h-[2px] w-0 bg-signal transition-all duration-500 group-hover:w-full"></span>
+          <span class="font-mono text-xs text-asphalt/45 md:col-span-1 md:pt-2">04</span>
+          <div class="md:col-span-4">
+            <h3 class="font-display text-3xl font-bold uppercase leading-none transition-transform duration-300 group-hover:translate-x-2 md:text-4xl">Lager &amp; Umschlag</h3>
+            <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.18em] text-asphalt/50">Cross-Docking · Zwischenlager</p>
+          </div>
+          <p class="text-asphalt/75 md:col-span-4">Kurzfristige Lagerung und Umschlag an unserem Standort in Osnabrück.</p>
+          <div class="border-l-2 border-signal pl-4 md:col-span-3">
+            <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-signal-dark">Für Sie heißt das</p>
+            <p class="mt-1 font-medium">Ein Puffer für Ihre Produktion, ohne eigene Lagerfläche.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ABLAUF ============ -->
+    <section id="ablauf" class="border-y border-asphalt/10 bg-sand">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal max-w-2xl">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-signal-dark">Ablauf</p>
+          <h2 class="mt-5 font-display text-[clamp(2.75rem,5.5vw,4.75rem)] font-extrabold uppercase leading-[0.9]">Drei Schritte bis zur Zustellung.</h2>
+        </div>
+
+        <ol class="reveal relative mt-20 grid gap-14 md:grid-cols-3 md:gap-10">
+          <span class="absolute left-[23px] top-0 h-full w-[2px] bg-asphalt/10 md:left-0 md:top-[23px] md:h-[2px] md:w-full" aria-hidden="true"></span>
+          <span class="step-track absolute left-[23px] top-0 h-full w-[2px] bg-signal md:left-0 md:top-[23px] md:h-[2px] md:w-full" aria-hidden="true"></span>
+
+          <li class="group relative pl-20 md:pl-0">
+            <span class="absolute left-0 top-0 grid h-12 w-12 place-items-center border-2 border-asphalt bg-sand transition-colors duration-300 group-hover:border-signal group-hover:bg-signal md:relative">
+              <i data-lucide="clipboard-list" class="h-5 w-5"></i>
+            </span>
+            <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/50 md:mt-8">Schritt 01</p>
+            <h3 class="mt-2 font-display text-3xl font-bold uppercase">Anfrage</h3>
+            <p class="mt-3 max-w-xs text-asphalt/75">Sie nennen Abholort, Ziel, Ladung und Zeitfenster, per Formular oder am Telefon.</p>
+            <p class="mt-4 inline-block border border-asphalt/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em]">Antwort am selben Werktag</p>
+          </li>
+
+          <li class="group relative pl-20 md:pl-0">
+            <span class="absolute left-0 top-0 grid h-12 w-12 place-items-center border-2 border-asphalt bg-sand transition-colors duration-300 group-hover:border-signal group-hover:bg-signal md:relative">
+              <i data-lucide="waypoints" class="h-5 w-5"></i>
+            </span>
+            <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/50 md:mt-8">Schritt 02</p>
+            <h3 class="mt-2 font-display text-3xl font-bold uppercase">Tourenplanung</h3>
+            <p class="mt-3 max-w-xs text-asphalt/75">Unsere Disposition plant die Tour digital und prüft Ladezeiten, Rampenfenster und Rückladung.</p>
+            <p class="mt-4 inline-block border border-asphalt/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em]">Feste Ansprechperson</p>
+          </li>
+
+          <li class="group relative pl-20 md:pl-0">
+            <span class="absolute left-0 top-0 grid h-12 w-12 place-items-center border-2 border-asphalt bg-sand transition-colors duration-300 group-hover:border-signal group-hover:bg-signal md:relative">
+              <i data-lucide="package-check" class="h-5 w-5"></i>
+            </span>
+            <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/50 md:mt-8">Schritt 03</p>
+            <h3 class="mt-2 font-display text-3xl font-bold uppercase">Zustellung</h3>
+            <p class="mt-3 max-w-xs text-asphalt/75">Die Tour kommt aufs Tablet im Fahrerhaus. Sie erhalten eine Meldung bei Abholung und bei Zustellung.</p>
+            <p class="mt-4 inline-block border border-asphalt/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em]">Status bei jedem Halt</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ ZAHLEN ============ -->
+    <section aria-label="Lüttkemeyer in Zahlen" class="bg-signal text-asphalt">
+      <div class="mx-auto grid max-w-7xl grid-cols-2 px-5 md:px-8 lg:grid-cols-4">
+        <div class="reveal border-b border-r border-asphalt/20 py-12 pr-4 lg:border-b-0 lg:py-16">
+          <p class="font-display text-[clamp(3.5rem,7vw,6rem)] font-extrabold leading-none" data-count="140">140</p>
+          <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.2em]">Beschäftigte</p>
+        </div>
+        <div class="reveal border-b border-asphalt/20 py-12 pl-6 lg:border-b-0 lg:border-r lg:py-16 lg:pr-4" style="--d:80ms">
+          <p class="font-display text-[clamp(3.5rem,7vw,6rem)] font-extrabold leading-none" data-count="11">11</p>
+          <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.2em]">Disponentinnen &amp; Disponenten</p>
+        </div>
+        <div class="reveal border-r border-asphalt/20 py-12 pr-4 lg:py-16 lg:pl-6" style="--d:160ms">
+          <p class="font-display text-[clamp(3.5rem,7vw,6rem)] font-extrabold leading-none" data-count="24">24</p>
+          <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.2em]">Jahre Erfahrung in der Dispositionsleitung</p>
+        </div>
+        <div class="reveal py-12 pl-6 lg:py-16" style="--d:240ms">
+          <p class="font-display text-[clamp(3.5rem,7vw,6rem)] font-extrabold leading-none">1</p>
+          <p class="mt-3 font-mono text-[10.5px] uppercase tracking-[0.2em]">Standort: Osnabrück</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · KUNDENSTIMME ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+      <figure class="reveal grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-2">
+          <svg class="h-16 w-16 text-signal md:h-24 md:w-24" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true">
+            <path d="M4 40V26C4 15 9 9 19 7l2 5c-6 2-8 6-8 12h7v16zm24 0V26c0-11 5-17 15-19l2 5c-6 2-8 6-8 12h7v16z"/>
+          </svg>
+        </div>
+        <div class="lg:col-span-10">
+          <blockquote class="font-display text-[clamp(2rem,4.4vw,3.75rem)] font-semibold uppercase leading-[1.02]">
+            Seit wir mit Lüttkemeyer fahren, steht der Lkw im Zeitfenster an der Rampe. Das klingt banal. <span class="text-signal-dark">Für unsere Produktion ist es alles.</span>
+          </blockquote>
+          <figcaption class="mt-10 flex items-center gap-4 border-t border-asphalt/15 pt-6">
+            <span class="h-px w-10 bg-signal"></span>
+            <span>
+              <span class="block font-display text-xl font-bold uppercase">Leitung Logistik</span>
+              <span class="block font-mono text-[10.5px] uppercase tracking-[0.18em] text-asphalt/55">Lebensmittelhersteller · Münsterland</span>
+            </span>
+          </figcaption>
+        </div>
+      </figure>
+    </section>
+
+    <!-- ============ KARRIERE ============ -->
+    <section id="karriere" class="grain relative overflow-hidden bg-asphalt text-kalk">
+      <div class="mx-auto grid max-w-7xl gap-0 lg:grid-cols-12">
+        <div class="px-5 py-24 md:px-8 md:py-32 lg:col-span-7 lg:pr-16">
+          <p class="reveal font-mono text-[11px] uppercase tracking-[0.24em] text-signal">Karriere</p>
+          <h2 class="reveal mt-5 font-display text-[clamp(2.75rem,5.5vw,4.75rem)] font-extrabold uppercase leading-[0.9]" style="--d:80ms">Wir suchen Menschen, die gern unterwegs&nbsp;sind.</h2>
+          <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-kalk/70" style="--d:160ms">140 Kolleginnen und Kollegen in Osnabrück. Kurze Wege, feste Ansprechpersonen und moderne Technik im Fahrerhaus und in der Disposition.</p>
+
+          <ul class="mt-12">
+            <li class="reveal" style="--d:80ms">
+              <a href="#anfrage" class="group flex items-center justify-between gap-6 border-t border-kalk/15 py-6 transition-colors hover:border-signal">
+                <span>
+                  <span class="block font-display text-2xl font-bold uppercase transition-colors group-hover:text-signal md:text-3xl">Berufskraftfahrer (m/w/d)</span>
+                  <span class="mt-1 block font-mono text-[10.5px] uppercase tracking-[0.18em] text-kalk/50">Klasse CE · Nah- und Fernverkehr</span>
+                </span>
+                <i data-lucide="arrow-up-right" class="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-signal"></i>
+              </a>
+            </li>
+            <li class="reveal" style="--d:160ms">
+              <a href="#anfrage" class="group flex items-center justify-between gap-6 border-t border-kalk/15 py-6 transition-colors hover:border-signal">
+                <span>
+                  <span class="block font-display text-2xl font-bold uppercase transition-colors group-hover:text-signal md:text-3xl">Disponent (m/w/d)</span>
+                  <span class="mt-1 block font-mono text-[10.5px] uppercase tracking-[0.18em] text-kalk/50">Vollzeit · Osnabrück</span>
+                </span>
+                <i data-lucide="arrow-up-right" class="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-signal"></i>
+              </a>
+            </li>
+            <li class="reveal" style="--d:240ms">
+              <a href="#anfrage" class="group flex items-center justify-between gap-6 border-y border-kalk/15 py-6 transition-colors hover:border-signal">
+                <span>
+                  <span class="block font-display text-2xl font-bold uppercase transition-colors group-hover:text-signal md:text-3xl">Ausbildung Kaufleute Spedition</span>
+                  <span class="mt-1 block font-mono text-[10.5px] uppercase tracking-[0.18em] text-kalk/50">Spedition und Logistikdienstleistung · Start August</span>
+                </span>
+                <i data-lucide="arrow-up-right" class="h-6 w-6 shrink-0 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-signal"></i>
+              </a>
+            </li>
+          </ul>
+
+          <a href="team.html" class="reveal btn btn-ghost mt-12" style="--d:300ms">Unser Team kennenlernen <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <figure class="img-zoom relative min-h-[380px] overflow-hidden lg:col-span-5 lg:min-h-full">
+          <img src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1100&q=80" alt="Lkw auf einer Landstraße" loading="lazy" class="absolute inset-0 h-full w-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-r from-asphalt/60 to-transparent"></div>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 8 · ANFRAGE ============ -->
+    <section id="anfrage" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-16 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-signal-dark">Angebot</p>
+          <h2 class="mt-5 font-display text-[clamp(2.75rem,5.5vw,4.75rem)] font-extrabold uppercase leading-[0.9]">Transport anfragen. Antwort am selben Werktag.</h2>
+          <p class="mt-6 max-w-md text-lg text-asphalt/70">Sie erhalten einen festen Preis für Ihre Strecke. Keine versteckten Zuschläge, keine Pauschalen, die Sie erst auf der Rechnung sehen.</p>
+
+          <ul class="mt-10 space-y-4 text-asphalt/80">
+            <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-signal-dark"></i>Festpreis je Tour, schriftlich bestätigt</li>
+            <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-signal-dark"></i>Eine feste Ansprechperson in der Disposition</li>
+            <li class="flex gap-3"><i data-lucide="check" class="mt-0.5 h-5 w-5 shrink-0 text-signal-dark"></i>Statusmeldung bei Abholung und Zustellung</li>
+          </ul>
+
+          <div class="mt-12 border-t border-asphalt/15 pt-6">
+            <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/50">Lieber direkt?</p>
+            <p class="mt-2 flex items-center gap-3 font-display text-2xl font-bold"><i data-lucide="phone" class="h-5 w-5 text-signal-dark"></i>0541 000 000-0</p>
+            <p class="mt-1 text-asphalt/60">Disposition: Mo–Fr 5:30–18:00 Uhr</p>
+          </div>
+        </div>
+
+        <form id="request-form" class="reveal border-t-4 border-asphalt bg-sand/60 p-6 md:p-10 lg:col-span-7" style="--d:120ms" novalidate>
+          <div class="grid gap-x-8 gap-y-8 sm:grid-cols-2">
+            <label class="block">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">Abholort</span>
+              <input class="field" type="text" name="from" placeholder="PLZ, Ort" required>
+            </label>
+            <label class="block">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">Zielort</span>
+              <input class="field" type="text" name="to" placeholder="PLZ, Ort" required>
+            </label>
+            <label class="block">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">Leistung</span>
+              <select class="field" name="service">
+                <option>Komplettladung</option>
+                <option>Teilladung</option>
+                <option>Regionalverteilung</option>
+                <option>Lager &amp; Umschlag</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">Wunschtermin</span>
+              <input class="field" type="date" name="date">
+            </label>
+            <label class="block">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">Firma</span>
+              <input class="field" type="text" name="company" placeholder="Firmenname">
+            </label>
+            <label class="block">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">E-Mail</span>
+              <input class="field" type="email" name="email" placeholder="name@firma.de" required>
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-asphalt/60">Ladung &amp; Hinweise</span>
+              <textarea class="field resize-none" name="message" rows="3" placeholder="z. B. 12 Paletten, Rampe vorhanden, Anlieferung bis 9 Uhr"></textarea>
+            </label>
+          </div>
+          <div class="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <button type="submit" class="btn btn-dark">Anfrage senden <i data-lucide="arrow-right"></i></button>
+            <p class="text-sm text-asphalt/55">Antwort am selben Werktag, bei Eingang bis 14 Uhr.</p>
+          </div>
+          <p id="form-note" class="mt-6 hidden border-l-4 border-signal bg-kalk px-4 py-3 text-sm" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 9 · FAQ ============ -->
+    <section id="faq" class="border-t border-asphalt/10">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-4">
+          <p class="font-mono text-[11px] uppercase tracking-[0.24em] text-signal-dark">Häufige Fragen</p>
+          <h2 class="mt-5 font-display text-[clamp(2.75rem,5vw,4.25rem)] font-extrabold uppercase leading-[0.9]">Bevor Sie fragen.</h2>
+          <p class="mt-6 text-asphalt/70">Ihre Frage ist nicht dabei? Die Disposition ist ab 5:30 Uhr erreichbar.</p>
+        </div>
+
+        <div class="lg:col-span-8">
+          <details class="reveal group border-t border-asphalt/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-display text-2xl font-bold uppercase transition-colors md:text-[28px]">Welche Ladungen übernehmen Sie?</h3>
+              <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center border border-asphalt/30"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-asphalt/75">Komplett- und Teilladungen auf Planensattel, von der einzelnen Palette bis zu 24 Tonnen. Dazu kommen feste Verteiltouren in der Region sowie Lagerung und Umschlag in Osnabrück.</p>
+          </details>
+          <details class="reveal group border-t border-asphalt/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-display text-2xl font-bold uppercase transition-colors md:text-[28px]">Wie schnell bekomme ich ein Angebot?</h3>
+              <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center border border-asphalt/30"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-asphalt/75">Geht Ihre Anfrage bis 14 Uhr ein, antworten wir am selben Werktag mit einem Festpreis. Bei eiligen Transporten rufen Sie die Disposition am besten direkt an.</p>
+          </details>
+          <details class="reveal group border-t border-asphalt/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-display text-2xl font-bold uppercase transition-colors md:text-[28px]">Woher weiß ich, wo meine Sendung ist?</h3>
+              <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center border border-asphalt/30"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-asphalt/75">Alle Fahrerinnen und Fahrer arbeiten mit Tablets. Sie erhalten eine Statusmeldung bei Abholung und bei Zustellung. Dazwischen kennt Ihre Ansprechperson in der Disposition jederzeit den Stand.</p>
+          </details>
+          <details class="reveal group border-t border-asphalt/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-display text-2xl font-bold uppercase transition-colors md:text-[28px]">Berücksichtigen Sie feste Rampenzeiten?</h3>
+              <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center border border-asphalt/30"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-asphalt/75">Ja. Ladezeiten und Rampenfenster jedes Kunden sind in unserer Tourenplanung hinterlegt. Die Disposition prüft jede Tour vor der Freigabe auf diese Angaben.</p>
+          </details>
+          <details class="reveal group border-y border-asphalt/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-display text-2xl font-bold uppercase transition-colors md:text-[28px]">Wo sind Sie unterwegs?</h3>
+              <span class="faq-icon grid h-9 w-9 shrink-0 place-items-center border border-asphalt/30"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-asphalt/75">Unser Schwerpunkt ist Nordwestdeutschland rund um Osnabrück, das Münsterland und das Emsland. Komplettladungen fahren wir deutschlandweit.</p>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- ============ 10 · FOOTER & FINAL CTA ============ -->
+  <footer class="grain relative overflow-hidden bg-asphalt text-kalk">
+    <div class="mx-auto max-w-7xl px-5 pt-24 md:px-8 md:pt-32">
+      <div class="reveal grid items-end gap-10 border-b border-kalk/15 pb-20 lg:grid-cols-12">
+        <h2 class="font-display text-[clamp(3rem,8vw,7.5rem)] font-extrabold uppercase leading-[0.86] lg:col-span-8">Ihre nächste Ladung <span class="text-signal">wartet.</span></h2>
+        <div class="lg:col-span-4 lg:justify-self-end">
+          <a href="#anfrage" class="btn btn-signal w-full sm:w-auto">Transport anfragen <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <a href="index.html" class="flex items-center gap-3" aria-label="Spedition Lüttkemeyer – zur Startseite">
+            <svg class="h-10 w-10" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" fill="#F2561D"/><path d="M9 7h6v18h8v-5l8 8-8 8v-5H9z" fill="#111417"/></svg>
+            <span class="font-display text-[22px] font-extrabold uppercase tracking-[0.06em]">Lüttkemeyer</span>
+          </a>
+          <address class="mt-6 not-italic leading-relaxed text-kalk/65">
+            Spedition Lüttkemeyer GmbH<br>
+            Am Stichkanal 14<br>
+            49090 Osnabrück
+          </address>
+        </div>
+        <div class="lg:col-span-2">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-signal">Unternehmen</p>
+          <ul class="mt-5 space-y-3 text-kalk/70">
+            <li><a class="nav-link" href="#leistungen">Leistungen</a></li>
+            <li><a class="nav-link" href="#ablauf">Ablauf</a></li>
+            <li><a class="nav-link" href="team.html">Team</a></li>
+            <li><a class="nav-link" href="#karriere">Karriere</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-signal">Kontakt</p>
+          <ul class="mt-5 space-y-3 text-kalk/70">
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="h-4 w-4 text-kalk/40"></i>0541 000 000-0</li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="h-4 w-4 text-kalk/40"></i>info@luettkemeyer-spedition.de</li>
+            <li class="flex items-center gap-3"><i data-lucide="clock" class="h-4 w-4 text-kalk/40"></i>Mo–Fr 5:30–18:00</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="font-mono text-[10.5px] uppercase tracking-[0.2em] text-signal">Rechtliches</p>
+          <ul class="mt-5 space-y-3 text-kalk/70">
+            <li><a class="nav-link" href="#">Impressum</a></li>
+            <li><a class="nav-link" href="#">Datenschutz</a></li>
+            <li><a class="nav-link" href="#">AGB &amp; ADSp</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 border-t border-kalk/10 py-8 font-mono text-[10.5px] uppercase tracking-[0.16em] text-kalk/40 md:flex-row md:justify-between">
+        <p>© <span data-year>2026</span> Spedition Lüttkemeyer GmbH</p>
+        <p>Fiktives Unternehmen aus einem Lehrfall · Kontaktdaten sind Platzhalter</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Header: transparent über dem Hero, danach massiv
+    const bar = document.getElementById('top-bar');
+    const setBar = () => bar.classList.toggle('is-solid', window.scrollY > 40);
+    setBar();
+    window.addEventListener('scroll', setBar, { passive: true });
+
+    // Mobiles Menü
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      bar.classList.toggle('is-solid', open || window.scrollY > 40);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Scroll-Reveal und Zähler
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const countUp = el => {
+      const target = Number(el.dataset.count);
+      if (reduce) { el.textContent = target; return; }
+      const start = performance.now(), dur = 1400;
+      const tick = now => {
+        const p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        entry.target.querySelectorAll('[data-count]').forEach(countUp);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Anfrageformular (Demo, keine Übermittlung)
+    const form = document.getElementById('request-form');
+    const note = document.getElementById('form-note');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const missing = [...form.querySelectorAll('[required]')].filter(f => !f.value.trim() || (f.type === 'email' && !f.checkValidity()));
+      note.classList.remove('hidden');
+      if (missing.length) {
+        note.textContent = 'Bitte füllen Sie Abholort, Zielort und eine gültige E-Mail-Adresse aus.';
+        missing[0].focus();
+        return;
+      }
+      note.textContent = 'Danke! Dies ist eine Demo-Seite, Ihre Anfrage wurde nicht versendet.';
+      form.reset();
+    });
+
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
 </body>
 </html>
