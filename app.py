@@ -9,6 +9,10 @@ import streamlit.components.v1 as components
 
 WEBSITES = Path(__file__).resolve().parent / "websites"
 PAGE_HEIGHT = 900
+WEBSITE_NAMES = {
+    1: "Lüttkemeyer",
+    2: "Kemner",
+}
 
 st.set_page_config(page_title="Schulung", layout="wide", initial_sidebar_state="collapsed")
 st.markdown(
@@ -47,8 +51,9 @@ for offset in range(0, len(pages), 12):
     columns = st.columns(12)
     for index, page in enumerate(pages[offset : offset + 12], start=offset):
         with columns[index - offset]:
+            number = index + 1
             st.button(
-                str(index + 1),
+                WEBSITE_NAMES.get(number, str(number)),
                 key=f"website_{page.parent.name}",
                 type="primary" if page.parent.name == st.session_state.selected_website else "secondary",
                 use_container_width=True,
