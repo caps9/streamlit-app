@@ -1,27 +1,724 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="no-js">
 <head>
-  <meta charset="utf-8" />
-  <title>Schulung 3</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Georgia, serif;
-      background: linear-gradient(160deg, #1a3a2a, #0d2818);
-      color: #f0f8f4;
-      display: grid;
-      place-items: center;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kemner Hausverwaltung – Wohnen in Münster</title>
+  <meta name="description" content="Die Kemner Hausverwaltung GmbH betreut rund 4.200 Mietwohnungen in Münster. Mieterservice, Hausmeisterdienst, Nebenkostenabrechnung und Mietverwaltung für Eigentümer.">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            papier: '#F3EEE4',
+            sandstein: '#E6DAC5',
+            tanne: { DEFAULT: '#1D3B33', light: '#2B5047' },
+            tinte: '#14201C',
+            klinker: { DEFAULT: '#B5532E', light: '#CC6a43', dark: '#8F3D1F' }
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['"Instrument Sans"', 'sans-serif']
+          }
+        }
+      }
     }
-    main { text-align: center; padding: 2rem; }
-    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    p { opacity: 0.85; font-size: 1.15rem; }
+  </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root { --papier: #F3EEE4; --tanne: #1D3B33; --tinte: #14201C; --klinker: #B5532E; }
+    html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+    body { background: var(--papier); }
+    ::selection { background: var(--klinker); color: var(--papier); }
+    :focus-visible { outline: 2px solid var(--klinker); outline-offset: 3px; }
+
+    .serif-tight { font-variation-settings: "opsz" 144; letter-spacing: -0.02em; }
+    .eyebrow { font-family: "Instrument Sans", sans-serif; font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; }
+
+    /* Header */
+    #top-bar.is-solid { background: rgba(243, 238, 228, .94); backdrop-filter: blur(10px); border-bottom-color: rgba(20, 32, 28, .1); }
+    .link-draw { position: relative; }
+    .link-draw::after { content: ""; position: absolute; left: 0; bottom: -3px; height: 1.5px; width: 100%; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .link-draw:hover::after, .link-draw[aria-current="page"]::after { transform: scaleX(1); transform-origin: left; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; font-weight: 600; font-size: 15px; padding: .95rem 1.6rem; border-radius: 999px; transition: transform .3s cubic-bezier(.2,.7,.2,1), background-color .3s, color .3s, border-color .3s; }
+    .btn svg { width: 18px; height: 18px; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .btn:hover svg { transform: translateX(4px); }
+    .btn-klinker { background: var(--klinker); color: var(--papier); }
+    .btn-klinker:hover { background: var(--tinte); transform: translateY(-2px); }
+    .btn-line { border: 1.5px solid currentColor; }
+    .btn-line:hover { background: var(--tinte); border-color: var(--tinte); color: var(--papier); }
+    .btn-papier { background: var(--papier); color: var(--tinte); }
+    .btn-papier:hover { background: var(--klinker); color: var(--papier); transform: translateY(-2px); }
+
+    /* Bogen-Motiv */
+    .arch { border-radius: 999px 999px 0 0; overflow: hidden; }
+    .curtain { position: absolute; inset: 0; background: var(--papier); transform-origin: top; animation: curtain 1.4s cubic-bezier(.7,0,.2,1) .35s forwards; }
+    @keyframes curtain { to { transform: scaleY(0); } }
+    .arch-img { animation: settle 2.2s cubic-bezier(.2,.7,.2,1) .35s both; }
+    @keyframes settle { from { transform: scale(1.18); } }
+
+    /* Hero-Text */
+    .word { display: inline-block; animation: wordUp 1s cubic-bezier(.2,.75,.15,1) both; animation-delay: var(--d, 0ms); }
+    @keyframes wordUp { from { opacity: 0; transform: translateY(.45em); } }
+    .fade-in { animation: fadeIn 1s ease both; animation-delay: var(--d, 0ms); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } }
+
+    /* Giebel-Silhouette */
+    .skyline path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawLine 3.6s cubic-bezier(.6,.1,.2,1) .6s forwards; }
+    .skyline path:nth-child(2) { animation-delay: 1s; }
+    .skyline path:nth-child(3) { animation-delay: 1.4s; }
+    @keyframes drawLine { to { stroke-dashoffset: 0; } }
+
+    /* Scroll-Reveal */
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity 1s cubic-bezier(.2,.7,.2,1), transform 1s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+
+    /* Schnellzugriff */
+    .quick { transition: background-color .35s, color .35s; }
+    .quick .q-arrow { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .quick:hover { background: var(--tanne); color: var(--papier); }
+    .quick:hover .q-sub { color: rgba(243, 238, 228, .7); }
+    .quick:hover .q-icon { background: var(--klinker); border-color: var(--klinker); color: var(--papier); }
+    .quick:hover .q-arrow { transform: translate(4px, -4px); }
+
+    /* Ablauf: verbindender Bogen */
+    .step-arc { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.8s cubic-bezier(.6,.1,.2,1) .2s; }
+    .is-in .step-arc { stroke-dashoffset: 0; }
+
+    /* FAQ */
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details .faq-icon { transition: transform .4s cubic-bezier(.2,.7,.2,1), background-color .3s, color .3s, border-color .3s; }
+    details[open] .faq-icon { transform: rotate(45deg); background: var(--klinker); border-color: var(--klinker); color: var(--papier); }
+    details[open] .faq-body { animation: fadeIn .5s ease both; }
+    details summary:hover h3 { color: var(--klinker); }
+
+    /* Formular */
+    .field { width: 100%; background: transparent; border: 0; border-bottom: 1.5px solid rgba(20, 32, 28, .22); padding: .7rem 0; font-size: 1.05rem; color: var(--tinte); border-radius: 0; transition: border-color .25s; }
+    .field:focus { outline: none; border-bottom-color: var(--klinker); }
+    .field::placeholder { color: rgba(20, 32, 28, .35); }
+    select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%2314201C' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 2px center; }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg label { cursor: pointer; transition: background-color .25s, color .25s; }
+    .seg input:checked + label { background: var(--tanne); color: var(--papier); }
+    .seg input:focus-visible + label { outline: 2px solid var(--klinker); outline-offset: 2px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .curtain { display: none; }
+      .skyline path, .step-arc { stroke-dashoffset: 0; }
+    }
   </style>
 </head>
-<body>
+
+<body class="bg-papier font-sans text-tinte antialiased">
+
+  <!-- Notdienst-Leiste -->
+  <div class="bg-tanne text-papier">
+    <div class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-5 py-2 text-[13px] sm:justify-between md:px-8">
+      <p class="flex items-center gap-2"><i data-lucide="siren" class="h-3.5 w-3.5 text-klinker-light"></i><span>Notfall außerhalb der Bürozeiten? <strong class="font-semibold">Notdienst 0251 000 000-99</strong></span></p>
+      <p class="hidden text-papier/70 sm:block">Mo–Do 8–17 Uhr · Fr 8–14 Uhr</p>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="top-bar" class="sticky top-0 z-50 border-b border-transparent bg-papier transition-colors duration-300">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <a href="index.html" class="group flex items-center gap-3" aria-label="Kemner Hausverwaltung – zur Startseite">
+        <svg class="h-11 w-11 shrink-0 transition-transform duration-500 group-hover:-translate-y-0.5" viewBox="0 0 44 44" aria-hidden="true">
+          <rect width="44" height="44" fill="#1D3B33"/>
+          <path d="M9 38V20h3v-4h3v-4h3V8h8v4h3v4h3v4h3v18" fill="none" stroke="#F3EEE4" stroke-width="2.4" stroke-linejoin="miter"/>
+          <path d="M17 38v-7a5 5 0 0 1 10 0v7" fill="none" stroke="#CC6A43" stroke-width="2.4"/>
+        </svg>
+        <span class="leading-none">
+          <span class="block font-serif text-[26px] font-semibold tracking-[-0.01em]">Kemner</span>
+          <span class="mt-1 block text-[10px] font-semibold uppercase tracking-[0.24em] text-tinte/55">Hausverwaltung · Münster</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 text-[15px] font-medium text-tinte/80 lg:flex" aria-label="Hauptnavigation">
+        <a class="link-draw hover:text-tinte" href="#mieter">Für Mieter</a>
+        <a class="link-draw hover:text-tinte" href="#eigentuemer">Für Eigentümer</a>
+        <a class="link-draw hover:text-tinte" href="#leistungen">Leistungen</a>
+        <a class="link-draw hover:text-tinte" href="team.html">Team</a>
+        <a class="link-draw hover:text-tinte" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#kontakt" class="btn btn-klinker hidden !py-3 md:inline-flex">Anliegen melden <i data-lucide="arrow-right"></i></a>
+        <button id="menu-btn" class="grid h-11 w-11 place-items-center rounded-full border border-tinte/25 transition-colors hover:border-klinker hover:text-klinker lg:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-tinte/10 bg-papier lg:hidden">
+      <nav class="mx-auto flex max-w-7xl flex-col px-5 py-4 font-serif text-3xl md:px-8" aria-label="Mobile Navigation">
+        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#mieter">Für Mieter <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#eigentuemer">Für Eigentümer <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#leistungen">Leistungen <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="team.html">Team <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-tinte/10 py-4 hover:text-klinker" href="#faq">FAQ <i data-lucide="arrow-up-right" class="h-5 w-5"></i></a>
+        <a href="#kontakt" class="btn btn-klinker mt-6 w-full font-sans">Anliegen melden <i data-lucide="arrow-right"></i></a>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Schulung Seite 3</h1>
-    <p>Platzhalter für Website 3.</p>
+
+    <!-- ============ 1 · HERO ============ -->
+    <section class="relative overflow-hidden">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 pb-10 pt-14 md:px-8 md:pt-20 lg:grid-cols-12 lg:gap-10 lg:pb-16">
+        <div class="flex flex-col justify-center lg:col-span-7">
+          <p class="eyebrow fade-in flex items-center gap-3 text-klinker" style="--d:80ms"><span class="h-px w-10 bg-klinker"></span>Hausverwaltung in Münster</p>
+          <h1 class="serif-tight mt-8 font-serif text-[clamp(3.2rem,7.4vw,7rem)] font-light leading-[0.95]">
+            <span class="word" style="--d:120ms">Gut</span>
+            <span class="word" style="--d:200ms">wohnen</span>
+            <span class="word" style="--d:280ms">beginnt</span>
+            <span class="word" style="--d:360ms">mit</span>
+            <span class="word" style="--d:440ms">einer</span>
+            <span class="word font-normal italic text-klinker" style="--d:540ms">Antwort.</span>
+          </h1>
+          <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-tinte/75 md:text-xl" style="--d:800ms">
+            Die Kemner Hausverwaltung betreut rund 4.200 Mietwohnungen in Münster. 58 Menschen kümmern sich um Ihre Anliegen, vom Mieterservice über die Hausmeister bis zur Nebenkostenabrechnung.
+          </p>
+          <div class="fade-in mt-10 flex flex-wrap items-center gap-x-8 gap-y-5" style="--d:950ms">
+            <a href="#kontakt" class="btn btn-klinker">Anliegen melden <i data-lucide="arrow-right"></i></a>
+            <a href="#eigentuemer" class="link-draw inline-flex items-center gap-2 font-semibold">Verwaltung für Eigentümer <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
+          </div>
+        </div>
+
+        <div class="relative lg:col-span-5">
+          <figure class="arch relative mx-auto aspect-[4/5] w-full max-w-md bg-sandstein lg:max-w-none">
+            <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1000&h=1250&q=80" alt="Mehrfamilienhaus aus Backstein mit Balkonen" class="arch-img h-full w-full object-cover" fetchpriority="high">
+            <span class="curtain" aria-hidden="true"></span>
+          </figure>
+          <div class="fade-in absolute -left-2 bottom-8 grid h-32 w-32 place-items-center rounded-full bg-tanne text-center text-papier md:-left-8 md:h-40 md:w-40" style="--d:1300ms">
+            <span>
+              <span class="block font-serif text-4xl font-light md:text-5xl">4.200</span>
+              <span class="mt-1 block text-[10px] font-semibold uppercase tracking-[0.2em] text-papier/70">Wohnungen</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Giebel-Silhouette -->
+      <svg class="skyline pointer-events-none mx-auto block h-16 w-full max-w-7xl px-5 text-tanne/30 md:h-24 md:px-8" viewBox="0 0 1200 160" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <path pathLength="1" d="M0 160V90L50 34L100 90V76H110V62H120V48H130V34H170V48H180V62H190V76H200V84L250 24L300 84V96H306V80H318V66H330V52H370V66H382V80H394V96H400V160M38 160V142A12 12 0 0 1 62 142V160M138 160V142A12 12 0 0 1 162 142V160M238 160V142A12 12 0 0 1 262 142V160M338 160V142A12 12 0 0 1 362 142V160"/>
+        <path pathLength="1" transform="translate(400 0)" d="M0 160V90L50 34L100 90V76H110V62H120V48H130V34H170V48H180V62H190V76H200V84L250 24L300 84V96H306V80H318V66H330V52H370V66H382V80H394V96H400V160M38 160V142A12 12 0 0 1 62 142V160M138 160V142A12 12 0 0 1 162 142V160M238 160V142A12 12 0 0 1 262 142V160M338 160V142A12 12 0 0 1 362 142V160"/>
+        <path pathLength="1" transform="translate(800 0)" d="M0 160V90L50 34L100 90V76H110V62H120V48H130V34H170V48H180V62H190V76H200V84L250 24L300 84V96H306V80H318V66H330V52H370V66H382V80H394V96H400V160M38 160V142A12 12 0 0 1 62 142V160M138 160V142A12 12 0 0 1 162 142V160M238 160V142A12 12 0 0 1 262 142V160M338 160V142A12 12 0 0 1 362 142V160"/>
+      </svg>
+
+      <!-- Schnellzugriff für Mieter -->
+      <div class="mx-auto max-w-7xl px-5 md:px-8">
+        <div class="grid border-y border-tinte/15 md:grid-cols-3">
+          <a href="#kontakt" data-anliegen="Schaden melden" class="quick group flex items-start gap-5 border-b border-tinte/15 p-6 md:border-b-0 md:border-r md:p-8">
+            <span class="q-icon grid h-12 w-12 shrink-0 place-items-center rounded-full border border-tinte/25 transition-colors"><i data-lucide="wrench" class="h-5 w-5"></i></span>
+            <span class="flex-1">
+              <span class="block font-serif text-2xl">Schaden melden</span>
+              <span class="q-sub mt-1 block text-[15px] text-tinte/65 transition-colors">Reparaturen gehen direkt an unsere Hausmeister.</span>
+            </span>
+            <i data-lucide="arrow-up-right" class="q-arrow h-5 w-5 shrink-0"></i>
+          </a>
+          <a href="#kontakt" data-anliegen="Frage zur Nebenkostenabrechnung" class="quick group flex items-start gap-5 border-b border-tinte/15 p-6 md:border-b-0 md:border-r md:p-8">
+            <span class="q-icon grid h-12 w-12 shrink-0 place-items-center rounded-full border border-tinte/25 transition-colors"><i data-lucide="receipt-text" class="h-5 w-5"></i></span>
+            <span class="flex-1">
+              <span class="block font-serif text-2xl">Nebenkosten</span>
+              <span class="q-sub mt-1 block text-[15px] text-tinte/65 transition-colors">Fragen zur Abrechnung beantwortet unsere Buchhaltung.</span>
+            </span>
+            <i data-lucide="arrow-up-right" class="q-arrow h-5 w-5 shrink-0"></i>
+          </a>
+          <a href="#kontakt" data-anliegen="Allgemeine Anfrage" class="quick group flex items-start gap-5 p-6 md:p-8">
+            <span class="q-icon grid h-12 w-12 shrink-0 place-items-center rounded-full border border-tinte/25 transition-colors"><i data-lucide="mail" class="h-5 w-5"></i></span>
+            <span class="flex-1">
+              <span class="block font-serif text-2xl">Allgemeine Anfrage</span>
+              <span class="q-sub mt-1 block text-[15px] text-tinte/65 transition-colors">Ihr Team im Mieterservice übernimmt.</span>
+            </span>
+            <i data-lucide="arrow-up-right" class="q-arrow h-5 w-5 shrink-0"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · STADTTEILE (Social Proof) ============ -->
+    <section aria-label="Stadtteile, in denen wir verwalten" class="mx-auto max-w-7xl px-5 py-14 md:px-8 md:py-20">
+      <div class="reveal flex flex-col gap-6 md:flex-row md:items-baseline md:gap-12">
+        <p class="eyebrow shrink-0 text-tinte/50">Zuhause in</p>
+        <p class="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] font-light leading-snug text-tinte/80">
+          Kreuzviertel <span class="text-klinker">·</span> Mauritz <span class="text-klinker">·</span> Gievenbeck <span class="text-klinker">·</span> Hiltrup <span class="text-klinker">·</span> Kinderhaus <span class="text-klinker">·</span> Aaseestadt <span class="text-klinker">·</span> Geist <span class="text-klinker">·</span> Coerde <span class="italic text-tinte/50">und weiteren Stadtteilen</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 3 · PROBLEM ============ -->
+    <section id="eigentuemer" class="border-t border-tinte/10">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="eyebrow text-klinker">Für Eigentümer</p>
+          <h2 class="serif-tight mt-6 font-serif text-[clamp(2.6rem,5vw,4.5rem)] font-light leading-[1]">Vermieten ist leicht. Bis der erste <em class="text-klinker">Wasserschaden</em> kommt.</h2>
+        </div>
+        <div class="lg:col-span-6 lg:col-start-7">
+          <article class="reveal border-t border-tinte/15 py-8" style="--d:80ms">
+            <p class="font-serif text-lg italic text-klinker">i.</p>
+            <h3 class="mt-1 font-serif text-3xl">Anfragen stapeln sich.</h3>
+            <p class="mt-3 text-tinte/70">Mieter schreiben, rufen an und schreiben wieder. Jede unbeantwortete Nachricht wird früher oder später zur Beschwerde.</p>
+          </article>
+          <article class="reveal border-t border-tinte/15 py-8" style="--d:160ms">
+            <p class="font-serif text-lg italic text-klinker">ii.</p>
+            <h3 class="mt-1 font-serif text-3xl">Reparaturen bleiben hängen.</h3>
+            <p class="mt-3 text-tinte/70">Wer ruft den Handwerker, wer prüft die Rechnung, wer sagt dem Mieter Bescheid? Ohne feste Zuständigkeit macht es keiner.</p>
+          </article>
+          <article class="reveal border-y border-tinte/15 py-8" style="--d:240ms">
+            <p class="font-serif text-lg italic text-klinker">iii.</p>
+            <h3 class="mt-1 font-serif text-3xl">Die Abrechnung wird zum Streitfall.</h3>
+            <p class="mt-3 text-tinte/70">Eine fehlerhafte Nebenkostenabrechnung kostet Zeit und Geld. Vor allem kostet sie das Vertrauen Ihrer Mieter.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · TRANSFORMATION ============ -->
+    <section class="bg-tanne text-papier">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="grid gap-10 lg:grid-cols-12">
+          <h2 class="reveal serif-tight font-serif text-[clamp(2.6rem,5vw,4.5rem)] font-light leading-[1] lg:col-span-7">Ein Haus braucht ein Team, <em class="text-klinker-light">das es kennt.</em></h2>
+          <p class="reveal text-lg leading-relaxed text-papier/75 lg:col-span-4 lg:col-start-9 lg:self-end" style="--d:120ms">Bei Kemner hat jede Aufgabe ihre festen Leute. Darum landet jedes Anliegen dort, wo es gelöst wird.</p>
+        </div>
+
+        <div class="mt-20 grid gap-px bg-papier/15 sm:grid-cols-2 lg:grid-cols-4">
+          <div class="reveal bg-tanne pb-10 pr-6 pt-2 sm:pt-0" style="--d:60ms">
+            <p class="font-serif text-7xl font-light leading-none" data-count="14">14</p>
+            <p class="eyebrow mt-4 text-papier/60">Sachbearbeitung Mieterservice</p>
+            <p class="mt-4 text-papier/80">Sie haben eine feste Ansprechperson, die Ihr Haus und Ihre Mieter kennt.</p>
+          </div>
+          <div class="reveal bg-tanne pb-10 pr-6 pt-10 sm:pl-8 sm:pt-0" style="--d:140ms">
+            <p class="font-serif text-7xl font-light leading-none" data-count="2">2</p>
+            <p class="eyebrow mt-4 text-papier/60">Teamleitungen</p>
+            <p class="mt-4 text-papier/80">Sie verteilen jeden Morgen die neue Post. So geht keine Anfrage verloren.</p>
+          </div>
+          <div class="reveal bg-tanne pb-10 pr-6 pt-10 lg:pl-8 lg:pt-0" style="--d:220ms">
+            <p class="font-serif text-7xl font-light leading-none" data-count="9">9</p>
+            <p class="eyebrow mt-4 text-papier/60">Hausmeister vor Ort</p>
+            <p class="mt-4 text-papier/80">Sie sind in den Wohnanlagen unterwegs und erhalten Aufträge direkt aufs Smartphone.</p>
+          </div>
+          <div class="reveal bg-tanne pr-6 pt-10 sm:pl-8 lg:pt-0" style="--d:300ms">
+            <p class="font-serif text-7xl font-light leading-none" data-count="5">5</p>
+            <p class="eyebrow mt-4 text-papier/60">Buchhaltung</p>
+            <p class="mt-4 text-papier/80">Sie erstellt die Nebenkostenabrechnungen und beantwortet Fragen dazu selbst.</p>
+          </div>
+        </div>
+
+        <a href="team.html" class="reveal group mt-16 inline-flex items-center gap-3 font-semibold" style="--d:200ms">
+          <span class="link-draw">Alle Menschen hinter Kemner kennenlernen</span>
+          <i data-lucide="arrow-right" class="h-5 w-5 transition-transform group-hover:translate-x-1"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ 5 · LEISTUNGEN ============ -->
+    <section id="leistungen" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow text-klinker">Leistungen</p>
+          <h2 class="serif-tight mt-6 font-serif text-[clamp(2.6rem,5vw,4.5rem)] font-light leading-[1]">Was wir für Sie übernehmen.</h2>
+        </div>
+        <p class="text-tinte/70 lg:col-span-4 lg:col-start-9">Zu jeder Leistung steht dabei, was Sie konkret davon haben.</p>
+      </div>
+
+      <div class="mt-16 grid gap-x-16 md:grid-cols-2">
+        <article class="reveal group border-t border-tinte/15 py-10" style="--d:60ms">
+          <div class="flex items-baseline justify-between">
+            <h3 class="font-serif text-3xl md:text-4xl">Mieterservice</h3>
+            <span class="font-serif text-xl italic text-klinker">01</span>
+          </div>
+          <p class="mt-4 text-tinte/70">Anfragen, Mieterwechsel, Wohnungsübergaben und alles, was im Alltag einer Mietwohnung anfällt.</p>
+          <p class="mt-6 border-l-2 border-klinker pl-4 font-medium transition-transform duration-300 group-hover:translate-x-1"><span class="eyebrow mb-1 block text-[10.5px] text-klinker">Für Sie heißt das</span>Mieter wissen, an wen sie sich wenden. Sie selbst werden nicht mehr angerufen.</p>
+        </article>
+        <article class="reveal group border-t border-tinte/15 py-10" style="--d:140ms">
+          <div class="flex items-baseline justify-between">
+            <h3 class="font-serif text-3xl md:text-4xl">Hausmeister &amp; Reparaturen</h3>
+            <span class="font-serif text-xl italic text-klinker">02</span>
+          </div>
+          <p class="mt-4 text-tinte/70">Neun Hausmeister betreuen die Wohnanlagen. Aufträge kommen über die Hausmeister-App direkt aufs Smartphone.</p>
+          <p class="mt-6 border-l-2 border-klinker pl-4 font-medium transition-transform duration-300 group-hover:translate-x-1"><span class="eyebrow mb-1 block text-[10.5px] text-klinker">Für Sie heißt das</span>Kleine Schäden werden behoben, bevor sie groß werden.</p>
+        </article>
+        <article class="reveal group border-t border-tinte/15 py-10 md:border-b" style="--d:60ms">
+          <div class="flex items-baseline justify-between">
+            <h3 class="font-serif text-3xl md:text-4xl">Nebenkostenabrechnung</h3>
+            <span class="font-serif text-xl italic text-klinker">03</span>
+          </div>
+          <p class="mt-4 text-tinte/70">Unsere Buchhaltung erstellt die Abrechnungen und beantwortet Rückfragen von Mietern direkt.</p>
+          <p class="mt-6 border-l-2 border-klinker pl-4 font-medium transition-transform duration-300 group-hover:translate-x-1"><span class="eyebrow mb-1 block text-[10.5px] text-klinker">Für Sie heißt das</span>Die Abrechnung ist nachvollziehbar und kommt pünktlich, ohne Streit um Nachzahlungen.</p>
+        </article>
+        <article class="reveal group border-y border-tinte/15 py-10" style="--d:140ms">
+          <div class="flex items-baseline justify-between">
+            <h3 class="font-serif text-3xl md:text-4xl">Mietverwaltung</h3>
+            <span class="font-serif text-xl italic text-klinker">04</span>
+          </div>
+          <p class="mt-4 text-tinte/70">Mieteinnahmen, Mahnwesen, Verträge und ein jährlicher Bericht für Eigentümer.</p>
+          <p class="mt-6 border-l-2 border-klinker pl-4 font-medium transition-transform duration-300 group-hover:translate-x-1"><span class="eyebrow mb-1 block text-[10.5px] text-klinker">Für Sie heißt das</span>Sie besitzen die Wohnung, wir kümmern uns um alles andere.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ABLAUF ============ -->
+    <section id="mieter" class="bg-sandstein">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal max-w-3xl">
+          <p class="eyebrow text-klinker">Für Mieter</p>
+          <h2 class="serif-tight mt-6 font-serif text-[clamp(2.6rem,5vw,4.5rem)] font-light leading-[1]">So kommt Ihr Anliegen an.</h2>
+          <p class="mt-6 max-w-xl text-lg text-tinte/70">Rund 2.300 Mieteranfragen erreichen uns jeden Monat per E-Mail. Jede einzelne geht diesen Weg.</p>
+        </div>
+
+        <div class="reveal relative mt-20">
+          <svg class="pointer-events-none absolute -top-10 left-0 hidden h-16 w-full text-klinker md:block" viewBox="0 0 1200 60" preserveAspectRatio="none" fill="none" aria-hidden="true">
+            <path class="step-arc" pathLength="1" d="M70 58 C 200 -10, 340 -10, 470 58 S 740 -10, 870 58" stroke="currentColor" stroke-width="1.5" stroke-dasharray="1" stroke-dashoffset="1"/>
+          </svg>
+          <ol class="grid gap-14 md:grid-cols-3 md:gap-10">
+            <li class="group">
+              <span class="grid h-[140px] w-[112px] place-items-end justify-center rounded-t-full border border-tinte/25 bg-papier pb-5 transition-colors duration-300 group-hover:border-tanne group-hover:bg-tanne group-hover:text-papier">
+                <span class="font-serif text-5xl font-light italic">1</span>
+              </span>
+              <h3 class="mt-8 font-serif text-3xl">Sie schreiben uns</h3>
+              <p class="mt-3 max-w-xs text-tinte/70">Per E-Mail oder Formular. Mit Adresse und Wohnungsnummer geht es am schnellsten.</p>
+            </li>
+            <li class="group">
+              <span class="grid h-[140px] w-[112px] place-items-end justify-center rounded-t-full border border-tinte/25 bg-papier pb-5 transition-colors duration-300 group-hover:border-tanne group-hover:bg-tanne group-hover:text-papier">
+                <span class="font-serif text-5xl font-light italic">2</span>
+              </span>
+              <h3 class="mt-8 font-serif text-3xl">Ihr Team übernimmt</h3>
+              <p class="mt-3 max-w-xs text-tinte/70">Unsere Teamleitungen geben Ihr Anliegen an die zuständige Sachbearbeitung im Mieterservice weiter.</p>
+            </li>
+            <li class="group">
+              <span class="grid h-[140px] w-[112px] place-items-end justify-center rounded-t-full border border-tinte/25 bg-papier pb-5 transition-colors duration-300 group-hover:border-tanne group-hover:bg-tanne group-hover:text-papier">
+                <span class="font-serif text-5xl font-light italic">3</span>
+              </span>
+              <h3 class="mt-8 font-serif text-3xl">Antwort oder Auftrag</h3>
+              <p class="mt-3 max-w-xs text-tinte/70">Sie erhalten eine persönliche Antwort. Geht es um eine Reparatur, kommt der Auftrag direkt aufs Smartphone Ihres Hausmeisters.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · STIMMEN ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-36">
+      <p class="reveal eyebrow text-tinte/50">Was Mieter und Eigentümer sagen</p>
+      <div class="mt-12 grid gap-16 lg:grid-cols-12">
+        <figure class="reveal lg:col-span-7">
+          <blockquote class="serif-tight font-serif text-[clamp(2rem,3.8vw,3.4rem)] font-light italic leading-[1.1]">
+            „Petra Lohmann kannte meine Wohnung, bevor ich sie erklären musste. <span class="not-italic text-klinker">So etwas merkt man sich.</span>“
+          </blockquote>
+          <figcaption class="mt-8 flex items-center gap-4">
+            <span class="h-px w-12 bg-klinker"></span>
+            <span class="text-[15px]"><strong class="font-semibold">Mieterin</strong> <span class="text-tinte/55">· Kreuzviertel</span></span>
+          </figcaption>
+        </figure>
+        <figure class="reveal border-t border-tinte/15 pt-10 lg:col-span-4 lg:col-start-9 lg:mt-40 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0" style="--d:150ms">
+          <blockquote class="font-serif text-2xl font-light leading-snug">
+            „Seit Kemner verwaltet, rufen meine Mieter nicht mehr bei mir an. Genau dafür habe ich gewechselt.“
+          </blockquote>
+          <figcaption class="mt-6 text-[15px]"><strong class="font-semibold">Eigentümer von zwölf Wohnungen</strong> <span class="text-tinte/55">· Mauritz</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ 8 · ANGEBOT FÜR EIGENTÜMER ============ -->
+    <section class="bg-tanne text-papier">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <figure class="reveal arch relative aspect-[4/5] w-full max-w-sm bg-tanne-light lg:col-span-4 lg:max-w-none">
+          <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&h=1000&q=80" alt="Hausschlüssel neben einem kleinen Hausmodell" loading="lazy" class="h-full w-full object-cover">
+        </figure>
+
+        <div class="lg:col-span-7 lg:col-start-6">
+          <p class="reveal eyebrow text-klinker-light">Das Angebot</p>
+          <h2 class="reveal serif-tight mt-6 font-serif text-[clamp(2.6rem,5vw,4.5rem)] font-light leading-[1]" style="--d:80ms">Ein Honorar. <em class="text-klinker-light">Alles drin,</em> was Verwaltung heißt.</h2>
+          <p class="reveal mt-6 max-w-xl text-lg text-papier/75" style="--d:140ms">Wir rechnen pro Wohneinheit und Monat ab. Das Angebot erhalten Sie schriftlich, ohne versteckte Posten.</p>
+
+          <div class="mt-12 grid gap-10 sm:grid-cols-2">
+            <div class="reveal" style="--d:100ms">
+              <p class="eyebrow border-b border-papier/20 pb-3 text-papier/60">Im Honorar enthalten</p>
+              <ul class="mt-5 space-y-3">
+                <li class="flex gap-3"><i data-lucide="check" class="mt-1 h-4 w-4 shrink-0 text-klinker-light"></i>Mieterservice mit fester Ansprechperson</li>
+                <li class="flex gap-3"><i data-lucide="check" class="mt-1 h-4 w-4 shrink-0 text-klinker-light"></i>Hausmeisterdienst und Beauftragung von Reparaturen</li>
+                <li class="flex gap-3"><i data-lucide="check" class="mt-1 h-4 w-4 shrink-0 text-klinker-light"></i>Nebenkostenabrechnung</li>
+                <li class="flex gap-3"><i data-lucide="check" class="mt-1 h-4 w-4 shrink-0 text-klinker-light"></i>Mieteinnahmen und Mahnwesen</li>
+                <li class="flex gap-3"><i data-lucide="check" class="mt-1 h-4 w-4 shrink-0 text-klinker-light"></i>Jahresbericht für Eigentümer</li>
+              </ul>
+            </div>
+            <div class="reveal" style="--d:180ms">
+              <p class="eyebrow border-b border-papier/20 pb-3 text-papier/60">Gesondert, nach Absprache</p>
+              <ul class="mt-5 space-y-3 text-papier/80">
+                <li class="flex gap-3"><i data-lucide="minus" class="mt-1 h-4 w-4 shrink-0 text-papier/40"></i>Begleitung von Modernisierungen</li>
+                <li class="flex gap-3"><i data-lucide="minus" class="mt-1 h-4 w-4 shrink-0 text-papier/40"></i>Gerichtliche Verfahren</li>
+              </ul>
+              <a href="#kontakt" data-anliegen="Verwaltung anfragen" class="btn btn-papier mt-10">Verwaltung anfragen <i data-lucide="arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KONTAKT ============ -->
+    <section id="kontakt" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-16 lg:grid-cols-12">
+        <div class="reveal lg:col-span-4">
+          <p class="eyebrow text-klinker">Kontakt</p>
+          <h2 class="serif-tight mt-6 font-serif text-[clamp(2.6rem,5vw,4.5rem)] font-light leading-[1]">Schreiben Sie uns.</h2>
+          <p class="mt-6 text-lg text-tinte/70">Ihr Anliegen geht direkt an das zuständige Team.</p>
+
+          <dl class="mt-12 space-y-6 border-t border-tinte/15 pt-8">
+            <div>
+              <dt class="eyebrow text-[10.5px] text-tinte/50">Telefon</dt>
+              <dd class="mt-1 font-serif text-2xl">0251 000 000-0</dd>
+            </div>
+            <div>
+              <dt class="eyebrow text-[10.5px] text-tinte/50">Bürozeiten</dt>
+              <dd class="mt-1">Mo–Do 8–17 Uhr · Fr 8–14 Uhr</dd>
+            </div>
+            <div class="border-l-2 border-klinker pl-4">
+              <dt class="eyebrow text-[10.5px] text-klinker">Notdienst</dt>
+              <dd class="mt-1">Wasserschaden, Heizungsausfall, Sturmschaden:<br><strong class="font-semibold">0251 000 000-99</strong></dd>
+            </div>
+          </dl>
+        </div>
+
+        <form id="contact-form" class="reveal rounded-t-[3rem] border border-tinte/15 bg-sandstein/50 p-6 md:p-10 lg:col-span-8" style="--d:120ms" novalidate>
+          <fieldset>
+            <legend class="eyebrow text-[10.5px] text-tinte/60">Ich bin</legend>
+            <div class="seg mt-3 inline-flex rounded-full border border-tinte/20 p-1">
+              <input type="radio" name="rolle" id="rolle-mieter" value="Mieter" checked>
+              <label for="rolle-mieter" class="rounded-full px-5 py-2 text-[15px] font-medium">Mieterin oder Mieter</label>
+              <input type="radio" name="rolle" id="rolle-eigen" value="Eigentümer">
+              <label for="rolle-eigen" class="rounded-full px-5 py-2 text-[15px] font-medium">Eigentümerin oder Eigentümer</label>
+            </div>
+          </fieldset>
+
+          <div class="mt-10 grid gap-x-8 gap-y-8 sm:grid-cols-2">
+            <label class="block sm:col-span-2">
+              <span class="eyebrow text-[10.5px] text-tinte/60">Anliegen</span>
+              <select id="anliegen" class="field" name="anliegen">
+                <option>Schaden melden</option>
+                <option>Frage zur Nebenkostenabrechnung</option>
+                <option>Allgemeine Anfrage</option>
+                <option>Verwaltung anfragen</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="eyebrow text-[10.5px] text-tinte/60">Name</span>
+              <input class="field" type="text" name="name" placeholder="Vor- und Nachname" required>
+            </label>
+            <label class="block">
+              <span class="eyebrow text-[10.5px] text-tinte/60">E-Mail</span>
+              <input class="field" type="email" name="email" placeholder="name@beispiel.de" required>
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="eyebrow text-[10.5px] text-tinte/60">Adresse und Wohnung</span>
+              <input class="field" type="text" name="adresse" placeholder="Straße, Hausnummer, Wohnungsnummer">
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="eyebrow text-[10.5px] text-tinte/60">Ihre Nachricht</span>
+              <textarea class="field resize-none" name="nachricht" rows="4" placeholder="Was ist passiert oder was möchten Sie wissen?" required></textarea>
+            </label>
+          </div>
+
+          <div class="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <button type="submit" class="btn btn-klinker">Nachricht senden <i data-lucide="send"></i></button>
+            <p class="text-sm text-tinte/55">Bei Notfällen bitte immer anrufen.</p>
+          </div>
+          <p id="form-note" class="mt-6 hidden border-l-2 border-klinker bg-papier px-4 py-3 text-sm" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 9 · FAQ ============ -->
+    <section id="faq" class="border-t border-tinte/10">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-4">
+          <p class="eyebrow text-klinker">Häufige Fragen</p>
+          <h2 class="serif-tight mt-6 font-serif text-[clamp(2.6rem,4.6vw,4rem)] font-light leading-[1]">Gut zu wissen.</h2>
+        </div>
+        <div class="lg:col-span-8">
+          <details class="reveal border-t border-tinte/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-serif text-2xl transition-colors md:text-[28px]">Was tue ich bei einem Wasserschaden?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-tinte/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-tinte/75">Drehen Sie, wenn möglich, das Wasser ab und rufen Sie uns sofort an. Außerhalb der Bürozeiten erreichen Sie den Notdienst unter 0251 000 000-99. Wasserschäden behandeln wir immer als dringend.</p>
+          </details>
+          <details class="reveal border-t border-tinte/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-serif text-2xl transition-colors md:text-[28px]">Wer ist meine Ansprechperson?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-tinte/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-tinte/75">Für jedes Haus ist ein festes Team im Mieterservice zuständig. Der Name Ihrer Ansprechperson steht in jeder Antwort, die Sie von uns erhalten.</p>
+          </details>
+          <details class="reveal border-t border-tinte/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-serif text-2xl transition-colors md:text-[28px]">Ich habe eine Frage zur Nebenkostenabrechnung.</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-tinte/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-tinte/75">Wählen Sie im Kontaktformular „Frage zur Nebenkostenabrechnung“. Ihre Nachricht geht dann an unsere Buchhaltung, die die Abrechnung erstellt hat und sie Ihnen erklären kann.</p>
+          </details>
+          <details class="reveal border-t border-tinte/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-serif text-2xl transition-colors md:text-[28px]">Wie schnell erhalte ich eine Antwort?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-tinte/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-tinte/75">Dringende Anliegen wie Wasserschäden oder ein Heizungsausfall bearbeiten wir am selben Tag. Alle anderen Anfragen beantworten wir in der Reihenfolge ihres Eingangs.</p>
+          </details>
+          <details class="reveal border-y border-tinte/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="font-serif text-2xl transition-colors md:text-[28px]">Wie läuft ein Verwalterwechsel ab?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-tinte/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-tinte/75">Wir übernehmen die Unterlagen von der bisherigen Verwaltung, informieren Ihre Mieter schriftlich und stellen ihnen ihre neue Ansprechperson vor. Den Zeitplan besprechen wir vorab mit Ihnen.</p>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- ============ 10 · FOOTER & FINAL CTA ============ -->
+  <footer class="bg-tinte text-papier">
+    <div class="mx-auto max-w-7xl px-5 pt-24 md:px-8 md:pt-32">
+      <div class="reveal grid items-end gap-10 border-b border-papier/15 pb-20 lg:grid-cols-12">
+        <h2 class="serif-tight font-serif text-[clamp(3rem,7vw,6.5rem)] font-light leading-[0.95] lg:col-span-8">Ihr Zuhause verdient eine <em class="text-klinker-light">Antwort.</em></h2>
+        <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
+          <a href="#kontakt" class="btn btn-klinker">Anliegen melden <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <a href="index.html" class="flex items-center gap-3" aria-label="Kemner Hausverwaltung – zur Startseite">
+            <svg class="h-11 w-11" viewBox="0 0 44 44" aria-hidden="true">
+              <rect width="44" height="44" fill="#F3EEE4"/>
+              <path d="M9 38V20h3v-4h3v-4h3V8h8v4h3v4h3v4h3v18" fill="none" stroke="#1D3B33" stroke-width="2.4"/>
+              <path d="M17 38v-7a5 5 0 0 1 10 0v7" fill="none" stroke="#B5532E" stroke-width="2.4"/>
+            </svg>
+            <span class="font-serif text-[26px] font-semibold">Kemner</span>
+          </a>
+          <address class="mt-6 not-italic leading-relaxed text-papier/65">
+            Kemner Hausverwaltung GmbH<br>
+            Promenadenweg 12<br>
+            48143 Münster
+          </address>
+        </div>
+        <div class="lg:col-span-2">
+          <p class="eyebrow text-[10.5px] text-klinker-light">Seiten</p>
+          <ul class="mt-5 space-y-3 text-papier/70">
+            <li><a class="link-draw hover:text-papier" href="#mieter">Für Mieter</a></li>
+            <li><a class="link-draw hover:text-papier" href="#eigentuemer">Für Eigentümer</a></li>
+            <li><a class="link-draw hover:text-papier" href="#leistungen">Leistungen</a></li>
+            <li><a class="link-draw hover:text-papier" href="team.html">Team</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="eyebrow text-[10.5px] text-klinker-light">Kontakt</p>
+          <ul class="mt-5 space-y-3 text-papier/70">
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="h-4 w-4 text-papier/40"></i>0251 000 000-0</li>
+            <li class="flex items-center gap-3"><i data-lucide="siren" class="h-4 w-4 text-papier/40"></i>Notdienst 0251 000 000-99</li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="h-4 w-4 text-papier/40"></i>service@kemner-hausverwaltung.de</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="eyebrow text-[10.5px] text-klinker-light">Rechtliches</p>
+          <ul class="mt-5 space-y-3 text-papier/70">
+            <li><a class="link-draw hover:text-papier" href="#">Impressum</a></li>
+            <li><a class="link-draw hover:text-papier" href="#">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 border-t border-papier/10 py-8 text-[13px] text-papier/45 md:flex-row md:justify-between">
+        <p>© <span data-year>2026</span> Kemner Hausverwaltung GmbH</p>
+        <p>Fiktives Unternehmen aus einem Lehrfall · Kontaktdaten sind Platzhalter</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Header bekommt beim Scrollen Hintergrund und Linie
+    const bar = document.getElementById('top-bar');
+    const setBar = () => bar.classList.toggle('is-solid', window.scrollY > 60);
+    setBar();
+    window.addEventListener('scroll', setBar, { passive: true });
+
+    // Mobiles Menü
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Schnellzugriffe wählen das passende Anliegen im Formular vor
+    const anliegen = document.getElementById('anliegen');
+    document.querySelectorAll('[data-anliegen]').forEach(link => link.addEventListener('click', () => {
+      anliegen.value = link.dataset.anliegen;
+      if (link.dataset.anliegen === 'Verwaltung anfragen') document.getElementById('rolle-eigen').checked = true;
+    }));
+
+    // Scroll-Reveal und Zähler
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const countUp = el => {
+      const target = Number(el.dataset.count);
+      if (reduce) { el.textContent = target; return; }
+      const start = performance.now(), dur = 1200;
+      const tick = now => {
+        const p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        entry.target.querySelectorAll('[data-count]').forEach(countUp);
+        if (entry.target.dataset.count) countUp(entry.target);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Kontaktformular (Demo, keine Übermittlung)
+    const form = document.getElementById('contact-form');
+    const note = document.getElementById('form-note');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const missing = [...form.querySelectorAll('[required]')].filter(f => !f.value.trim() || (f.type === 'email' && !f.checkValidity()));
+      note.classList.remove('hidden');
+      if (missing.length) {
+        note.textContent = 'Bitte geben Sie Name, eine gültige E-Mail-Adresse und Ihre Nachricht an.';
+        missing[0].focus();
+        return;
+      }
+      note.textContent = 'Danke! Dies ist eine Demo-Seite, Ihre Nachricht wurde nicht versendet.';
+      form.reset();
+    });
+
+    document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
+  </script>
 </body>
 </html>
