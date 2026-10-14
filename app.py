@@ -9,17 +9,23 @@ import streamlit.components.v1 as components
 
 WEBSITES = Path(__file__).resolve().parent / "websites"
 PAGE_HEIGHT = 900
-# Die Navigation innerhalb der eingebetteten Websites ist nur Deko:
-# Klicks auf Header-/Nav-Links werden abgefangen, damit niemand weg navigiert.
+# Click-Dummy: Die eingebetteten Websites sind reine 1-Pager-Deko.
+# Kein Link navigiert irgendwohin, kein Formular wird abgeschickt –
+# Hover-Animationen bleiben erhalten (daher bewusst kein pointer-events: none).
 NAV_GUARD = """
-<style>
-header a, nav a { pointer-events: none !important; cursor: default !important; }
-</style>
 <script>
-document.addEventListener('click', function (event) {
-  var link = event.target.closest ? event.target.closest('header a, nav a') : null;
-  if (link) { event.preventDefault(); event.stopPropagation(); }
-}, true);
+(function () {
+  function kill(event) { event.preventDefault(); event.stopPropagation(); }
+  document.addEventListener('click', function (event) {
+    var link = event.target.closest ? event.target.closest('a[href]') : null;
+    if (link) { kill(event); }
+  }, true);
+  document.addEventListener('auxclick', function (event) {
+    var link = event.target.closest ? event.target.closest('a[href]') : null;
+    if (link) { kill(event); }
+  }, true);
+  document.addEventListener('submit', function (event) { kill(event); }, true);
+})();
 </script>
 """
 WEBSITE_NAMES = {
