@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bäckerei Hollenberg – Gebacken in Lippstadt</title>
+  <meta name="description" content="Bäckerei Hollenberg GmbH in Lippstadt: eigene Backstube mit drei Schichten, 14 Filialen, 165 Beschäftigte. Brot, Brötchen, Kuchen und Snacks, frisch gebacken.">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            nacht: { DEFAULT: '#161C33', 2: '#20284A', 3: '#2C365E' },
+            mehl: '#FFF8EC',
+            hefe: '#F6E3C0',
+            glut: { DEFAULT: '#F0A43A', dark: '#B86E12' },
+            kruste: '#7A3E16',
+            mond: '#8FB0F0'
+          },
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'sans-serif'],
+            sans: ['Figtree', 'sans-serif'],
+            mono: ['"DM Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root { --nacht: #161C33; --mehl: #FFF8EC; --hefe: #F6E3C0; --glut: #F0A43A; --kruste: #7A3E16; --mond: #8FB0F0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+    body { background: var(--mehl); }
+    ::selection { background: var(--glut); color: var(--nacht); }
+    :focus-visible { outline: 2px solid var(--glut); outline-offset: 3px; }
+
+    .display { font-family: "Bricolage Grotesque", sans-serif; font-variation-settings: "opsz" 96; letter-spacing: -0.035em; }
+    .eyebrow { font-family: "DM Mono", monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; }
+
+    /* Mehlstaub auf dunklen Flächen */
+    .dust { position: relative; isolation: isolate; }
+    .dust::before {
+      content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: .5;
+      background-image: radial-gradient(rgba(246, 227, 192, .09) 1px, transparent 1.2px);
+      background-size: 22px 22px;
+    }
+
+    /* Header */
+    #top-bar.is-solid { background: rgba(22, 28, 51, .95); backdrop-filter: blur(10px); border-bottom-color: rgba(246, 227, 192, .1); }
+    .nav-link { position: relative; transition: color .25s; }
+    .nav-link::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 5px; height: 5px; border-radius: 99px; background: var(--glut); transform: translateX(-50%) scale(0); transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .nav-link:hover { color: var(--mehl); }
+    .nav-link:hover::after { transform: translateX(-50%) scale(1); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; font-weight: 600; font-size: 15.5px; padding: .95rem 1.5rem; border-radius: 999px; transition: transform .3s cubic-bezier(.2,.7,.2,1), background-color .3s, color .3s, border-color .3s; }
+    .btn svg { width: 18px; height: 18px; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .btn:hover svg { transform: translateX(4px) rotate(-8deg); }
+    .btn-glut { background: var(--glut); color: var(--nacht); }
+    .btn-glut:hover { background: var(--hefe); transform: translateY(-2px) rotate(-1deg); }
+    .btn-ghost { border: 1.5px solid rgba(246, 227, 192, .35); color: var(--mehl); }
+    .btn-ghost:hover { border-color: var(--glut); color: var(--glut); }
+    .btn-nacht { background: var(--nacht); color: var(--mehl); }
+    .btn-nacht:hover { background: var(--kruste); transform: translateY(-2px) rotate(-1deg); }
+
+    /* Hero */
+    .rise { display: inline-block; animation: rise 1s cubic-bezier(.2,.75,.15,1) both; animation-delay: var(--d, 0ms); }
+    @keyframes rise { from { opacity: 0; transform: translateY(.5em) rotate(2deg); } }
+    .fade-in { animation: fadeIn 1s ease both; animation-delay: var(--d, 0ms); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } }
+    .ring-spin { animation: spin 40s linear infinite; transform-origin: 50% 50%; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loaf-in { animation: loafIn 1.4s cubic-bezier(.2,.75,.15,1) .3s both; }
+    @keyframes loafIn { from { opacity: 0; transform: scale(.82) rotate(-8deg); } }
+    .live-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--glut); box-shadow: 0 0 0 0 rgba(240, 164, 58, .6); animation: pulse 1.8s infinite; }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(240, 164, 58, 0); } 100% { box-shadow: 0 0 0 0 rgba(240, 164, 58, 0); } }
+
+    /* Scroll-Reveal */
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+
+    /* Sortiment */
+    .tile .tile-img { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+    .tile:hover .tile-img { transform: scale(1.05) rotate(.6deg); }
+    .tile h3 svg { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .tile:hover h3 svg { transform: translate(4px, -4px); }
+
+    /* Schichtuhr */
+    .shift-arc { transition: opacity .35s, stroke-width .35s; stroke-dasharray: 1; stroke-dashoffset: 1; }
+    .is-in .shift-arc { animation: drawArc 1.8s cubic-bezier(.6,.1,.2,1) forwards; animation-delay: var(--d, 0ms); }
+    @keyframes drawArc { to { stroke-dashoffset: 0; } }
+    .dial.focus .shift-arc { opacity: .18; }
+    .dial.focus .shift-arc.on { opacity: 1; stroke-width: 18; }
+    .shift-btn { transition: background-color .3s, border-color .3s, transform .3s; }
+    .shift-btn:hover { transform: translateX(4px); }
+    .shift-btn[aria-pressed="true"] { background: rgba(246, 227, 192, .08); border-color: rgba(246, 227, 192, .4); }
+    #dial-hand { transition: transform 1s cubic-bezier(.2,.7,.2,1); transform-origin: 200px 200px; }
+
+    /* Belegschaft-Balken */
+    .bar { width: 0; transition: width 1.3s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); border-radius: 0 4px 4px 0; }
+    .is-in .bar { width: calc(var(--v) / 96 * 100%); }
+    .bar-row { cursor: default; }
+    .bar-row:hover .bar, .bar-row:focus-visible .bar { background: var(--hefe); }
+    .bar-row:focus-visible { outline-offset: 6px; }
+    #chart-tip { transition: opacity .15s; }
+
+    /* Porträts */
+    .person .loaf { border-radius: 999px; overflow: hidden; transition: transform .6s cubic-bezier(.2,.7,.2,1), box-shadow .6s; }
+    .person .loaf img { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+    .person:hover .loaf { transform: rotate(-3deg) translateY(-6px); box-shadow: 0 0 0 3px var(--nacht), 0 0 0 5px var(--glut); }
+    .person:hover .loaf img { transform: scale(1.06); }
+
+    /* Filial-Tabs */
+    .tab-btn { transition: background-color .3s, color .3s; }
+    .tab-btn[aria-selected="true"] { background: var(--nacht); color: var(--mehl); }
+    .tab-panel li { transition: background-color .25s, padding .25s; }
+    .tab-panel li:hover { background: rgba(122, 62, 22, .07); padding-left: .75rem; }
+
+    /* FAQ */
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details .faq-icon { transition: transform .4s cubic-bezier(.2,.7,.2,1), background-color .3s, color .3s; }
+    details[open] .faq-icon { transform: rotate(135deg); background: var(--glut); color: var(--nacht); border-color: var(--glut); }
+    details[open] .faq-body { animation: fadeIn .45s ease both; }
+    details summary:hover h3 { color: var(--kruste); }
+
+    /* Formular */
+    .field { width: 100%; background: #fff; border: 1.5px solid rgba(22, 28, 51, .14); border-radius: 14px; padding: .8rem 1rem; font-size: 1rem; color: var(--nacht); transition: border-color .25s, box-shadow .25s; }
+    .field:focus { outline: none; border-color: var(--kruste); box-shadow: 0 0 0 4px rgba(240, 164, 58, .25); }
+    .field::placeholder { color: rgba(22, 28, 51, .38); }
+    select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%23161C33' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .shift-arc { stroke-dashoffset: 0; }
+      .bar { width: calc(var(--v) / 96 * 100%); }
+    }
+  </style>
+</head>
+
+<body class="bg-mehl font-sans text-nacht antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header id="top-bar" class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <a href="#top" class="group flex items-center gap-3" aria-label="Bäckerei Hollenberg – nach oben">
+        <svg class="h-11 w-11 shrink-0 transition-transform duration-500 group-hover:rotate-[-12deg]" viewBox="0 0 40 40" aria-hidden="true">
+          <circle cx="20" cy="20" r="20" fill="#F0A43A"/>
+          <g fill="#161C33">
+            <rect x="19.25" y="9" width="1.5" height="24" rx=".75"/>
+            <ellipse cx="20" cy="8.6" rx="1.8" ry="3.1"/>
+            <ellipse cx="16.6" cy="13.4" rx="2" ry="3.6" transform="rotate(-32 16.6 13.4)"/>
+            <ellipse cx="23.4" cy="13.4" rx="2" ry="3.6" transform="rotate(32 23.4 13.4)"/>
+            <ellipse cx="16.6" cy="19" rx="2" ry="3.6" transform="rotate(-32 16.6 19)"/>
+            <ellipse cx="23.4" cy="19" rx="2" ry="3.6" transform="rotate(32 23.4 19)"/>
+            <ellipse cx="16.6" cy="24.6" rx="2" ry="3.6" transform="rotate(-32 16.6 24.6)"/>
+            <ellipse cx="23.4" cy="24.6" rx="2" ry="3.6" transform="rotate(32 23.4 24.6)"/>
+          </g>
+        </svg>
+        <span class="leading-none">
+          <span class="display block text-[25px] font-extrabold text-mehl">Hollenberg</span>
+          <span class="mt-1 block font-mono text-[10px] uppercase tracking-[0.2em] text-hefe/60">Bäckerei · Lippstadt</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 text-[15px] font-medium text-hefe/75 lg:flex" aria-label="Hauptnavigation">
+        <a class="nav-link" href="#sortiment">Sortiment</a>
+        <a class="nav-link" href="#backstube">Backstube</a>
+        <a class="nav-link" href="#filialen">Filialen</a>
+        <a class="nav-link" href="#team">Team</a>
+        <a class="nav-link" href="#karriere">Karriere</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#vorbestellen" class="btn btn-glut hidden !py-3 md:inline-flex">Vorbestellen <i data-lucide="arrow-right"></i></a>
+        <button id="menu-btn" class="grid h-11 w-11 place-items-center rounded-full border border-hefe/30 text-mehl transition-colors hover:border-glut hover:text-glut lg:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-hefe/10 bg-nacht lg:hidden">
+      <nav class="mx-auto flex max-w-7xl flex-col px-5 py-4 text-mehl md:px-8" aria-label="Mobile Navigation">
+        <a class="display flex items-center justify-between border-b border-hefe/10 py-4 text-3xl font-bold hover:text-glut" href="#sortiment">Sortiment <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="display flex items-center justify-between border-b border-hefe/10 py-4 text-3xl font-bold hover:text-glut" href="#backstube">Backstube <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="display flex items-center justify-between border-b border-hefe/10 py-4 text-3xl font-bold hover:text-glut" href="#filialen">Filialen <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="display flex items-center justify-between border-b border-hefe/10 py-4 text-3xl font-bold hover:text-glut" href="#team">Team <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="display flex items-center justify-between border-b border-hefe/10 py-4 text-3xl font-bold hover:text-glut" href="#karriere">Karriere <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="display flex items-center justify-between border-b border-hefe/10 py-4 text-3xl font-bold hover:text-glut" href="#faq">FAQ <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a href="#vorbestellen" class="btn btn-glut mt-6 w-full">Vorbestellen <i data-lucide="arrow-right"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 1 · HERO ============ -->
+    <section class="dust overflow-hidden bg-nacht text-mehl">
+      <div class="mx-auto grid max-w-7xl gap-16 px-5 pb-24 pt-36 md:px-8 lg:min-h-[100svh] lg:grid-cols-12 lg:items-center lg:gap-10 lg:pb-20 lg:pt-32">
+        <div class="lg:col-span-7">
+          <p class="eyebrow fade-in flex items-center gap-3 text-glut" style="--d:60ms"><i data-lucide="moon" class="h-4 w-4"></i>Bäckerei in Lippstadt · 14 Filialen</p>
+          <h1 class="display mt-7 text-[clamp(3.3rem,8vw,7.4rem)] font-extrabold leading-[0.9]">
+            <span class="rise" style="--d:120ms">Gebacken,</span><br>
+            <span class="rise" style="--d:230ms">während</span>
+            <span class="rise" style="--d:330ms">Lippstadt</span><br>
+            <span class="rise text-glut" style="--d:450ms">schläft.</span>
+          </h1>
+          <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-hefe/80 md:text-xl" style="--d:750ms">
+            Um 21 Uhr beginnt in unserer Backstube der Tag. 38 Menschen backen in drei Schichten. Neun Fahrer bringen alles in 14 Filialen, damit es morgens frisch in der Theke liegt.
+          </p>
+          <div class="fade-in mt-10 flex flex-wrap gap-4" style="--d:900ms">
+            <a href="#vorbestellen" class="btn btn-glut">Brötchen vorbestellen <i data-lucide="arrow-right"></i></a>
+            <a href="#filialen" class="btn btn-ghost"><i data-lucide="map-pin" class="!h-4 !w-4"></i> Filiale finden</a>
+          </div>
+        </div>
+
+        <div class="relative mx-auto w-full max-w-[470px] lg:col-span-5">
+          <div class="loaf-in relative aspect-square">
+            <svg class="ring-spin absolute inset-0 h-full w-full" viewBox="0 0 300 300" aria-hidden="true">
+              <defs><path id="ringPath" d="M150,150 m-138,0 a138,138 0 1,1 276,0 a138,138 0 1,1 -276,0"/></defs>
+              <text font-family="DM Mono, monospace" font-size="11" fill="#F6E3C0" fill-opacity=".75">
+                <textPath href="#ringPath" textLength="862" lengthAdjust="spacing">FRISCH AUS DER BACKSTUBE · GEBACKEN IN LIPPSTADT · JEDE NACHT AB 21 UHR · </textPath>
+              </text>
+            </svg>
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=900&h=900&q=80" alt="Frisch gebackenes Brot, mit Mehl bestäubt" class="absolute inset-[11%] h-[78%] w-[78%] rounded-full object-cover" fetchpriority="high">
+          </div>
+
+          <div class="fade-in absolute -bottom-10 left-0 w-[290px] rounded-[1.6rem] bg-mehl p-5 text-nacht sm:-left-6" style="--d:1200ms" aria-live="polite">
+            <div class="flex items-center justify-between">
+              <span class="eyebrow flex items-center gap-2 text-[11px] text-kruste"><span class="live-dot"></span>Backstube live</span>
+              <span id="live-time" class="font-mono text-sm">--:--</span>
+            </div>
+            <p id="live-shift" class="display mt-3 text-2xl font-bold leading-tight">Nachtschicht</p>
+            <p id="live-text" class="mt-1 text-[15px] leading-snug text-nacht/70">Die Nachtschicht backt Brot und Brötchen für den Morgen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · FAKTEN (Social Proof) ============ -->
+    <section aria-label="Hollenberg in Zahlen" class="border-y border-hefe/10 bg-nacht-2 text-mehl">
+      <dl class="mx-auto grid max-w-7xl grid-cols-2 px-5 md:grid-cols-5 md:px-8">
+        <div class="reveal flex flex-col-reverse justify-end border-b border-r border-hefe/10 py-7 pr-4 md:border-b-0">
+          <dt class="eyebrow mt-1 text-[10.5px] text-hefe/55">Beschäftigte</dt>
+          <dd class="display text-4xl font-bold md:text-5xl">165</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-hefe/10 py-7 pl-5 md:border-b-0 md:border-r" style="--d:60ms">
+          <dt class="eyebrow mt-1 text-[10.5px] text-hefe/55">Filialen</dt>
+          <dd class="display text-4xl font-bold md:text-5xl">14</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-r border-hefe/10 py-7 pr-4 md:border-b-0 md:pl-5" style="--d:120ms">
+          <dt class="eyebrow mt-1 text-[10.5px] text-hefe/55">Schichten</dt>
+          <dd class="display text-4xl font-bold md:text-5xl">3</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-hefe/10 py-7 pl-5 md:border-b-0 md:border-r" style="--d:180ms">
+          <dt class="eyebrow mt-1 text-[10.5px] text-hefe/55">Fahrer</dt>
+          <dd class="display text-4xl font-bold md:text-5xl">9</dd>
+        </div>
+        <div class="reveal col-span-2 flex flex-col-reverse justify-end py-7 md:col-span-1 md:pl-5" style="--d:240ms">
+          <dt class="eyebrow mt-1 text-[10.5px] text-hefe/55">Backstube in Lippstadt</dt>
+          <dd class="display text-4xl font-bold md:text-5xl">1</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ 3 · PROBLEM ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="eyebrow text-kruste">Ehrlich gesagt</p>
+          <h2 class="display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]">Viel Brot wird heute nur noch <span class="text-glut-dark">aufgebacken.</span></h2>
+        </div>
+        <div class="grid gap-10 sm:grid-cols-3 lg:col-span-7 lg:gap-8">
+          <article class="reveal border-t-2 border-nacht pt-6" style="--d:80ms">
+            <i data-lucide="snowflake" class="h-6 w-6 text-kruste"></i>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Teig aus dem Tiefkühler</h3>
+            <p class="mt-3 text-nacht/70">Oft kommen Teiglinge gefroren von weit her. Vor Ort wird nur noch fertig gebacken.</p>
+          </article>
+          <article class="reveal border-t-2 border-nacht pt-6" style="--d:160ms">
+            <i data-lucide="circle-help" class="h-6 w-6 text-kruste"></i>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Niemand weiß, wer es gebacken hat</h3>
+            <p class="mt-3 text-nacht/70">Wer fragt, was im Brot steckt, bekommt selten eine Antwort.</p>
+          </article>
+          <article class="reveal border-t-2 border-nacht pt-6" style="--d:240ms">
+            <i data-lucide="thermometer" class="h-6 w-6 text-kruste"></i>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">„Frisch“ heißt nur: gerade warm</h3>
+            <p class="mt-3 text-nacht/70">Duft aus dem Ofen ist noch kein Beweis für Handwerk.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · TRANSFORMATION ============ -->
+    <section class="mx-auto max-w-7xl px-5 pb-24 md:px-8 md:pb-32">
+      <div class="grid items-center gap-12 lg:grid-cols-12">
+        <figure class="reveal relative overflow-hidden rounded-[2.5rem] lg:col-span-6">
+          <img src="https://images.unsplash.com/photo-1517686469429-8bdb88b9f907?auto=format&fit=crop&w=1100&h=900&q=80" alt="Hände kneten Teig auf einer bemehlten Arbeitsfläche" loading="lazy" class="aspect-[11/9] w-full object-cover">
+          <figcaption class="absolute bottom-5 left-5 rounded-full bg-mehl px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em]">Backstube Lippstadt · 21:00 Uhr</figcaption>
+        </figure>
+        <div class="lg:col-span-6 lg:pl-8">
+          <p class="reveal eyebrow text-kruste">Bei Hollenberg</p>
+          <h2 class="reveal display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]" style="--d:80ms">Unsere Backstube steht in Lippstadt. Sie schläft nie ganz.</h2>
+          <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-nacht/75" style="--d:140ms">38 Menschen arbeiten in unserer Backstube, verteilt auf drei Schichten rund um die Uhr. Was morgens in unseren 14 Filialen liegt, wurde in der Nacht davor in Lippstadt gebacken.</p>
+          <blockquote class="reveal mt-10 border-l-4 border-glut pl-6" style="--d:220ms">
+            <p class="display text-2xl font-semibold leading-snug md:text-[28px]">„Ein guter Teig braucht Zeit. Deshalb fangen wir an, wenn andere Feierabend machen.“</p>
+            <footer class="mt-3 font-mono text-[12px] uppercase tracking-[0.14em] text-nacht/60">Bernd Wiemers · Backstubenleiter</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCHICHTUHR ============ -->
+    <section id="backstube" class="dust bg-nacht text-mehl">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-7">
+            <p class="eyebrow text-glut">Die Backstube</p>
+            <h2 class="display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]">24 Stunden. Drei Schichten.</h2>
+          </div>
+          <p class="text-lg text-hefe/70 lg:col-span-4 lg:col-start-9">Der Zeiger zeigt die aktuelle Uhrzeit. Tippen Sie auf eine Schicht, um sie auf der Uhr hervorzuheben.</p>
+        </div>
+
+        <div class="reveal mt-16 grid items-center gap-14 lg:grid-cols-12" id="dial-wrap">
+          <div class="mx-auto w-full max-w-[460px] lg:col-span-6">
+            <svg id="dial" class="dial h-auto w-full" viewBox="0 0 400 400" role="img" aria-labelledby="dial-title dial-desc">
+              <title id="dial-title">24-Stunden-Schichtuhr der Backstube</title>
+              <desc id="dial-desc">Nachtschicht von 21 bis 5 Uhr, Frühschicht von 4 bis 12 Uhr, Tagschicht von 11 bis 19 Uhr. Zwischen 19 und 21 Uhr ruht die Backstube.</desc>
+              <g id="dial-ticks"></g>
+              <g id="dial-tracks" fill="none" stroke="#F6E3C0" stroke-opacity=".07" stroke-width="14"></g>
+              <g id="dial-arcs" fill="none" stroke-linecap="round" stroke-width="14"></g>
+              <g id="dial-hand">
+                <line x1="200" y1="200" x2="200" y2="34" stroke="#FFF8EC" stroke-width="2"/>
+                <circle cx="200" cy="34" r="6" fill="#FFF8EC"/>
+              </g>
+              <circle cx="200" cy="200" r="58" fill="#20284A"/>
+              <text id="dial-time" x="200" y="198" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="700" font-size="30" fill="#FFF8EC">--:--</text>
+              <text id="dial-sub" x="200" y="222" text-anchor="middle" font-family="DM Mono, monospace" font-size="10.5" letter-spacing="1.5" fill="#F6E3C0" fill-opacity=".7">JETZT</text>
+            </svg>
+          </div>
+
+          <div class="space-y-3 lg:col-span-6" role="group" aria-label="Schichten">
+            <button class="shift-btn flex w-full items-start gap-5 rounded-[1.4rem] border border-hefe/15 p-5 text-left md:p-6" data-shift="nacht" aria-pressed="false">
+              <span class="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full bg-mond text-nacht"><i data-lucide="moon" class="h-5 w-5"></i></span>
+              <span class="flex-1">
+                <span class="flex flex-wrap items-baseline justify-between gap-2"><span class="display text-2xl font-bold">Nachtschicht</span><span class="font-mono text-sm text-hefe/80">21–5 Uhr</span></span>
+                <span class="mt-1 block text-hefe/70">Brot und Brötchen für den Morgen. Bevor die erste Filiale öffnet, ist alles gebacken.</span>
+              </span>
+            </button>
+            <button class="shift-btn flex w-full items-start gap-5 rounded-[1.4rem] border border-hefe/15 p-5 text-left md:p-6" data-shift="frueh" aria-pressed="false">
+              <span class="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full bg-glut text-nacht"><i data-lucide="sunrise" class="h-5 w-5"></i></span>
+              <span class="flex-1">
+                <span class="flex flex-wrap items-baseline justify-between gap-2"><span class="display text-2xl font-bold">Frühschicht</span><span class="font-mono text-sm text-hefe/80">4–12 Uhr</span></span>
+                <span class="mt-1 block text-hefe/70">Nachbacken für den Vormittag, belegte Brötchen und Snacks. Die Fahrer starten ihre Touren.</span>
+              </span>
+            </button>
+            <button class="shift-btn flex w-full items-start gap-5 rounded-[1.4rem] border border-hefe/15 p-5 text-left md:p-6" data-shift="tag" aria-pressed="false">
+              <span class="mt-1 grid h-11 w-11 shrink-0 place-items-center rounded-full bg-hefe text-nacht"><i data-lucide="sun" class="h-5 w-5"></i></span>
+              <span class="flex-1">
+                <span class="flex flex-wrap items-baseline justify-between gap-2"><span class="display text-2xl font-bold">Tagschicht</span><span class="font-mono text-sm text-hefe/80">11–19 Uhr</span></span>
+                <span class="mt-1 block text-hefe/70">Kuchen, Torten und Feingebäck. Dazu bereitet die Tagschicht die Teige für die nächste Nacht vor.</span>
+              </span>
+            </button>
+            <p class="flex items-center gap-3 px-2 pt-2 text-sm text-hefe/55"><i data-lucide="hourglass" class="h-4 w-4"></i>Zwischen 19 und 21 Uhr ruht die Backstube, und die Teige reifen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · SORTIMENT ============ -->
+    <section id="sortiment" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow text-kruste">Sortiment</p>
+          <h2 class="display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]">Was aus dem Ofen kommt.</h2>
+        </div>
+        <p class="text-lg text-nacht/70 lg:col-span-4 lg:col-start-9">Bei jeder Sorte steht, was sie für Ihren Alltag bedeutet.</p>
+      </div>
+
+      <div class="mt-16 grid gap-x-8 gap-y-14 md:grid-cols-12">
+        <article class="tile reveal md:col-span-7 md:row-span-2">
+          <div class="overflow-hidden rounded-[2.5rem]"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&h=1100&q=80" alt="Verschiedene Brote mit Weizenähren" loading="lazy" class="tile-img aspect-[12/11] w-full object-cover"></div>
+          <div class="mt-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-10">
+            <div>
+              <h3 class="display flex items-center gap-2 text-4xl font-extrabold">Brot <i data-lucide="arrow-up-right" class="h-6 w-6 text-kruste"></i></h3>
+              <p class="mt-2 max-w-sm text-nacht/70">Roggen, Dinkel und Weizen, viele Sorten mit Sauerteig und langer Teigruhe.</p>
+            </div>
+            <p class="max-w-[16rem] rounded-2xl bg-hefe/60 px-4 py-3 text-[15px] font-medium"><span class="eyebrow mb-1 block text-[10.5px] text-kruste">Für Sie heißt das</span>Ihr Brot bleibt mehrere Tage frisch und ist gut bekömmlich.</p>
+          </div>
+        </article>
+
+        <article class="tile reveal md:col-span-5" style="--d:100ms">
+          <div class="overflow-hidden rounded-[2rem]"><img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?auto=format&fit=crop&w=900&h=560&q=80" alt="Croissants und Gebäck auf einem Tisch" loading="lazy" class="tile-img aspect-[9/5.6] w-full object-cover"></div>
+          <h3 class="display mt-5 flex items-center gap-2 text-3xl font-extrabold">Brötchen &amp; Gebäck <i data-lucide="arrow-up-right" class="h-5 w-5 text-kruste"></i></h3>
+          <p class="mt-2 text-nacht/70">In der Nacht gebacken, am Vormittag frisch nachgebacken.</p>
+          <p class="mt-3 border-l-2 border-glut pl-3 text-[15px] font-medium">Auch um 11 Uhr bekommen Sie noch knusprige Brötchen.</p>
+        </article>
+
+        <article class="tile reveal md:col-span-5" style="--d:180ms">
+          <div class="overflow-hidden rounded-[2rem]"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=900&h=560&q=80" alt="Schokoladentorte" loading="lazy" class="tile-img aspect-[9/5.6] w-full object-cover"></div>
+          <h3 class="display mt-5 flex items-center gap-2 text-3xl font-extrabold">Kuchen &amp; Torten <i data-lucide="arrow-up-right" class="h-5 w-5 text-kruste"></i></h3>
+          <p class="mt-2 text-nacht/70">Aus der Tagschicht. Torten backen wir auch auf Bestellung.</p>
+          <p class="mt-3 border-l-2 border-glut pl-3 text-[15px] font-medium">Ihre Geburtstagstorte kommt aus Lippstadt, nicht aus dem Kühlregal.</p>
+        </article>
+
+        <article class="tile reveal grid items-center gap-8 md:col-span-12 md:grid-cols-12" style="--d:100ms">
+          <div class="overflow-hidden rounded-[2rem] md:col-span-5"><img src="https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?auto=format&fit=crop&w=900&h=560&q=80" alt="Belegtes Brötchen mit Salat" loading="lazy" class="tile-img aspect-[9/5.6] w-full object-cover"></div>
+          <div class="md:col-span-6 md:col-start-7">
+            <h3 class="display flex items-center gap-2 text-3xl font-extrabold">Snacks &amp; Belegtes <i data-lucide="arrow-up-right" class="h-5 w-5 text-kruste"></i></h3>
+            <p class="mt-2 text-nacht/70">Belegte Brötchen und Herzhaftes, jeden Morgen frisch aus der Frühschicht.</p>
+            <p class="mt-3 border-l-2 border-glut pl-3 text-[15px] font-medium">Ihre Mittagspause ist in zwei Minuten gesichert, ohne Kompromiss beim Geschmack.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ABLAUF: VORBESTELLEN ============ -->
+    <section class="bg-hefe/50">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal max-w-2xl">
+          <p class="eyebrow text-kruste">So einfach geht's</p>
+          <h2 class="display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]">Heute bestellen, morgen abholen.</h2>
+        </div>
+
+        <ol class="mt-16 grid gap-6 md:grid-cols-3">
+          <li class="reveal group relative overflow-hidden rounded-[2rem] bg-mehl p-8 transition-transform duration-500 hover:-translate-y-1" style="--d:60ms">
+            <p class="font-mono text-sm text-kruste">bis 18:00</p>
+            <p class="display mt-6 text-7xl font-extrabold text-nacht/10 transition-colors duration-500 group-hover:text-glut">01</p>
+            <h3 class="display mt-2 text-2xl font-bold">Bestellen</h3>
+            <p class="mt-2 text-nacht/70">Per Formular, telefonisch oder direkt in Ihrer Filiale.</p>
+          </li>
+          <li class="reveal group relative overflow-hidden rounded-[2rem] bg-nacht p-8 text-mehl transition-transform duration-500 hover:-translate-y-1" style="--d:140ms">
+            <p class="font-mono text-sm text-glut">ab 21:00</p>
+            <p class="display mt-6 text-7xl font-extrabold text-mehl/15 transition-colors duration-500 group-hover:text-glut">02</p>
+            <h3 class="display mt-2 text-2xl font-bold">Die Nachtschicht backt</h3>
+            <p class="mt-2 text-hefe/70">Ihre Bestellung kommt mit in den Backplan der Nacht.</p>
+          </li>
+          <li class="reveal group relative overflow-hidden rounded-[2rem] bg-mehl p-8 transition-transform duration-500 hover:-translate-y-1" style="--d:220ms">
+            <p class="font-mono text-sm text-kruste">ab Öffnung</p>
+            <p class="display mt-6 text-7xl font-extrabold text-nacht/10 transition-colors duration-500 group-hover:text-glut">03</p>
+            <h3 class="display mt-2 text-2xl font-bold">Abholen</h3>
+            <p class="mt-2 text-nacht/70">In Ihrer Filiale. Die Tüte liegt mit Ihrem Namen bereit.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ FILIALEN ============ -->
+    <section id="filialen" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <p class="reveal eyebrow text-kruste">Filialen</p>
+          <h2 class="reveal display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]" style="--d:80ms">14 Filialen. Zwei Bezirke. Kurze Wege.</h2>
+          <p class="reveal mt-6 text-lg text-nacht/70" style="--d:140ms">Jede Filiale hat eine eigene Filialleitung. Insgesamt 96 Verkaufskräfte stehen für Sie hinter der Theke.</p>
+          <figure class="reveal mt-10 overflow-hidden rounded-[2rem]" style="--d:200ms">
+            <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=900&h=600&q=80" alt="Theke einer Bäckerei mit Brot und Gebäck" loading="lazy" class="aspect-[3/2] w-full object-cover">
+          </figure>
+        </div>
+
+        <div class="reveal lg:col-span-7" style="--d:120ms">
+          <div class="inline-flex rounded-full border border-nacht/15 p-1" role="tablist" aria-label="Bezirke">
+            <button class="tab-btn rounded-full px-6 py-2.5 font-medium" role="tab" id="tab-nord" aria-selected="true" aria-controls="panel-nord">Bezirk Nord</button>
+            <button class="tab-btn rounded-full px-6 py-2.5 font-medium" role="tab" id="tab-sued" aria-selected="false" aria-controls="panel-sued" tabindex="-1">Bezirk Süd</button>
+          </div>
+
+          <div id="panel-nord" class="tab-panel mt-8" role="tabpanel" aria-labelledby="tab-nord">
+            <div class="flex items-center gap-4 rounded-[1.6rem] bg-hefe/50 p-4">
+              <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&crop=faces&w=160&h=160&q=70" alt="Porträt von Nina Arslan" loading="lazy" class="h-14 w-14 rounded-full object-cover">
+              <div>
+                <p class="display text-xl font-bold">Nina Arslan</p>
+                <p class="font-mono text-[12px] uppercase tracking-[0.12em] text-kruste">Bezirksleiterin Nord · 7 Filialen</p>
+              </div>
+            </div>
+            <ol class="mt-6 divide-y divide-nacht/10 border-y border-nacht/10">
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N1</span><span class="display text-xl font-semibold">Am Marktplatz</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N2</span><span class="display text-xl font-semibold">Lange Straße</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N3</span><span class="display text-xl font-semibold">Am Bahnhof</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N4</span><span class="display text-xl font-semibold">Lipperode</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N5</span><span class="display text-xl font-semibold">Bad Waldliesborn</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N6</span><span class="display text-xl font-semibold">Hörste</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">N7</span><span class="display text-xl font-semibold">Cappel</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+            </ol>
+          </div>
+
+          <div id="panel-sued" class="tab-panel mt-8 hidden" role="tabpanel" aria-labelledby="tab-sued">
+            <div class="flex items-center gap-4 rounded-[1.6rem] bg-hefe/50 p-4">
+              <img src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?auto=format&fit=crop&crop=faces&w=160&h=160&q=70" alt="Porträt von Jörg Dreismann" loading="lazy" class="h-14 w-14 rounded-full object-cover">
+              <div>
+                <p class="display text-xl font-bold">Jörg Dreismann</p>
+                <p class="font-mono text-[12px] uppercase tracking-[0.12em] text-kruste">Bezirksleiter Süd · 7 Filialen</p>
+              </div>
+            </div>
+            <ol class="mt-6 divide-y divide-nacht/10 border-y border-nacht/10">
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S1</span><span class="display text-xl font-semibold">Rathausstraße</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S2</span><span class="display text-xl font-semibold">Erwitter Straße</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S3</span><span class="display text-xl font-semibold">Overhagen</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S4</span><span class="display text-xl font-semibold">Am Klinikum</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S5</span><span class="display text-xl font-semibold">Dedinghausen</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S6</span><span class="display text-xl font-semibold">Rixbeck</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+              <li class="flex items-center justify-between gap-4 py-4"><span class="flex items-center gap-4"><span class="font-mono text-sm text-nacht/45">S7</span><span class="display text-xl font-semibold">Im Einkaufszentrum Süd</span></span><i data-lucide="map-pin" class="h-4 w-4 text-kruste"></i></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · STIMMEN ============ -->
+    <section class="border-t border-nacht/10">
+      <div class="mx-auto grid max-w-7xl gap-16 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <figure class="reveal lg:col-span-8">
+          <i data-lucide="quote" class="h-10 w-10 text-glut"></i>
+          <blockquote class="display mt-6 text-[clamp(2rem,4vw,3.4rem)] font-bold leading-[1.05]">
+            Um halb sieben hole ich meine Brötchen, und sie sind noch warm. Seit zwanzig Jahren. <span class="text-glut-dark">Darauf kann man sich verlassen.</span>
+          </blockquote>
+          <figcaption class="mt-8 font-mono text-[12px] uppercase tracking-[0.14em] text-nacht/60">Stammkundin · Filiale Am Marktplatz</figcaption>
+        </figure>
+        <figure class="reveal self-end border-t-2 border-nacht pt-8 lg:col-span-4" style="--d:150ms">
+          <blockquote class="text-xl leading-relaxed">„Die Torte zur Taufe war genau so, wie wir sie besprochen hatten. Und sie war rechtzeitig fertig.“</blockquote>
+          <figcaption class="mt-5 font-mono text-[12px] uppercase tracking-[0.14em] text-nacht/60">Kunde · Filiale Overhagen</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section id="team" class="dust bg-nacht text-mehl">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-7">
+            <p class="eyebrow text-glut">Team</p>
+            <h2 class="display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]">165 Menschen. Ein Rezept.</h2>
+          </div>
+          <p class="text-lg text-hefe/70 lg:col-span-4 lg:col-start-9">Von der Nachtschicht bis zur Aushilfe am Samstag. Hier stellen wir einige der Menschen hinter Hollenberg vor.</p>
+        </div>
+
+        <!-- Portraits -->
+        <div class="mt-16 grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-5">
+          <article class="person reveal" style="--d:40ms">
+            <div class="loaf aspect-[3/4] bg-nacht-2"><img src="https://images.unsplash.com/photo-1592621385612-4d7129426394?auto=format&fit=crop&crop=faces&w=600&h=800&q=80" alt="Porträt von Katrin Hollenberg" loading="lazy" class="h-full w-full object-cover"></div>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Katrin Hollenberg</h3>
+            <p class="mt-1 font-mono text-[11.5px] uppercase tracking-[0.12em] text-glut">Geschäftsführerin</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-hefe/70">Führt die Bäckerei und hält Backstube, Filialen und Verwaltung zusammen. Probiert jedes neue Rezept, bevor es in die Theke kommt.</p>
+          </article>
+          <article class="person reveal lg:mt-16" style="--d:110ms">
+            <div class="loaf aspect-[3/4] bg-nacht-2"><img src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?auto=format&fit=crop&crop=faces&w=600&h=800&q=80" alt="Porträt von Bernd Wiemers" loading="lazy" class="h-full w-full object-cover"></div>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Bernd Wiemers</h3>
+            <p class="mt-1 font-mono text-[11.5px] uppercase tracking-[0.12em] text-glut">Backstubenleiter</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-hefe/70">Leitet 38 Menschen in drei Schichten. Wenn um 21 Uhr die Nachtschicht beginnt, steht der Plan für den nächsten Morgen.</p>
+          </article>
+          <article class="person reveal" style="--d:180ms">
+            <div class="loaf aspect-[3/4] bg-nacht-2"><img src="https://images.unsplash.com/photo-1567532939604-b6b5b0db2604?auto=format&fit=crop&crop=faces&w=600&h=800&q=80" alt="Porträt von Nina Arslan" loading="lazy" class="h-full w-full object-cover"></div>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Nina Arslan</h3>
+            <p class="mt-1 font-mono text-[11.5px] uppercase tracking-[0.12em] text-glut">Bezirksleiterin Nord</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-hefe/70">Betreut sieben Filialen im Norden und ihre Teams, von der Filialleitung bis zur Aushilfe.</p>
+          </article>
+          <article class="person reveal lg:mt-16" style="--d:250ms">
+            <div class="loaf aspect-[3/4] bg-nacht-2"><img src="https://images.unsplash.com/photo-1562788869-4ed32648eb72?auto=format&fit=crop&crop=faces&w=600&h=800&q=80" alt="Porträt von Jörg Dreismann" loading="lazy" class="h-full w-full object-cover"></div>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Jörg Dreismann</h3>
+            <p class="mt-1 font-mono text-[11.5px] uppercase tracking-[0.12em] text-glut">Bezirksleiter Süd</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-hefe/70">Betreut sieben Filialen im Süden. Kennt jede Theke und weiß, was dort morgens zuerst ausverkauft ist.</p>
+          </article>
+          <article class="person reveal" style="--d:320ms">
+            <div class="loaf aspect-[3/4] bg-nacht-2"><img src="https://images.unsplash.com/photo-1546961329-78bef0414d7c?auto=format&fit=crop&crop=faces&w=600&h=800&q=80" alt="Porträt von Gabi Tönnies" loading="lazy" class="h-full w-full object-cover"></div>
+            <h3 class="display mt-5 text-2xl font-bold leading-tight">Gabi Tönnies</h3>
+            <p class="mt-1 font-mono text-[11.5px] uppercase tracking-[0.12em] text-glut">Betriebsratsvorsitzende</p>
+            <p class="mt-3 text-[15px] leading-relaxed text-hefe/70">Leitet den Betriebsrat mit sieben Mitgliedern und ist Ansprechpartnerin für alle 165 Beschäftigten.</p>
+          </article>
+        </div>
+
+        <!-- Belegschaft nach Bereich -->
+        <div class="mt-24 grid gap-12 border-t border-hefe/15 pt-16 lg:grid-cols-12">
+          <div class="reveal lg:col-span-4">
+            <h3 class="display text-3xl font-bold leading-tight">Wo unsere 165 Beschäftigten arbeiten</h3>
+            <p class="mt-4 text-hefe/70">Die meisten stehen hinter der Theke. Fahren Sie über einen Balken für Details.</p>
+          </div>
+          <figure id="staff-chart" class="reveal relative lg:col-span-8" style="--d:100ms">
+            <ul class="space-y-6">
+              <li class="bar-row" tabindex="0" data-label="Verkauf" data-value="96" data-detail="davon 41 in Teilzeit und 18 Aushilfen">
+                <div class="flex items-baseline justify-between gap-4"><span class="font-medium">Verkauf</span><span class="font-mono text-mehl">96</span></div>
+                <div class="mt-2 h-3"><div class="bar h-3 bg-glut" style="--v:96; --d:100ms"></div></div>
+              </li>
+              <li class="bar-row" tabindex="0" data-label="Backstube" data-value="38" data-detail="in Nacht-, Früh- und Tagschicht">
+                <div class="flex items-baseline justify-between gap-4"><span class="font-medium">Backstube</span><span class="font-mono text-mehl">38</span></div>
+                <div class="mt-2 h-3"><div class="bar h-3 bg-glut" style="--v:38; --d:200ms"></div></div>
+              </li>
+              <li class="bar-row" tabindex="0" data-label="Filialleitungen" data-value="14" data-detail="eine Leitung je Filiale">
+                <div class="flex items-baseline justify-between gap-4"><span class="font-medium">Filialleitungen</span><span class="font-mono text-mehl">14</span></div>
+                <div class="mt-2 h-3"><div class="bar h-3 bg-glut" style="--v:14; --d:300ms"></div></div>
+              </li>
+              <li class="bar-row" tabindex="0" data-label="Fahrer" data-value="9" data-detail="beliefern alle 14 Filialen">
+                <div class="flex items-baseline justify-between gap-4"><span class="font-medium">Fahrer</span><span class="font-mono text-mehl">9</span></div>
+                <div class="mt-2 h-3"><div class="bar h-3 bg-glut" style="--v:9; --d:400ms"></div></div>
+              </li>
+              <li class="bar-row" tabindex="0" data-label="Verwaltung" data-value="8" data-detail="Personal, Einkauf und Buchhaltung">
+                <div class="flex items-baseline justify-between gap-4"><span class="font-medium">Verwaltung</span><span class="font-mono text-mehl">8</span></div>
+                <div class="mt-2 h-3"><div class="bar h-3 bg-glut" style="--v:8; --d:500ms"></div></div>
+              </li>
+            </ul>
+            <div class="mt-6 border-t border-hefe/15 pt-3 font-mono text-[11px] uppercase tracking-[0.12em] text-hefe/50">Anzahl Beschäftigte · gesamt 165</div>
+
+            <div id="chart-tip" class="pointer-events-none absolute z-10 rounded-xl bg-mehl px-4 py-3 text-nacht opacity-0" role="status" aria-live="polite">
+              <p id="tip-title" class="display text-lg font-bold leading-tight"></p>
+              <p id="tip-share" class="font-mono text-[12px] text-nacht/70"></p>
+              <p id="tip-detail" class="mt-1 text-sm text-nacht/80"></p>
+            </div>
+
+            <table class="sr-only">
+              <caption>Beschäftigte nach Bereich</caption>
+              <thead><tr><th scope="col">Bereich</th><th scope="col">Anzahl</th><th scope="col">Anteil</th></tr></thead>
+              <tbody>
+                <tr><td>Verkauf</td><td>96</td><td>58 %</td></tr>
+                <tr><td>Backstube</td><td>38</td><td>23 %</td></tr>
+                <tr><td>Filialleitungen</td><td>14</td><td>8 %</td></tr>
+                <tr><td>Fahrer</td><td>9</td><td>5 %</td></tr>
+                <tr><td>Verwaltung</td><td>8</td><td>5 %</td></tr>
+              </tbody>
+            </table>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KARRIERE ============ -->
+    <section id="karriere" class="bg-glut text-nacht">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <p class="reveal eyebrow">Karriere</p>
+          <h2 class="reveal display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]" style="--d:80ms">Backen, verkaufen, fahren. Wir suchen Verstärkung.</h2>
+          <p class="reveal mt-6 text-lg text-nacht/80" style="--d:140ms">41 Kolleginnen und Kollegen arbeiten bei uns in Teilzeit, 18 als Aushilfe. Wir finden das Modell, das zu Ihrem Leben passt.</p>
+          <p class="reveal mt-8 flex items-start gap-3 rounded-2xl bg-nacht/10 p-4 text-[15px]" style="--d:200ms"><i data-lucide="shield-check" class="mt-0.5 h-5 w-5 shrink-0"></i><span>Mitbestimmung gehört dazu: Unser Betriebsrat hat sieben Mitglieder, Vorsitzende ist Gabi Tönnies.</span></p>
+        </div>
+
+        <ul class="lg:col-span-7">
+          <li class="reveal" style="--d:60ms">
+            <a href="#vorbestellen" class="group flex items-center justify-between gap-6 border-t-2 border-nacht py-6">
+              <span>
+                <span class="display block text-2xl font-bold transition-transform duration-300 group-hover:translate-x-2 md:text-3xl">Bäcker (m/w/d)</span>
+                <span class="mt-2 flex flex-wrap gap-2"><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Nachtschicht 21–5</span><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Vollzeit</span></span>
+              </span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-nacht text-glut transition-transform duration-300 group-hover:rotate-[-45deg]"><i data-lucide="arrow-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+          <li class="reveal" style="--d:120ms">
+            <a href="#vorbestellen" class="group flex items-center justify-between gap-6 border-t-2 border-nacht py-6">
+              <span>
+                <span class="display block text-2xl font-bold transition-transform duration-300 group-hover:translate-x-2 md:text-3xl">Verkäufer (m/w/d)</span>
+                <span class="mt-2 flex flex-wrap gap-2"><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Vollzeit</span><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Teilzeit</span><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Aushilfe</span></span>
+              </span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-nacht text-glut transition-transform duration-300 group-hover:rotate-[-45deg]"><i data-lucide="arrow-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+          <li class="reveal" style="--d:180ms">
+            <a href="#vorbestellen" class="group flex items-center justify-between gap-6 border-t-2 border-nacht py-6">
+              <span>
+                <span class="display block text-2xl font-bold transition-transform duration-300 group-hover:translate-x-2 md:text-3xl">Fahrer (m/w/d)</span>
+                <span class="mt-2 flex flex-wrap gap-2"><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Frühtour</span><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Klasse B</span></span>
+              </span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-nacht text-glut transition-transform duration-300 group-hover:rotate-[-45deg]"><i data-lucide="arrow-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+          <li class="reveal" style="--d:240ms">
+            <a href="#vorbestellen" class="group flex items-center justify-between gap-6 border-y-2 border-nacht py-6">
+              <span>
+                <span class="display block text-2xl font-bold transition-transform duration-300 group-hover:translate-x-2 md:text-3xl">Ausbildung Bäcker oder Fachverkauf</span>
+                <span class="mt-2 flex flex-wrap gap-2"><span class="rounded-full border border-nacht/40 px-3 py-0.5 font-mono text-[11px] uppercase">Start August</span></span>
+              </span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-nacht text-glut transition-transform duration-300 group-hover:rotate-[-45deg]"><i data-lucide="arrow-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 8 · ANGEBOT: VORBESTELLEN ============ -->
+    <section id="vorbestellen" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="eyebrow text-kruste">Vorbestellen</p>
+          <h2 class="display mt-5 text-[clamp(2.6rem,5vw,4.4rem)] font-extrabold leading-[0.95]">Ihre Tüte liegt morgen bereit.</h2>
+          <ul class="mt-10 divide-y divide-nacht/10 border-y border-nacht/10">
+            <li class="flex items-start gap-4 py-4"><i data-lucide="clock" class="mt-0.5 h-5 w-5 shrink-0 text-kruste"></i><span><strong class="font-semibold">Brot &amp; Brötchen:</strong> bis 18 Uhr für den nächsten Tag</span></li>
+            <li class="flex items-start gap-4 py-4"><i data-lucide="cake-slice" class="mt-0.5 h-5 w-5 shrink-0 text-kruste"></i><span><strong class="font-semibold">Torten:</strong> zwei Tage vorher</span></li>
+            <li class="flex items-start gap-4 py-4"><i data-lucide="hand-coins" class="mt-0.5 h-5 w-5 shrink-0 text-kruste"></i><span><strong class="font-semibold">Keine Anzahlung,</strong> keine Mindestmenge. Sie zahlen bei Abholung.</span></li>
+          </ul>
+        </div>
+
+        <form id="order-form" class="reveal rounded-[2.2rem] bg-hefe/50 p-6 md:p-10 lg:col-span-7" style="--d:120ms" novalidate>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="block sm:col-span-2">
+              <span class="mb-2 block text-sm font-semibold">Filiale</span>
+              <select class="field" name="filiale" required>
+                <option value="">Bitte wählen</option>
+                <optgroup label="Bezirk Nord">
+                  <option>Am Marktplatz</option><option>Lange Straße</option><option>Am Bahnhof</option><option>Lipperode</option><option>Bad Waldliesborn</option><option>Hörste</option><option>Cappel</option>
+                </optgroup>
+                <optgroup label="Bezirk Süd">
+                  <option>Rathausstraße</option><option>Erwitter Straße</option><option>Overhagen</option><option>Am Klinikum</option><option>Dedinghausen</option><option>Rixbeck</option><option>Im Einkaufszentrum Süd</option>
+                </optgroup>
+              </select>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-semibold">Abholtag</span>
+              <input class="field" type="date" name="tag" required>
+            </label>
+            <label class="block">
+              <span class="mb-2 block text-sm font-semibold">Name</span>
+              <input class="field" type="text" name="name" placeholder="Für das Namensschild auf der Tüte" required>
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="mb-2 block text-sm font-semibold">Telefon oder E-Mail</span>
+              <input class="field" type="text" name="kontakt" placeholder="Für Rückfragen">
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="mb-2 block text-sm font-semibold">Ihre Bestellung</span>
+              <textarea class="field resize-none" name="bestellung" rows="4" placeholder="z. B. 6 Körnerbrötchen, 1 Roggenmischbrot (geschnitten)" required></textarea>
+            </label>
+          </div>
+          <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <button type="submit" class="btn btn-nacht">Vorbestellung senden <i data-lucide="arrow-right"></i></button>
+            <p class="text-sm text-nacht/60">Sie zahlen erst bei Abholung.</p>
+          </div>
+          <p id="form-note" class="mt-6 hidden rounded-xl border-l-4 border-glut bg-mehl px-4 py-3 text-sm" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 9 · FAQ ============ -->
+    <section id="faq" class="border-t border-nacht/10">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-4">
+          <p class="eyebrow text-kruste">Fragen</p>
+          <h2 class="display mt-5 text-[clamp(2.6rem,4.6vw,4rem)] font-extrabold leading-[0.95]">Kurz gefragt.</h2>
+        </div>
+        <div class="lg:col-span-8">
+          <details class="reveal border-t border-nacht/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="display text-2xl font-bold transition-colors">Backen Sie wirklich alles selbst?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-nacht/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-nacht/75">Ja. Brot, Brötchen, Kuchen und Torten entstehen in unserer Backstube in Lippstadt. Dort arbeiten 38 Menschen in drei Schichten.</p>
+          </details>
+          <details class="reveal border-t border-nacht/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="display text-2xl font-bold transition-colors">Wann ist das Brot am frischesten?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-nacht/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-nacht/75">Brot und Brötchen kommen aus der Nachtschicht zwischen 21 und 5 Uhr und liegen ab Öffnung in der Theke. Am Vormittag backt die Frühschicht Brötchen nach.</p>
+          </details>
+          <details class="reveal border-t border-nacht/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="display text-2xl font-bold transition-colors">Wo finde ich Zutaten und Allergene?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-nacht/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-nacht/75">In jeder Filiale liegt eine Allergenübersicht für alle Produkte aus. Unsere Verkaufskräfte helfen Ihnen gern weiter.</p>
+          </details>
+          <details class="reveal border-t border-nacht/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="display text-2xl font-bold transition-colors">Kann ich Torten individuell bestellen?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-nacht/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-nacht/75">Ja. Bestellen Sie zwei Tage vorher über das Formular oder in Ihrer Filiale. Für besondere Wünsche meldet sich unsere Tagschicht bei Ihnen.</p>
+          </details>
+          <details class="reveal border-y border-nacht/15 py-6">
+            <summary class="flex items-start justify-between gap-6">
+              <h3 class="display text-2xl font-bold transition-colors">Kann ich auch in Teilzeit oder als Aushilfe arbeiten?</h3>
+              <span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-full border border-nacht/25"><i data-lucide="plus" class="h-4 w-4"></i></span>
+            </summary>
+            <p class="faq-body mt-4 max-w-2xl text-nacht/75">Sehr gern. 41 unserer Verkaufskräfte arbeiten in Teilzeit, 18 als Aushilfe. Sprechen Sie einfach die Filialleitung in Ihrer Nähe an.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 10 · FOOTER & FINAL CTA ============ -->
+  <footer class="dust bg-nacht text-mehl">
+    <div class="mx-auto max-w-7xl px-5 pt-24 md:px-8 md:pt-32">
+      <div class="reveal grid items-end gap-10 border-b border-hefe/15 pb-20 lg:grid-cols-12">
+        <h2 class="display text-[clamp(3rem,7.5vw,7rem)] font-extrabold leading-[0.9] lg:col-span-8">Morgen früh liegt es <span class="text-glut">bereit.</span></h2>
+        <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
+          <a href="#vorbestellen" class="btn btn-glut">Jetzt vorbestellen <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <a href="#top" class="flex items-center gap-3" aria-label="Bäckerei Hollenberg – nach oben">
+            <svg class="h-11 w-11" viewBox="0 0 40 40" aria-hidden="true">
+              <circle cx="20" cy="20" r="20" fill="#F0A43A"/>
+              <g fill="#161C33">
+                <rect x="19.25" y="9" width="1.5" height="24" rx=".75"/>
+                <ellipse cx="20" cy="8.6" rx="1.8" ry="3.1"/>
+                <ellipse cx="16.6" cy="13.4" rx="2" ry="3.6" transform="rotate(-32 16.6 13.4)"/>
+                <ellipse cx="23.4" cy="13.4" rx="2" ry="3.6" transform="rotate(32 23.4 13.4)"/>
+                <ellipse cx="16.6" cy="19" rx="2" ry="3.6" transform="rotate(-32 16.6 19)"/>
+                <ellipse cx="23.4" cy="19" rx="2" ry="3.6" transform="rotate(32 23.4 19)"/>
+                <ellipse cx="16.6" cy="24.6" rx="2" ry="3.6" transform="rotate(-32 16.6 24.6)"/>
+                <ellipse cx="23.4" cy="24.6" rx="2" ry="3.6" transform="rotate(32 23.4 24.6)"/>
+              </g>
+            </svg>
+            <span class="display text-[25px] font-extrabold">Hollenberg</span>
+          </a>
+          <address class="mt-6 not-italic leading-relaxed text-hefe/65">
+            Bäckerei Hollenberg GmbH<br>
+            Backstube &amp; Verwaltung<br>
+            Gewerbestraße 8 · 59557 Lippstadt
+          </address>
+        </div>
+        <div class="lg:col-span-2">
+          <p class="eyebrow text-[11px] text-glut">Seite</p>
+          <ul class="mt-5 space-y-3 text-hefe/70">
+            <li><a class="nav-link" href="#sortiment">Sortiment</a></li>
+            <li><a class="nav-link" href="#backstube">Backstube</a></li>
+            <li><a class="nav-link" href="#filialen">Filialen</a></li>
+            <li><a class="nav-link" href="#team">Team</a></li>
+            <li><a class="nav-link" href="#karriere">Karriere</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="eyebrow text-[11px] text-glut">Kontakt</p>
+          <ul class="mt-5 space-y-3 text-hefe/70">
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="h-4 w-4 text-hefe/40"></i>02941 000 000-0</li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="h-4 w-4 text-hefe/40"></i>info@baeckerei-hollenberg.de</li>
+            <li class="flex items-center gap-3"><i data-lucide="store" class="h-4 w-4 text-hefe/40"></i>14 Filialen in Lippstadt</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="eyebrow text-[11px] text-glut">Rechtliches</p>
+          <ul class="mt-5 space-y-3 text-hefe/70">
+            <li><a class="nav-link" href="#">Impressum</a></li>
+            <li><a class="nav-link" href="#">Datenschutz</a></li>
+            <li><a class="nav-link" href="#">Allergene</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 border-t border-hefe/10 py-8 font-mono text-[11px] uppercase tracking-[0.1em] text-hefe/45 md:flex-row md:justify-between">
+        <p>© <span data-year>2026</span> Bäckerei Hollenberg GmbH</p>
+        <p>Fiktives Unternehmen aus einem Lehrfall · Kontaktdaten und Filialnamen sind Platzhalter</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // ---------- Header & Menü ----------
+    const bar = document.getElementById('top-bar');
+    const setBar = () => bar.classList.toggle('is-solid', window.scrollY > 40);
+    setBar();
+    window.addEventListener('scroll', setBar, { passive: true });
+
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      bar.classList.toggle('is-solid', open || window.scrollY > 40);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // ---------- Scroll-Reveal ----------
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ---------- Schichten: Live-Status und 24-Stunden-Uhr ----------
+    const SHIFTS = [
+      { id: 'nacht', name: 'Nachtschicht', from: 21, to: 5,  r: 150, color: '#8FB0F0' },
+      { id: 'frueh', name: 'Frühschicht',  from: 4,  to: 12, r: 126, color: '#F0A43A' },
+      { id: 'tag',   name: 'Tagschicht',   from: 11, to: 19, r: 102, color: '#F6E3C0' }
+    ];
+    const isActive = (s, h) => s.from < s.to ? (h >= s.from && h < s.to) : (h >= s.from || h < s.to);
+    const STATUS = {
+      '':            ['Backstube ruht', 'Zwischen 19 und 21 Uhr reifen die Teige für die Nacht.'],
+      'nacht':       ['Nachtschicht', 'Die Nachtschicht backt Brot und Brötchen für den Morgen.'],
+      'nacht+frueh': ['Schichtwechsel', 'Die Frühschicht übernimmt, die ersten Touren starten.'],
+      'frueh':       ['Frühschicht', 'Die Frühschicht backt nach und belegt Brötchen.'],
+      'frueh+tag':   ['Schichtwechsel', 'Die Tagschicht beginnt mit Kuchen und Torten.'],
+      'tag':         ['Tagschicht', 'Die Tagschicht backt Kuchen und bereitet die Teige für die Nacht vor.']
+    };
+
+    const NS = 'http://www.w3.org/2000/svg';
+    const polar = (h, r) => { const a = h / 24 * 2 * Math.PI - Math.PI / 2; return [200 + r * Math.cos(a), 200 + r * Math.sin(a)]; };
+    const arcPath = (from, to, r) => {
+      const span = (to - from + 24) % 24;
+      const [x1, y1] = polar(from, r), [x2, y2] = polar(from + span, r);
+      return `M${x1.toFixed(2)} ${y1.toFixed(2)} A${r} ${r} 0 ${span > 12 ? 1 : 0} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`;
+    };
+    const el = (tag, attrs) => { const n = document.createElementNS(NS, tag); Object.entries(attrs).forEach(([k, v]) => n.setAttribute(k, v)); return n; };
+
+    const ticks = document.getElementById('dial-ticks');
+    for (let h = 0; h < 24; h++) {
+      const major = h % 3 === 0;
+      const [x1, y1] = polar(h, major ? 164 : 168), [x2, y2] = polar(h, 176);
+      ticks.appendChild(el('line', { x1, y1, x2, y2, stroke: '#F6E3C0', 'stroke-opacity': major ? .55 : .22, 'stroke-width': major ? 1.6 : 1 }));
+      if (major) {
+        const [tx, ty] = polar(h, 190);
+        const t = el('text', { x: tx, y: ty + 4, 'text-anchor': 'middle', 'font-family': 'DM Mono, monospace', 'font-size': 11, fill: '#F6E3C0', 'fill-opacity': .7 });
+        t.textContent = String(h).padStart(2, '0');
+        ticks.appendChild(t);
+      }
+    }
+    const tracks = document.getElementById('dial-tracks');
+    const arcs = document.getElementById('dial-arcs');
+    SHIFTS.forEach((s, i) => {
+      tracks.appendChild(el('circle', { cx: 200, cy: 200, r: s.r }));
+      const p = el('path', { d: arcPath(s.from, s.to, s.r), stroke: s.color, pathLength: 1, class: 'shift-arc', 'data-shift': s.id, style: `--d:${200 + i * 250}ms` });
+      const title = el('title', {}); title.textContent = `${s.name}: ${s.from}–${s.to} Uhr`;
+      p.appendChild(title);
+      arcs.appendChild(p);
+    });
+
+    const dial = document.getElementById('dial');
+    const shiftBtns = document.querySelectorAll('.shift-btn');
+    let pinned = null;
+    const highlight = id => {
+      dial.classList.toggle('focus', !!id);
+      arcs.querySelectorAll('.shift-arc').forEach(a => a.classList.toggle('on', a.dataset.shift === id));
+    };
+    shiftBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        pinned = pinned === btn.dataset.shift ? null : btn.dataset.shift;
+        shiftBtns.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.shift === pinned)));
+        highlight(pinned);
+      });
+      btn.addEventListener('mouseenter', () => highlight(btn.dataset.shift));
+      btn.addEventListener('mouseleave', () => highlight(pinned));
+    });
+    arcs.querySelectorAll('.shift-arc').forEach(a => {
+      a.style.cursor = 'pointer';
+      a.addEventListener('mouseenter', () => highlight(a.dataset.shift));
+      a.addEventListener('mouseleave', () => highlight(pinned));
+    });
+
+    const updateClock = () => {
+      const now = new Date();
+      const h = now.getHours() + now.getMinutes() / 60;
+      const time = now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
+      const active = SHIFTS.filter(s => isActive(s, h));
+      const [title, text] = STATUS[active.map(s => s.id).join('+')] || STATUS[''];
+      document.getElementById('live-time').textContent = time + ' Uhr';
+      document.getElementById('live-shift').textContent = title;
+      document.getElementById('live-text').textContent = text;
+      document.getElementById('dial-time').textContent = time;
+      document.getElementById('dial-sub').textContent = active.length ? active.map(s => s.name.replace('schicht', '').toUpperCase()).join(' + ') : 'TEIGRUHE';
+      document.getElementById('dial-hand').style.transform = `rotate(${h / 24 * 360}deg)`;
+    };
+    updateClock();
+    setInterval(updateClock, 30000);
+
+    // ---------- Filial-Tabs ----------
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const selectTab = tab => {
+      tabs.forEach(t => {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).classList.toggle('hidden', !on);
+      });
+    };
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        selectTab(next); next.focus();
+      });
+    });
+
+    // ---------- Belegschaft: Tooltip ----------
+    const chart = document.getElementById('staff-chart');
+    const tip = document.getElementById('chart-tip');
+    const showTip = row => {
+      const v = Number(row.dataset.value);
+      document.getElementById('tip-title').textContent = `${v} · ${row.dataset.label}`;
+      document.getElementById('tip-share').textContent = `${Math.round(v / 165 * 100)} % der Belegschaft`;
+      document.getElementById('tip-detail').textContent = row.dataset.detail;
+      const barRect = row.querySelector('.bar').getBoundingClientRect();
+      const box = chart.getBoundingClientRect();
+      const left = Math.min(barRect.right - box.left + 12, box.width - 250);
+      tip.style.left = Math.max(0, left) + 'px';
+      tip.style.top = (barRect.top - box.top - 18) + 'px';
+      tip.style.opacity = 1;
+    };
+    chart.querySelectorAll('.bar-row').forEach(row => {
+      row.addEventListener('mouseenter', () => showTip(row));
+      row.addEventListener('focus', () => showTip(row));
+      row.addEventListener('mouseleave', () => tip.style.opacity = 0);
+      row.addEventListener('blur', () => tip.style.opacity = 0);
+    });
+
+    // ---------- Vorbestellung (Demo, keine Übermittlung) ----------
+    const form = document.getElementById('order-form');
+    const note = document.getElementById('form-note');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const missing = [...form.querySelectorAll('[required]')].filter(f => !f.value.trim());
+      note.classList.remove('hidden');
+      if (missing.length) {
+        note.textContent = 'Bitte wählen Sie eine Filiale und einen Abholtag und geben Sie Ihren Namen und Ihre Bestellung an.';
+        missing[0].focus();
+        return;
+      }
+      note.textContent = 'Danke! Dies ist eine Demo-Seite, Ihre Vorbestellung wurde nicht versendet.';
+      form.reset();
+    });
+
+    document.querySelectorAll('[data-year]').forEach(n => n.textContent = new Date().getFullYear());
+  </script>
+</body>
+</html>
