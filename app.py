@@ -28,11 +28,6 @@ NAV_GUARD = """
 })();
 </script>
 """
-WEBSITE_NAMES = {
-    1: "Lüttkemeyer",
-    2: "Kemner",
-}
-
 st.set_page_config(page_title="Schulung", layout="wide", initial_sidebar_state="collapsed")
 st.markdown(
     """<style>
@@ -43,17 +38,16 @@ st.markdown(
 )
 
 
-def natural_sort(path: Path):
-    """Sortiert 1, 2, 10 statt 1, 10, 2."""
-    return [
+website_folders = sorted(
+    (folder for folder in WEBSITES.iterdir() if folder.is_dir()),
+    key=lambda folder: [
         (0, int(part)) if part.isdigit() else (1, part.casefold())
-        for part in re.split(r"(\d+)", path.parent.name)
-    ]
-
-
-pages = sorted(WEBSITES.glob("*/index.html"), key=natural_sort)
+        for part in re.split(r"(\d+)", folder.name)
+    ],
+)
+pages = [folder / "index.html" for folder in website_folders if (folder / "index.html").is_file()]
 if not pages:
-    st.info("Lege deine erste Website unter websites/1/index.html ab und lade diese App neu.")
+    st.info("Lege deine erste Website unter websites/<name>/index.html ab und lade diese App neu.")
     st.stop()
 
 page_names = [page.parent.name for page in pages]
@@ -65,19 +59,20 @@ def select_page(folder_name: str):
     st.session_state.selected_website = folder_name
 
 
-# Maximal zwölf Buttons pro Zeile, auch bei vielen Schulungsseiten.
-for offset in range(0, len(pages), 12):
-    columns = st.columns(12)
-    for index, page in enumerate(pages[offset : offset + 12], start=offset):
+# Ein Button pro Unterordner in websites/, beschriftet mit dem Ordnernamen.
+columns_per_row = max(len(pages), 1)
+for offset in range(0, len(pages), columns_per_row):
+    columns = st.columns(columns_per_row)
+    for index, page in enumerate(pages[offset : offset + columns_per_row], start=offset):
         with columns[index - offset]:
-            number = index + 1
+            folder_name = page.parent.name
             st.button(
-                WEBSITE_NAMES.get(number, str(number)),
-                key=f"website_{page.parent.name}",
-                type="primary" if page.parent.name == st.session_state.selected_website else "secondary",
+                folder_name,
+                key=f"website_{folder_name}",
+                type="primary" if folder_name == st.session_state.selected_website else "secondary",
                 use_container_width=True,
                 on_click=select_page,
-                args=(page.parent.name,),
+                args=(folder_name,),
             )
 
 selected = pages[page_names.index(st.session_state.selected_website)]
