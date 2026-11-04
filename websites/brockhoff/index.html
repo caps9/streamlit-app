@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brockhoff Elektrogroßhandel – Bocholt</title>
+  <meta name="description" content="Elektrogroßhandel Brockhoff GmbH in Bocholt: Material für Elektroinstallation, Licht und Photovoltaik. Drei Fachteams, eigenes Lager, Abholtheke und Außendienst für das Elektrohandwerk.">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            stein: { DEFAULT: '#F2F1EC', dark: '#E6E4DC' },
+            papier: '#FAFAF7',
+            anthrazit: { DEFAULT: '#22272B', 2: '#2E3439', 3: '#3B4248' },
+            schiefer: '#5E666C',
+            gelb: { DEFAULT: '#F5B800', light: '#FFD34D' }
+          },
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root { --stein: #F2F1EC; --papier: #FAFAF7; --anthrazit: #22272B; --schiefer: #5E666C; --gelb: #F5B800; }
+    html { scroll-behavior: smooth; scroll-padding-top: 5.5rem; }
+    body { background: var(--stein); }
+    ::selection { background: var(--gelb); color: var(--anthrazit); }
+    :focus-visible { outline: 2px solid var(--anthrazit); outline-offset: 3px; }
+    .on-dark :focus-visible { outline-color: var(--gelb); }
+
+    .h-display { font-weight: 300; letter-spacing: -0.035em; line-height: .98; }
+    .h-display strong { font-weight: 600; }
+    .label { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; }
+    .sec-num { display: inline-flex; align-items: center; gap: .6rem; }
+    .sec-num::before { content: ""; width: 8px; height: 8px; background: var(--gelb); }
+
+    /* Header */
+    #top-bar.is-solid { background: rgba(242, 241, 236, .94); backdrop-filter: blur(10px); border-bottom-color: rgba(34, 39, 43, .12); }
+    .nav-link { position: relative; padding: .3rem 0; transition: color .25s; }
+    .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--gelb); transform: scaleX(0); transform-origin: left; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; font-weight: 600; font-size: 15px; padding: 1rem 1.5rem; border-radius: 2px; transition: transform .3s cubic-bezier(.2,.7,.2,1), background-color .3s, color .3s, border-color .3s, box-shadow .3s; }
+    .btn svg { width: 18px; height: 18px; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .btn:hover svg { transform: translateX(4px); }
+    .btn-dark { background: var(--anthrazit); color: var(--papier); }
+    .btn-dark:hover { background: var(--gelb); color: var(--anthrazit); box-shadow: 4px 4px 0 var(--anthrazit); transform: translate(-2px, -2px); }
+    .btn-line { border: 1px solid rgba(34, 39, 43, .35); color: var(--anthrazit); }
+    .btn-line:hover { border-color: var(--anthrazit); background: var(--papier); }
+    .btn-gelb { background: var(--gelb); color: var(--anthrazit); }
+    .btn-gelb:hover { background: var(--papier); box-shadow: 4px 4px 0 var(--gelb); transform: translate(-2px, -2px); }
+
+    /* Hero */
+    .grid-lines span { transform: scaleY(0); transform-origin: top; animation: gridIn 1.4s cubic-bezier(.6,.1,.2,1) forwards; animation-delay: var(--d, 0ms); }
+    @keyframes gridIn { to { transform: scaleY(1); } }
+    .line-in { display: block; overflow: hidden; }
+    .line-in > span { display: inline-block; animation: lineUp 1.1s cubic-bezier(.2,.75,.15,1) both; animation-delay: var(--d, 0ms); }
+    @keyframes lineUp { from { transform: translateY(105%); } }
+    .mark { position: relative; z-index: 0; font-weight: 600; }
+    .mark::before { content: ""; position: absolute; z-index: -1; left: -.06em; right: -.06em; bottom: .08em; height: .38em; background: var(--gelb); transform: scaleX(0); transform-origin: left; animation: markIn .8s cubic-bezier(.6,.1,.2,1) 1.1s forwards; }
+    @keyframes markIn { to { transform: scaleX(1); } }
+    .fade-in { animation: fadeIn 1s ease both; animation-delay: var(--d, 0ms); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } }
+    .status-dot { width: 8px; height: 8px; border-radius: 99px; }
+    .status-dot.open { background: #2F9E5B; box-shadow: 0 0 0 0 rgba(47, 158, 91, .5); animation: pulse 1.8s infinite; }
+    .status-dot.closed { background: var(--schiefer); }
+    @keyframes pulse { 70% { box-shadow: 0 0 0 9px rgba(47, 158, 91, 0); } 100% { box-shadow: 0 0 0 0 rgba(47, 158, 91, 0); } }
+
+    /* Scroll-Reveal */
+    .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+
+    /* Leistungen */
+    .service { transition: background-color .35s; }
+    .service:hover { background: var(--papier); }
+    .service .s-icon { transition: background-color .35s, transform .35s cubic-bezier(.2,.7,.2,1); }
+    .service:hover .s-icon { background: var(--gelb); transform: rotate(-6deg); }
+
+    /* Fachteam-Tabs */
+    .team-tab { transition: color .3s, border-color .3s, background-color .3s; }
+    .team-tab[aria-selected="true"] { border-color: var(--anthrazit); color: var(--anthrazit); background: var(--papier); }
+    .team-tab[aria-selected="true"] .tab-count { background: var(--gelb); }
+    .team-panel:not([hidden]) { animation: fadeIn .5s ease both; }
+
+    /* Ablauf: Stromfluss */
+    .flow { stroke-dasharray: 2 10; animation: flow 1.6s linear infinite; }
+    @keyframes flow { to { stroke-dashoffset: -24; } }
+
+    /* Sicherungskasten */
+    .breaker { aspect-ratio: 3 / 4; border: 1px solid rgba(34, 39, 43, .22); border-radius: 3px; position: relative; background: transparent; transition: background-color .3s, border-color .3s; transition-delay: var(--bd, 0ms); }
+    .breaker::after { content: ""; position: absolute; left: 30%; right: 30%; height: 26%; top: 60%; border-radius: 1px; background: rgba(34, 39, 43, .3); transition: top .35s cubic-bezier(.2,.7,.2,1), background-color .3s; transition-delay: var(--bd, 0ms); }
+    .breaker.on { background: var(--gelb); border-color: var(--gelb); }
+    .breaker.on::after { top: 14%; background: var(--anthrazit); }
+    .dept-btn { transition: background-color .25s, padding-left .25s; }
+    .dept-btn:hover, .dept-btn[aria-pressed="true"] { background: var(--papier); padding-left: .9rem; }
+    .dept-btn[aria-pressed="true"] .dept-mark { background: var(--gelb); border-color: var(--gelb); }
+
+    /* Porträts */
+    .person .p-img { transition: transform 1s cubic-bezier(.2,.7,.2,1), filter .6s; filter: saturate(.85); }
+    .person:hover .p-img { transform: scale(1.04); filter: saturate(1); }
+    .person .p-bar { transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+    .person:hover .p-bar { transform: scaleX(1); }
+
+    /* FAQ */
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details .faq-icon { transition: transform .4s cubic-bezier(.2,.7,.2,1), background-color .3s; }
+    details[open] .faq-icon { transform: rotate(45deg); background: var(--gelb); border-color: var(--gelb); }
+    details[open] .faq-body { animation: fadeIn .45s ease both; }
+
+    /* Formular */
+    .field { width: 100%; background: var(--papier); border: 1px solid rgba(34, 39, 43, .2); border-radius: 2px; padding: .85rem 1rem; font-size: 1rem; color: var(--anthrazit); transition: border-color .25s, box-shadow .25s; }
+    .field:focus { outline: none; border-color: var(--anthrazit); box-shadow: 0 0 0 3px rgba(245, 184, 0, .45); }
+    .field::placeholder { color: rgba(34, 39, 43, .4); }
+    select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%2322272B' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .check { appearance: none; width: 20px; height: 20px; border: 1.5px solid var(--anthrazit); border-radius: 2px; flex-shrink: 0; display: grid; place-items: center; cursor: pointer; transition: background-color .2s; }
+    .check:checked { background: var(--gelb); }
+    .check:checked::after { content: ""; width: 6px; height: 11px; border: solid var(--anthrazit); border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+      .grid-lines span { transform: none; }
+      .mark::before { transform: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-stein font-sans text-anthrazit antialiased">
+
+  <!-- ============ HEADER ============ -->
+  <header id="top-bar" class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <a href="#top" class="group flex items-center gap-3" aria-label="Brockhoff Elektrogroßhandel – nach oben">
+        <svg class="h-10 w-10 shrink-0" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" fill="#22272B"/>
+          <path d="M13 9v22M13 9h8a5.5 5.5 0 0 1 0 11h-8m0 0h9.5a5.5 5.5 0 0 1 0 11H13" fill="none" stroke="#F5B800" stroke-width="2.6" stroke-linejoin="round" class="transition-[stroke] duration-300 group-hover:stroke-[#FFD34D]"/>
+          <circle cx="13" cy="9" r="2.4" fill="#F5B800"/>
+          <circle cx="13" cy="31" r="2.4" fill="#F5B800"/>
+        </svg>
+        <span class="leading-none">
+          <span class="block text-[19px] font-bold tracking-[0.14em]">BROCKHOFF</span>
+          <span class="mt-1 block font-mono text-[9.5px] uppercase tracking-[0.16em] text-schiefer">Elektrogroßhandel · Bocholt</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 text-[15px] font-medium lg:flex" aria-label="Hauptnavigation">
+        <a class="nav-link" href="#fachteams">Fachteams</a>
+        <a class="nav-link" href="#leistungen">Leistungen</a>
+        <a class="nav-link" href="#ablauf">Ablauf</a>
+        <a class="nav-link" href="#team">Team</a>
+        <a class="nav-link" href="#karriere">Karriere</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#kundenkonto" class="btn btn-dark hidden !py-3 md:inline-flex">Kundenkonto eröffnen <i data-lucide="arrow-right"></i></a>
+        <button id="menu-btn" class="grid h-11 w-11 place-items-center border border-anthrazit/25 transition-colors hover:border-anthrazit lg:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-anthrazit/10 bg-stein lg:hidden">
+      <nav class="mx-auto flex max-w-7xl flex-col px-5 py-4 md:px-8" aria-label="Mobile Navigation">
+        <a class="flex items-center justify-between border-b border-anthrazit/10 py-4 text-2xl font-light" href="#fachteams">Fachteams <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-anthrazit/10 py-4 text-2xl font-light" href="#leistungen">Leistungen <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-anthrazit/10 py-4 text-2xl font-light" href="#ablauf">Ablauf <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-anthrazit/10 py-4 text-2xl font-light" href="#team">Team <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-anthrazit/10 py-4 text-2xl font-light" href="#karriere">Karriere <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="flex items-center justify-between border-b border-anthrazit/10 py-4 text-2xl font-light" href="#faq">FAQ <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a href="#kundenkonto" class="btn btn-dark mt-6 w-full">Kundenkonto eröffnen <i data-lucide="arrow-right"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 1 · HERO ============ -->
+    <section class="relative overflow-hidden">
+      <!-- Haarlinien-Raster -->
+      <div class="grid-lines pointer-events-none absolute inset-0 mx-auto hidden max-w-7xl grid-cols-12 px-8 lg:grid" aria-hidden="true">
+        <span class="border-l border-anthrazit/[0.06]" style="--d:0ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:40ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:80ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:120ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:160ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:200ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:240ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:280ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:320ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:360ms"></span><span class="border-l border-anthrazit/[0.06]" style="--d:400ms"></span><span class="border-x border-anthrazit/[0.06]" style="--d:440ms"></span>
+      </div>
+
+      <div class="relative mx-auto grid max-w-7xl gap-14 px-5 pb-20 pt-32 md:px-8 lg:min-h-[100svh] lg:grid-cols-12 lg:items-center lg:gap-8 lg:pb-16 lg:pt-28">
+        <div class="lg:col-span-7 lg:pr-8">
+          <p class="label sec-num fade-in text-schiefer" style="--d:60ms">Elektrogroßhandel in Bocholt</p>
+          <h1 class="h-display mt-8 text-[clamp(3rem,6.4vw,6.2rem)]">
+            <span class="line-in"><span style="--d:120ms">Das Material ist <span class="mark">da,</span></span></span>
+            <span class="line-in"><span style="--d:240ms">wenn Ihr Team</span></span>
+            <span class="line-in"><span style="--d:360ms">anfängt.</span></span>
+          </h1>
+          <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-schiefer md:text-xl" style="--d:700ms">
+            Brockhoff beliefert das Elektrohandwerk im Westmünsterland, für Elektroinstallation, Licht und Photovoltaik aus einer Hand. 120 Menschen in Bocholt sorgen dafür, dass Ihre Bestellung stimmt und rechtzeitig ankommt.
+          </p>
+          <div class="fade-in mt-10 flex flex-wrap gap-4" style="--d:850ms">
+            <a href="#kundenkonto" class="btn btn-dark">Kundenkonto eröffnen <i data-lucide="arrow-right"></i></a>
+            <a href="#fachteams" class="btn btn-line">Fachteam finden</a>
+          </div>
+        </div>
+
+        <div class="relative lg:col-span-5">
+          <figure class="fade-in relative" style="--d:300ms">
+            <div class="absolute -right-3 -top-3 h-full w-full border border-anthrazit/25" aria-hidden="true"></div>
+            <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark">
+              <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1000&h=1250&q=80" alt="Elektriker mit Schutzhelm an einem Schaltschrank" class="h-full w-full object-cover" fetchpriority="high">
+            </div>
+          </figure>
+
+          <div class="fade-in absolute -bottom-8 left-4 right-4 border border-anthrazit/15 bg-papier p-5 sm:left-auto sm:right-8 sm:w-[330px] lg:-left-12 lg:right-auto" style="--d:1000ms" aria-live="polite">
+            <div class="flex items-center justify-between">
+              <p class="label text-schiefer">Abholtheke</p>
+              <i data-lucide="store" class="h-4 w-4 text-schiefer"></i>
+            </div>
+            <p class="mt-3 flex items-center gap-2.5 text-lg font-semibold"><span id="counter-dot" class="status-dot closed"></span><span id="counter-status">Status wird geladen</span></p>
+            <p id="counter-sub" class="mt-1 text-[15px] text-schiefer">Mo–Fr 6:30–17:00 · Sa 8:00–12:00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · KENNZAHLEN (Social Proof) ============ -->
+    <section aria-label="Brockhoff in Zahlen" class="border-y border-anthrazit/15 bg-papier">
+      <dl class="mx-auto grid max-w-7xl grid-cols-2 px-5 md:px-8 lg:grid-cols-5">
+        <div class="reveal flex flex-col-reverse justify-end border-b border-r border-anthrazit/10 py-8 pr-4 lg:border-b-0">
+          <dt class="label mt-2 text-schiefer">Beschäftigte</dt>
+          <dd class="text-5xl font-light tracking-tight">120</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-anthrazit/10 py-8 pl-5 lg:border-b-0 lg:border-r" style="--d:60ms">
+          <dt class="label mt-2 text-schiefer">Lager &amp; Logistik</dt>
+          <dd class="text-5xl font-light tracking-tight">49</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-r border-anthrazit/10 py-8 pr-4 lg:border-b-0 lg:pl-5" style="--d:120ms">
+          <dt class="label mt-2 text-schiefer">Fachberater im Innendienst</dt>
+          <dd class="text-5xl font-light tracking-tight">21</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-anthrazit/10 py-8 pl-5 lg:border-b-0 lg:border-r" style="--d:180ms">
+          <dt class="label mt-2 text-schiefer">Außendienst</dt>
+          <dd class="text-5xl font-light tracking-tight">12</dd>
+        </div>
+        <div class="reveal col-span-2 flex flex-col-reverse justify-end py-8 lg:col-span-1 lg:pl-5" style="--d:240ms">
+          <dt class="label mt-2 text-schiefer">an der Abholtheke</dt>
+          <dd class="text-5xl font-light tracking-tight">10</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ 3 · PROBLEM ============ -->
+    <section class="on-dark bg-anthrazit text-papier">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="label sec-num text-papier/60">01 — Die Ausgangslage</p>
+          <h2 class="h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]">Fehlt ein Teil, <strong>steht die Baustelle.</strong></h2>
+          <p class="mt-6 max-w-md text-lg leading-relaxed text-papier/65">Für Ihren Betrieb zählt jede Stunde, in der Ihr Team arbeiten kann. Ein Großhandel, der nur liefert, reicht dafür nicht.</p>
+        </div>
+        <div class="lg:col-span-6 lg:col-start-7">
+          <article class="reveal grid grid-cols-[3.5rem,1fr] border-t border-papier/15 py-8" style="--d:80ms">
+            <span class="font-mono text-sm text-gelb">A</span>
+            <div>
+              <h3 class="text-2xl font-semibold">Falsches Material</h3>
+              <p class="mt-2 text-papier/65">Ein falscher Querschnitt oder ein fehlender Stecker am Wechselrichter, und schon wartet Ihr Monteur.</p>
+            </div>
+          </article>
+          <article class="reveal grid grid-cols-[3.5rem,1fr] border-t border-papier/15 py-8" style="--d:160ms">
+            <span class="font-mono text-sm text-gelb">B</span>
+            <div>
+              <h3 class="text-2xl font-semibold">Hotline ohne Fachwissen</h3>
+              <p class="mt-2 text-papier/65">Wer Ihre Frage nicht versteht, verbindet weiter. Sie warten, und die Baustelle wartet mit.</p>
+            </div>
+          </article>
+          <article class="reveal grid grid-cols-[3.5rem,1fr] border-y border-papier/15 py-8" style="--d:240ms">
+            <span class="font-mono text-sm text-gelb">C</span>
+            <div>
+              <h3 class="text-2xl font-semibold">„Nicht vorrätig“</h3>
+              <p class="mt-2 text-papier/65">Gerade bei Photovoltaik heißt es oft: Lieferzeit unbekannt. Ihr Kunde fragt trotzdem, wann die Anlage läuft.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · TRANSFORMATION ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="reveal label sec-num text-schiefer">02 — Unser Ansatz</p>
+          <h2 class="reveal h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]" style="--d:80ms">Fachteams statt <strong>Warteschleife.</strong></h2>
+          <p class="reveal mt-6 max-w-xl text-lg leading-relaxed text-schiefer" style="--d:140ms">Unser Innendienst arbeitet in drei Fachteams. Wer bei Brockhoff anruft, spricht mit jemandem, der das Gewerk kennt: Elektroinstallation, Licht oder Photovoltaik.</p>
+        </div>
+        <blockquote class="reveal border-l-2 border-gelb pl-6 lg:col-span-5" style="--d:200ms">
+          <p class="text-2xl font-light leading-snug">„Ein Elektriker braucht keine Hotline. Er braucht jemanden, der seine Baustelle versteht.“</p>
+          <footer class="label mt-4 text-schiefer">Frank Hüsing · Vertriebsleiter</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============ 5 · FACHTEAMS (Features mit Kontext) ============ -->
+    <section id="fachteams" class="border-t border-anthrazit/10 bg-papier">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-7">
+            <p class="label sec-num text-schiefer">03 — Fachteams</p>
+            <h2 class="h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]">Drei Gewerke. <strong>Drei feste Teams.</strong></h2>
+          </div>
+          <p class="text-lg text-schiefer lg:col-span-4 lg:col-start-9">21 Fachberater und drei Teamleitungen. Wählen Sie Ihr Gewerk.</p>
+        </div>
+
+        <div class="reveal mt-14 grid gap-px border border-anthrazit/15 bg-anthrazit/15 sm:grid-cols-3" role="tablist" aria-label="Fachteams" style="--d:100ms">
+          <button class="team-tab flex items-center justify-between gap-4 border-b-2 border-transparent bg-stein px-6 py-5 text-left text-schiefer" role="tab" id="tab-install" aria-selected="true" aria-controls="panel-install">
+            <span class="text-lg font-semibold">Elektroinstallation</span>
+            <span class="tab-count grid h-9 min-w-[2.25rem] place-items-center rounded-full bg-stein-dark px-2 font-mono text-sm text-anthrazit">9</span>
+          </button>
+          <button class="team-tab flex items-center justify-between gap-4 border-b-2 border-transparent bg-stein px-6 py-5 text-left text-schiefer" role="tab" id="tab-licht" aria-selected="false" aria-controls="panel-licht" tabindex="-1">
+            <span class="text-lg font-semibold">Licht</span>
+            <span class="tab-count grid h-9 min-w-[2.25rem] place-items-center rounded-full bg-stein-dark px-2 font-mono text-sm text-anthrazit">6</span>
+          </button>
+          <button class="team-tab flex items-center justify-between gap-4 border-b-2 border-transparent bg-stein px-6 py-5 text-left text-schiefer" role="tab" id="tab-pv" aria-selected="false" aria-controls="panel-pv" tabindex="-1">
+            <span class="text-lg font-semibold">Photovoltaik</span>
+            <span class="tab-count grid h-9 min-w-[2.25rem] place-items-center rounded-full bg-stein-dark px-2 font-mono text-sm text-anthrazit">6</span>
+          </button>
+        </div>
+
+        <!-- Panel Elektroinstallation -->
+        <div id="panel-install" class="team-panel mt-10 grid gap-10 lg:grid-cols-12" role="tabpanel" aria-labelledby="tab-install">
+          <figure class="relative overflow-hidden lg:col-span-5">
+            <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=900&h=760&q=80" alt="Geöffneter Sicherungsverteiler mit Leitungsschutzschaltern" loading="lazy" class="aspect-[9/7.6] w-full object-cover">
+          </figure>
+          <div class="lg:col-span-7">
+            <div class="flex flex-wrap items-center justify-between gap-6 border-b border-anthrazit/15 pb-6">
+              <div class="flex items-center gap-4">
+                <img src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?auto=format&fit=crop&crop=faces&w=160&h=160&q=70" alt="Porträt von Dirk Lammers" loading="lazy" class="h-14 w-14 rounded-full object-cover">
+                <div>
+                  <p class="label text-schiefer">Teamleitung</p>
+                  <p class="text-xl font-semibold">Dirk Lammers</p>
+                </div>
+              </div>
+              <p class="text-right"><span class="block text-5xl font-light">9</span><span class="label text-schiefer">Fachberater</span></p>
+            </div>
+            <ul class="mt-6 grid gap-x-8 sm:grid-cols-2">
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">01</span>Kabel &amp; Leitungen</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">02</span>Installationsmaterial</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">03</span>Verteiler &amp; Schutztechnik</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">04</span>Schalter &amp; Steckdosen</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">05</span>Gebäudesystemtechnik</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">06</span>Werkzeug &amp; Messtechnik</li>
+            </ul>
+            <p class="mt-8 border-l-2 border-gelb bg-stein px-5 py-4"><span class="label mb-1 block text-schiefer">Für Sie heißt das</span><span class="font-medium">Vom Hausanschluss bis zur Steckdose bestellen Sie alles bei einem Team, das Ihre Projekte kennt.</span></p>
+          </div>
+        </div>
+
+        <!-- Panel Licht -->
+        <div id="panel-licht" class="team-panel mt-10 grid gap-10 lg:grid-cols-12" role="tabpanel" aria-labelledby="tab-licht" hidden>
+          <figure class="relative overflow-hidden lg:col-span-5">
+            <img src="https://images.unsplash.com/photo-1524484485831-a92ffc0de03f?auto=format&fit=crop&w=900&h=760&q=80" alt="Pendelleuchte über einem Tisch in einem hellen Raum" loading="lazy" class="aspect-[9/7.6] w-full object-cover">
+          </figure>
+          <div class="lg:col-span-7">
+            <div class="flex flex-wrap items-center justify-between gap-6 border-b border-anthrazit/15 pb-6">
+              <div class="flex items-center gap-4">
+                <img src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&crop=faces&w=160&h=160&q=70" alt="Porträt von Anja Weßling" loading="lazy" class="h-14 w-14 rounded-full object-cover">
+                <div>
+                  <p class="label text-schiefer">Teamleitung</p>
+                  <p class="text-xl font-semibold">Anja Weßling</p>
+                </div>
+              </div>
+              <p class="text-right"><span class="block text-5xl font-light">6</span><span class="label text-schiefer">Fachberater</span></p>
+            </div>
+            <ul class="mt-6 grid gap-x-8 sm:grid-cols-2">
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">01</span>Innenleuchten</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">02</span>Außenleuchten</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">03</span>LED-Leuchtmittel</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">04</span>Lichtsteuerung</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">05</span>Not- und Sicherheitsbeleuchtung</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">06</span>Unterstützung bei der Lichtplanung</li>
+            </ul>
+            <p class="mt-8 border-l-2 border-gelb bg-stein px-5 py-4"><span class="label mb-1 block text-schiefer">Für Sie heißt das</span><span class="font-medium">Sie bekommen nicht nur Leuchten, sondern einen Vorschlag, der zu Raum und Budget Ihres Kunden passt.</span></p>
+          </div>
+        </div>
+
+        <!-- Panel Photovoltaik -->
+        <div id="panel-pv" class="team-panel mt-10 grid gap-10 lg:grid-cols-12" role="tabpanel" aria-labelledby="tab-pv" hidden>
+          <figure class="relative overflow-hidden lg:col-span-5">
+            <img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?auto=format&fit=crop&w=900&h=760&q=80" alt="Photovoltaikmodule auf einem Dach im Abendlicht" loading="lazy" class="aspect-[9/7.6] w-full object-cover">
+          </figure>
+          <div class="lg:col-span-7">
+            <div class="flex flex-wrap items-center justify-between gap-6 border-b border-anthrazit/15 pb-6">
+              <div class="flex items-center gap-4">
+                <img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&crop=faces&w=160&h=160&q=70" alt="Porträt von Tim Buschhaus" loading="lazy" class="h-14 w-14 rounded-full object-cover">
+                <div>
+                  <p class="label text-schiefer">Teamleitung</p>
+                  <p class="text-xl font-semibold">Tim Buschhaus</p>
+                </div>
+              </div>
+              <p class="text-right"><span class="block text-5xl font-light">6</span><span class="label text-schiefer">Fachberater</span></p>
+            </div>
+            <ul class="mt-6 grid gap-x-8 sm:grid-cols-2">
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">01</span>Module</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">02</span>Wechselrichter</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">03</span>Batteriespeicher</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">04</span>Montagesysteme</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">05</span>Wallboxen</li>
+              <li class="flex items-center gap-4 border-b border-anthrazit/10 py-3"><span class="font-mono text-xs text-schiefer">06</span>DC-Zubehör</li>
+            </ul>
+            <p class="mt-8 border-l-2 border-gelb bg-stein px-5 py-4"><span class="label mb-1 block text-schiefer">Für Sie heißt das</span><span class="font-medium">Sie bekommen die komplette Anlage aus einer Hand und aufeinander abgestimmt. Beim Aufbau fehlt nichts.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEISTUNGEN ============ -->
+    <section id="leistungen" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal max-w-3xl">
+        <p class="label sec-num text-schiefer">04 — Leistungen</p>
+        <h2 class="h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]">Was hinter jeder <strong>Lieferung steht.</strong></h2>
+      </div>
+
+      <div class="mt-16 grid border-t border-anthrazit/15 sm:grid-cols-2 lg:grid-cols-4">
+        <article class="service reveal flex flex-col border-b border-anthrazit/15 p-6 sm:border-r lg:p-8" style="--d:40ms">
+          <span class="s-icon grid h-12 w-12 place-items-center border border-anthrazit/20"><i data-lucide="warehouse" class="h-5 w-5"></i></span>
+          <p class="label mt-8 text-schiefer">49 Beschäftigte</p>
+          <h3 class="mt-2 text-2xl font-semibold">Lager &amp; Logistik</h3>
+          <p class="mt-3 flex-1 text-schiefer">Ein großes Lager in Bocholt mit eigener Kommissionierung und Auslieferung.</p>
+          <p class="mt-6 border-t border-anthrazit/10 pt-4 font-medium"><span class="mr-2 inline-block h-2 w-2 bg-gelb align-middle"></span>Was Sie brauchen, ist vorrätig. Es muss nicht erst bestellt werden.</p>
+        </article>
+        <article class="service reveal flex flex-col border-b border-anthrazit/15 p-6 lg:border-r lg:p-8" style="--d:120ms">
+          <span class="s-icon grid h-12 w-12 place-items-center border border-anthrazit/20"><i data-lucide="store" class="h-5 w-5"></i></span>
+          <p class="label mt-8 text-schiefer">10 Beschäftigte</p>
+          <h3 class="mt-2 text-2xl font-semibold">Abholtheke</h3>
+          <p class="mt-3 flex-1 text-schiefer">Ab 6:30 Uhr geöffnet, mit Fachpersonal an der Theke.</p>
+          <p class="mt-6 border-t border-anthrazit/10 pt-4 font-medium"><span class="mr-2 inline-block h-2 w-2 bg-gelb align-middle"></span>Fehlendes holen Sie vor Baustellenstart, nicht erst mittags.</p>
+        </article>
+        <article class="service reveal flex flex-col border-b border-anthrazit/15 p-6 sm:border-r lg:p-8" style="--d:200ms">
+          <span class="s-icon grid h-12 w-12 place-items-center border border-anthrazit/20"><i data-lucide="map-pinned" class="h-5 w-5"></i></span>
+          <p class="label mt-8 text-schiefer">12 Beschäftigte</p>
+          <h3 class="mt-2 text-2xl font-semibold">Außendienst</h3>
+          <p class="mt-3 flex-1 text-schiefer">Beratung in Ihrem Betrieb und auf der Baustelle. Sprecher des Außendienstes ist Ralf Bösing.</p>
+          <p class="mt-6 border-t border-anthrazit/10 pt-4 font-medium"><span class="mr-2 inline-block h-2 w-2 bg-gelb align-middle"></span>Jemand kennt Ihre Projekte, bevor Sie anrufen.</p>
+        </article>
+        <article class="service reveal flex flex-col border-b border-anthrazit/15 p-6 lg:p-8" style="--d:280ms">
+          <span class="s-icon grid h-12 w-12 place-items-center border border-anthrazit/20"><i data-lucide="monitor-smartphone" class="h-5 w-5"></i></span>
+          <p class="label mt-8 text-schiefer">IT-Team · 3 Beschäftigte</p>
+          <h3 class="mt-2 text-2xl font-semibold">Digital bestellen</h3>
+          <p class="mt-3 flex-1 text-schiefer">Webshop, Artikeldaten im Datanorm-Format und UGL-Schnittstelle, betreut vom IT-Team um Paul Terhorst.</p>
+          <p class="mt-6 border-t border-anthrazit/10 pt-4 font-medium"><span class="mr-2 inline-block h-2 w-2 bg-gelb align-middle"></span>Sie bestellen direkt aus Ihrer Handwerkersoftware.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ABLAUF ============ -->
+    <section id="ablauf" class="border-y border-anthrazit/10 bg-stein-dark/60">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal max-w-3xl">
+          <p class="label sec-num text-schiefer">05 — Ablauf</p>
+          <h2 class="h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]">Von der Bestellung <strong>bis zur Baustelle.</strong></h2>
+        </div>
+
+        <div class="reveal relative mt-20" style="--d:100ms">
+          <svg class="pointer-events-none absolute left-0 top-6 hidden h-2 w-full md:block" viewBox="0 0 1200 8" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="40" y1="4" x2="1160" y2="4" stroke="#22272B" stroke-opacity=".15" stroke-width="2"/>
+            <line class="flow" x1="40" y1="4" x2="1160" y2="4" stroke="#F5B800" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          <ol class="grid gap-12 md:grid-cols-3 md:gap-10">
+            <li class="group relative">
+              <span class="relative z-10 grid h-12 w-12 place-items-center bg-anthrazit font-mono text-sm text-gelb transition-transform duration-300 group-hover:-translate-y-1">01</span>
+              <p class="label mt-8 text-schiefer">bis 16:00 Uhr</p>
+              <h3 class="mt-2 text-2xl font-semibold">Bestellen</h3>
+              <p class="mt-3 max-w-xs text-schiefer">Im Webshop, telefonisch bei Ihrem Fachteam oder über Ihren Außendienst.</p>
+            </li>
+            <li class="group relative">
+              <span class="relative z-10 grid h-12 w-12 place-items-center bg-anthrazit font-mono text-sm text-gelb transition-transform duration-300 group-hover:-translate-y-1">02</span>
+              <p class="label mt-8 text-schiefer">am selben Tag</p>
+              <h3 class="mt-2 text-2xl font-semibold">Kommissionieren</h3>
+              <p class="mt-3 max-w-xs text-schiefer">Unser Lager stellt Ihre Bestellung zusammen und prüft sie vor dem Versand.</p>
+            </li>
+            <li class="group relative">
+              <span class="relative z-10 grid h-12 w-12 place-items-center bg-gelb font-mono text-sm text-anthrazit transition-transform duration-300 group-hover:-translate-y-1">03</span>
+              <p class="label mt-8 text-schiefer">nächster Werktag</p>
+              <h3 class="mt-2 text-2xl font-semibold">Liefern oder abholen</h3>
+              <p class="mt-3 max-w-xs text-schiefer">Lieferung in Ihren Betrieb oder auf die Baustelle. Oder Sie holen ab 6:30 Uhr an der Theke ab.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 7 · STIMMEN ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <p class="reveal label sec-num text-schiefer">06 — Stimmen aus dem Handwerk</p>
+      <div class="mt-12 grid gap-14 lg:grid-cols-12">
+        <figure class="reveal lg:col-span-7">
+          <blockquote class="text-[clamp(1.9rem,3.6vw,3.1rem)] font-light leading-[1.12] tracking-tight">
+            „Ich rufe an, sage ‚Baustelle Rhede, wie letzte Woche‘, und das Team weiß Bescheid. <strong class="font-semibold">So spart man Zeit.</strong>“
+          </blockquote>
+          <figcaption class="mt-8 flex items-center gap-4"><span class="h-px w-10 bg-anthrazit"></span><span class="label text-schiefer">Elektromeister · Rhede</span></figcaption>
+        </figure>
+        <figure class="reveal self-end border-t border-anthrazit/15 pt-8 lg:col-span-4 lg:col-start-9" style="--d:150ms">
+          <blockquote class="text-xl font-light leading-relaxed">„Module, Wechselrichter und Unterkonstruktion kamen zusammen auf einer Palette. Genau so muss das sein.“</blockquote>
+          <figcaption class="label mt-5 text-schiefer">PV-Fachbetrieb · Isselburg</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section id="team" class="border-t border-anthrazit/10 bg-papier">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-7">
+            <p class="label sec-num text-schiefer">07 — Team</p>
+            <h2 class="h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]">120 Menschen. <strong>Ein Verteiler.</strong></h2>
+          </div>
+          <p class="text-lg text-schiefer lg:col-span-4 lg:col-start-9">Jeder Automat steht für eine Person. Wählen Sie einen Bereich, um zu sehen, wo er sitzt.</p>
+        </div>
+
+        <!-- Sicherungskasten -->
+        <div id="org" class="reveal mt-14 grid gap-10 lg:grid-cols-12" style="--d:100ms">
+          <figure class="lg:col-span-7">
+            <div class="border border-anthrazit/20 bg-stein p-4 md:p-6">
+              <div class="label mb-4 flex justify-between text-schiefer"><span>Verteilung HV-01</span><span>120 / 120</span></div>
+              <div id="breakers" class="grid grid-cols-12 gap-1 md:grid-cols-[repeat(20,minmax(0,1fr))] md:gap-1.5" aria-hidden="true"></div>
+            </div>
+            <p id="org-detail" class="mt-4 min-h-[3rem] text-schiefer" aria-live="polite"></p>
+            <table class="sr-only">
+              <caption>Beschäftigte nach Bereich</caption>
+              <thead><tr><th scope="col">Bereich</th><th scope="col">Anzahl</th></tr></thead>
+              <tbody>
+                <tr><td>Lager und Logistik</td><td>49</td></tr>
+                <tr><td>Innendienst</td><td>24</td></tr>
+                <tr><td>Außendienst</td><td>12</td></tr>
+                <tr><td>Verwaltung</td><td>12</td></tr>
+                <tr><td>Abholtheke</td><td>10</td></tr>
+                <tr><td>Einkauf</td><td>8</td></tr>
+                <tr><td>IT</td><td>3</td></tr>
+                <tr><td>Geschäftsführung</td><td>2</td></tr>
+              </tbody>
+            </table>
+          </figure>
+          <ul id="dept-list" class="border-t border-anthrazit/15 lg:col-span-5" role="group" aria-label="Bereiche"></ul>
+        </div>
+
+        <!-- Porträts -->
+        <div class="mt-24 space-y-16">
+          <div>
+            <p class="reveal label border-b border-anthrazit/15 pb-3 text-schiefer">Geschäftsführung &amp; Vertrieb</p>
+            <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+              <article class="person reveal" style="--d:40ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1559548331-f9cb98001426?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Henrik Brockhoff" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Henrik Brockhoff</h3>
+                <p class="label mt-1 text-schiefer">Geschäftsführer</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Verantwortet Strategie, Sortiment und die Zusammenarbeit mit den Herstellern. Das Ziel: Das Handwerk in der Region soll sich auf Brockhoff verlassen können.</p>
+              </article>
+              <article class="person reveal" style="--d:110ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1600878459138-e1123b37cb30?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Frank Hüsing" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Frank Hüsing</h3>
+                <p class="label mt-1 text-schiefer">Vertriebsleiter Innen- &amp; Außendienst</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Leitet Innen- und Außendienst. Sorgt dafür, dass Telefon, Theke und Außendienst mit einer Stimme sprechen.</p>
+              </article>
+              <article class="person reveal" style="--d:180ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1573165850883-9b0e18c44bd2?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Sandra Kowalczyk" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Sandra Kowalczyk</h3>
+                <p class="label mt-1 text-schiefer">Leiterin Innendienst</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Führt 24 Kolleginnen und Kollegen in drei Fachteams. Achtet darauf, dass jede Anfrage beim richtigen Team landet.</p>
+              </article>
+            </div>
+          </div>
+
+          <div>
+            <p class="reveal label border-b border-anthrazit/15 pb-3 text-schiefer">Teamleitungen im Innendienst</p>
+            <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+              <article class="person reveal" style="--d:40ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1618077360395-f3068be8e001?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Dirk Lammers" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Dirk Lammers</h3>
+                <p class="label mt-1 text-schiefer">Teamleitung Elektroinstallation</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Leitet das größte Fachteam mit neun Fachberatern. Kennt den Unterschied zwischen „fast passend“ und „passend“.</p>
+              </article>
+              <article class="person reveal" style="--d:110ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Anja Weßling" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Anja Weßling</h3>
+                <p class="label mt-1 text-schiefer">Teamleitung Licht</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Leitet das Team Licht mit sechs Fachberatern. Hilft bei der Auswahl, wenn es um Wirkung und Effizienz geht.</p>
+              </article>
+              <article class="person reveal" style="--d:180ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Tim Buschhaus" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Tim Buschhaus</h3>
+                <p class="label mt-1 text-schiefer">Teamleitung Photovoltaik</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Leitet das Team Photovoltaik mit sechs Fachberatern. Stellt komplette Anlagen zusammen, vom Modul bis zur Wallbox.</p>
+              </article>
+            </div>
+          </div>
+
+          <div>
+            <p class="reveal label border-b border-anthrazit/15 pb-3 text-schiefer">IT, Außendienst &amp; Betriebsrat</p>
+            <div class="mt-8 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+              <article class="person reveal" style="--d:40ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1566753323558-f4e0952af115?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Paul Terhorst" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Paul Terhorst</h3>
+                <p class="label mt-1 text-schiefer">IT-Leiter</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Verantwortet mit einem dreiköpfigen Team Webshop, Schnittstellen und die Systeme im Lager.</p>
+              </article>
+              <article class="person reveal" style="--d:110ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1530268729831-4b0b9e170218?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Ralf Bösing" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Ralf Bösing</h3>
+                <p class="label mt-1 text-schiefer">Sprecher des Außendienstes</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Spricht für zwölf Kolleginnen und Kollegen im Außendienst und ist selbst bei Kunden im Westmünsterland unterwegs.</p>
+              </article>
+              <article class="person reveal" style="--d:180ms">
+                <div class="relative aspect-[4/5] overflow-hidden bg-stein-dark"><img class="p-img h-full w-full object-cover" src="https://images.unsplash.com/photo-1629425733761-caae3b5f2e50?auto=format&fit=crop&crop=faces&w=700&h=875&q=80" alt="Porträt von Mehmet Yıldız" loading="lazy"><span class="p-bar absolute bottom-0 left-0 h-1.5 w-full bg-gelb"></span></div>
+                <h3 class="mt-5 text-2xl font-semibold">Mehmet Yıldız</h3>
+                <p class="label mt-1 text-schiefer">Betriebsratsvorsitzender</p>
+                <p class="mt-3 leading-relaxed text-schiefer">Vorsitzender des siebenköpfigen Betriebsrats und Ansprechpartner für alle 120 Beschäftigten.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KARRIERE ============ -->
+    <section id="karriere" class="on-dark bg-anthrazit text-papier">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <p class="reveal label sec-num text-papier/60">08 — Karriere</p>
+          <h2 class="reveal h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]" style="--d:80ms">Arbeiten, wo das <strong>Handwerk einkauft.</strong></h2>
+          <p class="reveal mt-6 text-lg text-papier/65" style="--d:140ms">Lager, Theke, Innendienst oder Außendienst: Bei Brockhoff arbeiten Sie nah am Handwerk und an einer Branche, die mit der Energiewende wächst.</p>
+          <p class="reveal mt-8 flex items-start gap-3 border border-papier/15 p-4 text-[15px] text-papier/80" style="--d:200ms"><i data-lucide="shield-check" class="mt-0.5 h-5 w-5 shrink-0 text-gelb"></i><span>Mitbestimmung gehört dazu: Unser Betriebsrat hat sieben Mitglieder. Vorsitzender ist Mehmet Yıldız.</span></p>
+        </div>
+        <ul class="lg:col-span-7">
+          <li class="reveal" style="--d:60ms">
+            <a href="#kundenkonto" class="group grid grid-cols-[1fr,auto] items-center gap-6 border-t border-papier/15 py-6 transition-colors hover:border-gelb">
+              <span><span class="block text-2xl font-semibold transition-colors group-hover:text-gelb">Fachberater Photovoltaik (m/w/d)</span><span class="label mt-1 block text-papier/50">Innendienst · Vollzeit</span></span>
+              <i data-lucide="arrow-up-right" class="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"></i>
+            </a>
+          </li>
+          <li class="reveal" style="--d:120ms">
+            <a href="#kundenkonto" class="group grid grid-cols-[1fr,auto] items-center gap-6 border-t border-papier/15 py-6 transition-colors hover:border-gelb">
+              <span><span class="block text-2xl font-semibold transition-colors group-hover:text-gelb">Fachkraft für Lagerlogistik (m/w/d)</span><span class="label mt-1 block text-papier/50">Lager &amp; Logistik · Vollzeit</span></span>
+              <i data-lucide="arrow-up-right" class="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"></i>
+            </a>
+          </li>
+          <li class="reveal" style="--d:180ms">
+            <a href="#kundenkonto" class="group grid grid-cols-[1fr,auto] items-center gap-6 border-t border-papier/15 py-6 transition-colors hover:border-gelb">
+              <span><span class="block text-2xl font-semibold transition-colors group-hover:text-gelb">Mitarbeiter Abholtheke (m/w/d)</span><span class="label mt-1 block text-papier/50">Frühschicht ab 6:30 Uhr</span></span>
+              <i data-lucide="arrow-up-right" class="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"></i>
+            </a>
+          </li>
+          <li class="reveal" style="--d:240ms">
+            <a href="#kundenkonto" class="group grid grid-cols-[1fr,auto] items-center gap-6 border-y border-papier/15 py-6 transition-colors hover:border-gelb">
+              <span><span class="block text-2xl font-semibold transition-colors group-hover:text-gelb">Ausbildung Kaufleute für Groß- und Außenhandelsmanagement</span><span class="label mt-1 block text-papier/50">Start August · m/w/d</span></span>
+              <i data-lucide="arrow-up-right" class="h-6 w-6 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 8 · ANGEBOT: KUNDENKONTO ============ -->
+    <section id="kundenkonto" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="label sec-num text-schiefer">09 — Kundenkonto</p>
+          <h2 class="h-display mt-6 text-[clamp(2.6rem,4.8vw,4.4rem)]">Ihr Kundenkonto. <strong>In einem Werktag eingerichtet.</strong></h2>
+          <dl class="mt-10 border-t border-anthrazit/15">
+            <div class="grid grid-cols-[9rem,1fr] gap-4 border-b border-anthrazit/10 py-4"><dt class="label pt-1 text-schiefer">Für</dt><dd>Fachbetriebe des Elektrohandwerks und gewerbliche Kunden</dd></div>
+            <div class="grid grid-cols-[9rem,1fr] gap-4 border-b border-anthrazit/10 py-4"><dt class="label pt-1 text-schiefer">Betreuung</dt><dd>Feste Ansprechperson in Ihrem Fachteam</dd></div>
+            <div class="grid grid-cols-[9rem,1fr] gap-4 border-b border-anthrazit/10 py-4"><dt class="label pt-1 text-schiefer">Konditionen</dt><dd>Nach Jahresumsatz, schriftlich vereinbart</dd></div>
+            <div class="grid grid-cols-[9rem,1fr] gap-4 border-b border-anthrazit/10 py-4"><dt class="label pt-1 text-schiefer">Zahlung</dt><dd>Auf Rechnung nach Prüfung, keine Kontoführungsgebühr</dd></div>
+          </dl>
+        </div>
+
+        <form id="account-form" class="reveal border border-anthrazit/15 bg-papier p-6 md:p-10 lg:col-span-7" style="--d:120ms" novalidate>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="block sm:col-span-2">
+              <span class="label mb-2 block text-schiefer">Firma</span>
+              <input class="field" type="text" name="firma" placeholder="Elektro Mustermann GmbH" required>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-schiefer">Ansprechperson</span>
+              <input class="field" type="text" name="name" placeholder="Vor- und Nachname" required>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-schiefer">Schwerpunkt</span>
+              <select class="field" name="schwerpunkt">
+                <option>Elektroinstallation</option>
+                <option>Licht</option>
+                <option>Photovoltaik</option>
+                <option>Mehrere Gewerke</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-schiefer">E-Mail</span>
+              <input class="field" type="email" name="email" placeholder="name@betrieb.de" required>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-schiefer">Telefon</span>
+              <input class="field" type="tel" name="telefon" placeholder="Für Rückfragen">
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="label mb-2 block text-schiefer">PLZ und Ort</span>
+              <input class="field" type="text" name="ort" placeholder="46395 Bocholt">
+            </label>
+            <label class="flex items-start gap-3 sm:col-span-2">
+              <input class="check mt-0.5" type="checkbox" name="fachbetrieb" required>
+              <span class="text-[15px]">Wir sind ein eingetragener Fachbetrieb oder gewerblicher Kunde.</span>
+            </label>
+          </div>
+          <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <button type="submit" class="btn btn-dark">Kundenkonto anfragen <i data-lucide="arrow-right"></i></button>
+            <p class="text-sm text-schiefer">Wir melden uns innerhalb eines Werktags.</p>
+          </div>
+          <p id="form-note" class="mt-6 hidden border-l-2 border-gelb bg-stein px-4 py-3 text-sm" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 9 · FAQ ============ -->
+    <section id="faq" class="border-t border-anthrazit/10">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-4">
+          <p class="label sec-num text-schiefer">10 — Fragen</p>
+          <h2 class="h-display mt-6 text-[clamp(2.6rem,4.4vw,4rem)]">Häufig <strong>gefragt.</strong></h2>
+        </div>
+        <div class="lg:col-span-8">
+          <details class="reveal border-t border-anthrazit/15 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-semibold">Wer kann bei Brockhoff einkaufen?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center border border-anthrazit/25"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-schiefer">Wir beliefern gewerbliche Kunden, vor allem Fachbetriebe des Elektrohandwerks. Privatkunden empfehlen wir gern einen Fachbetrieb in ihrer Nähe.</p>
+          </details>
+          <details class="reveal border-t border-anthrazit/15 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-semibold">Wann hat die Abholtheke geöffnet?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center border border-anthrazit/25"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-schiefer">Montag bis Freitag von 6:30 bis 17:00 Uhr, samstags von 8:00 bis 12:00 Uhr. Zehn Kolleginnen und Kollegen beraten Sie an der Theke.</p>
+          </details>
+          <details class="reveal border-t border-anthrazit/15 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-semibold">Liefern Sie auch direkt auf die Baustelle?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center border border-anthrazit/25"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-schiefer">Ja. Bestellungen, die bis 16 Uhr eingehen, liefern wir im Westmünsterland am nächsten Werktag in Ihren Betrieb oder auf die Baustelle.</p>
+          </details>
+          <details class="reveal border-t border-anthrazit/15 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-semibold">Bekomme ich Artikeldaten für meine Software?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center border border-anthrazit/25"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-schiefer">Ja. Unser IT-Team stellt Artikeldaten im Datanorm-Format bereit und richtet die UGL-Schnittstelle für Ihre Handwerkersoftware ein.</p>
+          </details>
+          <details class="reveal border-y border-anthrazit/15 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-semibold">Helfen Sie bei Photovoltaik- und Lichtprojekten?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center border border-anthrazit/25"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-schiefer">Ja. Unsere Fachteams Licht und Photovoltaik stellen passende Komponenten für Ihr Projekt zusammen. Die Verantwortung für Planung und Ausführung bleibt bei Ihrem Fachbetrieb.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 10 · FOOTER & FINAL CTA ============ -->
+  <footer class="on-dark bg-anthrazit text-papier">
+    <div class="mx-auto max-w-7xl px-5 pt-24 md:px-8 md:pt-32">
+      <div class="reveal grid items-end gap-10 border-b border-papier/15 pb-20 lg:grid-cols-12">
+        <h2 class="h-display text-[clamp(2.8rem,6.4vw,6rem)] lg:col-span-8">Ihr nächstes Projekt beginnt <strong>mit dem richtigen Material.</strong></h2>
+        <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
+          <a href="#kundenkonto" class="btn btn-gelb">Kundenkonto eröffnen <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <a href="#top" class="flex items-center gap-3" aria-label="Brockhoff Elektrogroßhandel – nach oben">
+            <svg class="h-10 w-10" viewBox="0 0 40 40" aria-hidden="true">
+              <rect width="40" height="40" fill="#F5B800"/>
+              <path d="M13 9v22M13 9h8a5.5 5.5 0 0 1 0 11h-8m0 0h9.5a5.5 5.5 0 0 1 0 11H13" fill="none" stroke="#22272B" stroke-width="2.6" stroke-linejoin="round"/>
+              <circle cx="13" cy="9" r="2.4" fill="#22272B"/><circle cx="13" cy="31" r="2.4" fill="#22272B"/>
+            </svg>
+            <span class="text-[19px] font-bold tracking-[0.14em]">BROCKHOFF</span>
+          </a>
+          <address class="mt-6 not-italic leading-relaxed text-papier/60">
+            Elektrogroßhandel Brockhoff GmbH<br>
+            Industriestraße 24<br>
+            46395 Bocholt
+          </address>
+        </div>
+        <div class="lg:col-span-2">
+          <p class="label text-papier/45">Seite</p>
+          <ul class="mt-5 space-y-3 text-papier/75">
+            <li><a class="nav-link" href="#fachteams">Fachteams</a></li>
+            <li><a class="nav-link" href="#leistungen">Leistungen</a></li>
+            <li><a class="nav-link" href="#team">Team</a></li>
+            <li><a class="nav-link" href="#karriere">Karriere</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="label text-papier/45">Kontakt</p>
+          <ul class="mt-5 space-y-3 text-papier/75">
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="h-4 w-4 text-papier/40"></i>02871 000 000-0</li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="h-4 w-4 text-papier/40"></i>info@brockhoff-elektro.de</li>
+            <li class="flex items-center gap-3"><i data-lucide="clock" class="h-4 w-4 text-papier/40"></i>Theke Mo–Fr 6:30–17:00</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="label text-papier/45">Rechtliches</p>
+          <ul class="mt-5 space-y-3 text-papier/75">
+            <li><a class="nav-link" href="#">Impressum</a></li>
+            <li><a class="nav-link" href="#">Datenschutz</a></li>
+            <li><a class="nav-link" href="#">AGB</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="label flex flex-col gap-3 border-t border-papier/10 py-8 text-papier/40 md:flex-row md:justify-between">
+        <p>© <span data-year>2026</span> Elektrogroßhandel Brockhoff GmbH</p>
+        <p>Fiktives Unternehmen aus einem Lehrfall · Kontaktdaten sind Platzhalter</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // ---------- Header & Menü ----------
+    const bar = document.getElementById('top-bar');
+    const setBar = () => bar.classList.toggle('is-solid', window.scrollY > 40);
+    setBar();
+    window.addEventListener('scroll', setBar, { passive: true });
+
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+      bar.classList.toggle('is-solid', open || window.scrollY > 40);
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // ---------- Abholtheke: Live-Status ----------
+    const HOURS = { 1: [6.5, 17], 2: [6.5, 17], 3: [6.5, 17], 4: [6.5, 17], 5: [6.5, 17], 6: [8, 12] };
+    const DAY = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+    const fmt = h => `${Math.floor(h)}:${String(Math.round((h % 1) * 60)).padStart(2, '0')}`;
+    const updateCounter = () => {
+      const now = new Date();
+      const d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
+      const dot = document.getElementById('counter-dot');
+      const status = document.getElementById('counter-status');
+      const today = HOURS[d];
+      if (today && h >= today[0] && h < today[1]) {
+        dot.className = 'status-dot open';
+        status.textContent = `Jetzt geöffnet · bis ${fmt(today[1])} Uhr`;
+        return;
+      }
+      dot.className = 'status-dot closed';
+      if (today && h < today[0]) { status.textContent = `Öffnet heute um ${fmt(today[0])} Uhr`; return; }
+      for (let i = 1; i <= 7; i++) {
+        const nd = (d + i) % 7;
+        if (HOURS[nd]) { status.textContent = `Öffnet ${i === 1 ? 'morgen' : DAY[nd] + '.'} um ${fmt(HOURS[nd][0])} Uhr`; return; }
+      }
+    };
+    updateCounter();
+    setInterval(updateCounter, 60000);
+
+    // ---------- Fachteam-Tabs ----------
+    const tabs = [...document.querySelectorAll('.team-tab')];
+    const selectTab = tab => tabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => selectTab(tab));
+      tab.addEventListener('keydown', e => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        const next = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+        selectTab(next); next.focus();
+      });
+    });
+
+    // ---------- Sicherungskasten: 120 Automaten ----------
+    const DEPTS = [
+      { id: 'lager', name: 'Lager & Logistik', n: 49, detail: 'Kommissionierung, Wareneingang und Auslieferung aus Bocholt.' },
+      { id: 'innen', name: 'Innendienst', n: 24, detail: '21 Fachberater in drei Teams (Elektroinstallation 9, Licht 6, Photovoltaik 6) und drei Teamleitungen. Leitung: Sandra Kowalczyk.' },
+      { id: 'aussen', name: 'Außendienst', n: 12, detail: 'Beratung bei Kunden vor Ort. Sprecher: Ralf Bösing. Vertriebsleitung für Innen- und Außendienst: Frank Hüsing.' },
+      { id: 'verw', name: 'Verwaltung', n: 12, detail: 'Buchhaltung, Personal und Organisation.' },
+      { id: 'theke', name: 'Abholtheke', n: 10, detail: 'Beratung und Ausgabe an der Theke, Mo–Fr ab 6:30 Uhr.' },
+      { id: 'einkauf', name: 'Einkauf', n: 8, detail: 'Beschaffung bei den Herstellern und Disposition der Lagerbestände.' },
+      { id: 'it', name: 'IT', n: 3, detail: 'Webshop, Schnittstellen und Lagersysteme. Leitung: Paul Terhorst.' },
+      { id: 'gf', name: 'Geschäftsführung', n: 2, detail: 'Darunter Henrik Brockhoff als Geschäftsführer.' }
+    ];
+    const grid = document.getElementById('breakers');
+    const list = document.getElementById('dept-list');
+    const detail = document.getElementById('org-detail');
+    let pinned = 'lager';
+
+    DEPTS.forEach(dep => {
+      for (let i = 0; i < dep.n; i++) {
+        const b = document.createElement('span');
+        b.className = 'breaker';
+        b.dataset.dept = dep.id;
+        b.title = dep.name;
+        grid.appendChild(b);
+      }
+      const li = document.createElement('li');
+      li.innerHTML = `<button class="dept-btn grid w-full grid-cols-[auto,1fr,auto] items-center gap-4 border-b border-anthrazit/10 py-3.5 pr-2 text-left" data-dept="${dep.id}" aria-pressed="false">
+        <span class="dept-mark h-3.5 w-3.5 border border-anthrazit/40"></span>
+        <span class="font-medium">${dep.name}</span>
+        <span class="font-mono text-sm"><span class="text-anthrazit">${dep.n}</span> <span class="text-schiefer">· ${Math.round(dep.n / 120 * 100)} %</span></span>
+      </button>`;
+      list.appendChild(li);
+    });
+
+    const breakers = [...grid.children];
+    const showDept = id => {
+      const dep = DEPTS.find(d => d.id === id);
+      let k = 0;
+      breakers.forEach(b => {
+        const on = b.dataset.dept === id;
+        b.style.setProperty('--bd', on ? `${(k++) * 6}ms` : '0ms');
+        b.classList.toggle('on', on);
+      });
+      list.querySelectorAll('.dept-btn').forEach(btn => btn.setAttribute('aria-pressed', String(btn.dataset.dept === pinned)));
+      detail.innerHTML = dep ? `<strong class="font-semibold text-anthrazit">${dep.name} · ${dep.n} Beschäftigte.</strong> ${dep.detail}` : '';
+    };
+    list.querySelectorAll('.dept-btn').forEach(btn => {
+      btn.addEventListener('click', () => { pinned = btn.dataset.dept; showDept(pinned); });
+      btn.addEventListener('mouseenter', () => showDept(btn.dataset.dept));
+      btn.addEventListener('focus', () => showDept(btn.dataset.dept));
+      btn.addEventListener('mouseleave', () => showDept(pinned));
+      btn.addEventListener('blur', () => showDept(pinned));
+    });
+    breakers.forEach(b => {
+      b.addEventListener('mouseenter', () => showDept(b.dataset.dept));
+      b.addEventListener('mouseleave', () => showDept(pinned));
+    });
+
+    // ---------- Scroll-Reveal ----------
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        if (entry.target.id === 'org') setTimeout(() => showDept(pinned), 400);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ---------- Kundenkonto-Formular (Demo, keine Übermittlung) ----------
+    const form = document.getElementById('account-form');
+    const note = document.getElementById('form-note');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const missing = [...form.querySelectorAll('[required]')].filter(f => f.type === 'checkbox' ? !f.checked : (!f.value.trim() || (f.type === 'email' && !f.checkValidity())));
+      note.classList.remove('hidden');
+      if (missing.length) {
+        note.textContent = 'Bitte füllen Sie Firma, Ansprechperson und eine gültige E-Mail-Adresse aus und bestätigen Sie, dass Sie gewerblicher Kunde sind.';
+        missing[0].focus();
+        return;
+      }
+      note.textContent = 'Danke! Dies ist eine Demo-Seite, Ihre Anfrage wurde nicht versendet.';
+      form.reset();
+    });
+
+    document.querySelectorAll('[data-year]').forEach(n => n.textContent = new Date().getFullYear());
+  </script>
+</body>
+</html>
