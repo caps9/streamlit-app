@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="de" class="no-js">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Möhring Haustechnik – Sanitär, Heizung, Klima in Hameln</title>
+  <meta name="description" content="Möhring Haustechnik GmbH in Hameln: Wärmepumpen, Heizung, Bad und Sanitär, Klima und Lüftung, Kundendienst und Wartung. 52 Beschäftigte, 38 davon täglich vor Ort.">
+  <script>document.documentElement.classList.replace('no-js', 'js');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            nebel: '#EEF2F1',
+            kreide: '#F8FAF9',
+            tief: { DEFAULT: '#0F1E2A', 2: '#18293A', 3: '#24384A' },
+            stahl: '#5A6B78',
+            vorlauf: { DEFAULT: '#E2553A', light: '#FBE4DC' },
+            ruecklauf: { DEFAULT: '#2F7BD8', light: '#DDEBF0' }
+          },
+          fontFamily: {
+            sans: ['Archivo', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+
+  <style>
+    :root { --nebel: #EEF2F1; --kreide: #F8FAF9; --tief: #0F1E2A; --stahl: #5A6B78; --vorlauf: #E2553A; --ruecklauf: #2F7BD8; --grad: linear-gradient(90deg, #2F7BD8, #E2553A); }
+    html { scroll-behavior: smooth; scroll-padding-top: 6rem; }
+    body { background: var(--nebel); }
+    ::selection { background: var(--vorlauf); color: #fff; }
+    :focus-visible { outline: 2px solid var(--ruecklauf); outline-offset: 3px; }
+
+    .wide { font-stretch: 118%; letter-spacing: -0.025em; }
+    .label { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+    .sec-tag { display: inline-flex; align-items: center; gap: .75rem; }
+    .sec-tag::before { content: ""; width: 28px; height: 6px; border-radius: 99px; background: var(--grad); }
+
+    /* Header */
+    #top-bar.is-solid { background: rgba(238, 242, 241, .94); backdrop-filter: blur(10px); border-bottom-color: rgba(15, 30, 42, .1); }
+    .nav-link { position: relative; padding: .3rem 0; transition: color .25s; }
+    .nav-link::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 3px; border-radius: 99px; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+    .nav-link:hover::after { transform: scaleX(1); }
+
+    /* Buttons: „heizen“ beim Hover auf */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; font-weight: 650; font-size: 15.5px; padding: 1rem 1.6rem; border-radius: 14px; transition: transform .3s cubic-bezier(.2,.7,.2,1), background-color .35s, color .35s, border-color .35s; }
+    .btn svg { width: 18px; height: 18px; transition: transform .3s cubic-bezier(.2,.7,.2,1); }
+    .btn:hover svg { transform: translateX(4px); }
+    .btn-tief { background: var(--tief); color: #fff; }
+    .btn-tief:hover { background: var(--vorlauf); transform: translateY(-2px); }
+    .btn-line { border: 1.5px solid rgba(15, 30, 42, .25); color: var(--tief); }
+    .btn-line:hover { border-color: var(--ruecklauf); color: var(--ruecklauf); }
+    .btn-hell { background: #fff; color: var(--tief); }
+    .btn-hell:hover { background: var(--vorlauf); color: #fff; transform: translateY(-2px); }
+
+    /* Hero */
+    .word { display: inline-block; animation: wordIn 1s cubic-bezier(.2,.75,.15,1) both; animation-delay: var(--d, 0ms); }
+    @keyframes wordIn { from { opacity: 0; transform: translateY(.4em); filter: blur(6px); } }
+    .fade-in { animation: fadeIn 1s ease both; animation-delay: var(--d, 0ms); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(14px); } }
+
+    /* Vorlauf / Rücklauf */
+    .pipe { position: relative; height: 8px; border-radius: 99px; overflow: hidden; }
+    .pipe::after { content: ""; position: absolute; inset: 0; background-repeat: repeat-x; background-size: 26px 8px; }
+    .pipe-vl { background: rgba(226, 85, 58, .16); }
+    .pipe-vl::after { background-image: radial-gradient(circle at 4px 4px, #E2553A 3px, transparent 3.5px); animation: flowR 1.4s linear infinite; }
+    .pipe-rl { background: rgba(47, 123, 216, .16); }
+    .pipe-rl::after { background-image: radial-gradient(circle at 4px 4px, #2F7BD8 3px, transparent 3.5px); animation: flowL 1.4s linear infinite; }
+    @keyframes flowR { from { background-position-x: 0; } to { background-position-x: 26px; } }
+    @keyframes flowL { from { background-position-x: 26px; } to { background-position-x: 0; } }
+
+    /* Scroll-Reveal */
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+    .js .reveal.is-in { opacity: 1; transform: none; }
+
+    /* Leistungen: Thermometer-Leiste füllt sich beim Hover */
+    .svc { position: relative; transition: background-color .35s; }
+    .svc::before { content: ""; position: absolute; left: 0; bottom: 0; width: 4px; height: 100%; background: linear-gradient(0deg, #2F7BD8, #E2553A); transform: scaleY(0); transform-origin: bottom; transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+    .svc:hover::before { transform: scaleY(1); }
+    .svc:hover { background: #fff; }
+    .svc .svc-img img { transition: transform 1.1s cubic-bezier(.2,.7,.2,1); }
+    .svc:hover .svc-img img { transform: scale(1.05); }
+
+    /* Wärmepumpen-Check */
+    .opt { transition: background-color .25s, border-color .25s, color .25s, transform .25s; }
+    .opt:hover { border-color: rgba(255, 255, 255, .5); transform: translateY(-1px); }
+    .opt[aria-checked="true"] { background: #fff; border-color: #fff; color: var(--tief); }
+    #gauge-fill { transition: width 1s cubic-bezier(.2,.7,.2,1); }
+
+    /* Heizkörper-Diagramm */
+    .rib { flex: 1 1 0; border-radius: 99px; background: #C9D4D8; transition: background-color .35s, transform .35s; transition-delay: var(--rd, 0ms); }
+    .rib.on { background: var(--vorlauf); }
+    .group-btn { transition: background-color .25s, padding-left .25s; }
+    .group-btn:hover, .group-btn[aria-pressed="true"] { background: #fff; padding-left: 1rem; }
+    .group-btn[aria-pressed="true"] .g-dot { background: var(--vorlauf); border-color: var(--vorlauf); }
+
+    /* Porträts */
+    .person .p-frame { border-radius: 6px 56px 6px 6px; overflow: hidden; }
+    .person .p-frame img { transition: transform 1s cubic-bezier(.2,.7,.2,1); }
+    .person:hover .p-frame img { transform: scale(1.05); }
+    .person .p-line { transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2,.7,.2,1); background: var(--grad); }
+    .person:hover .p-line { transform: scaleX(1); }
+
+    /* FAQ */
+    details summary { list-style: none; cursor: pointer; }
+    details summary::-webkit-details-marker { display: none; }
+    details .faq-icon { transition: transform .4s cubic-bezier(.2,.7,.2,1), background-color .3s, color .3s; }
+    details[open] .faq-icon { transform: rotate(45deg); background: var(--vorlauf); color: #fff; border-color: var(--vorlauf); }
+    details[open] .faq-body { animation: fadeIn .45s ease both; }
+    details summary:hover h3 { color: var(--ruecklauf); }
+
+    /* Formular */
+    .field { width: 100%; background: #fff; border: 1.5px solid rgba(15, 30, 42, .15); border-radius: 12px; padding: .85rem 1rem; font-size: 1rem; color: var(--tief); transition: border-color .25s, box-shadow .25s; }
+    .field:focus { outline: none; border-color: var(--ruecklauf); box-shadow: 0 0 0 4px rgba(47, 123, 216, .18); }
+    .field::placeholder { color: rgba(15, 30, 42, .4); }
+    select.field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%230F1E2A' stroke-width='2' viewBox='0 0 24 24'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+    .check { appearance: none; width: 20px; height: 20px; border: 1.5px solid var(--tief); border-radius: 6px; flex-shrink: 0; display: grid; place-items: center; cursor: pointer; transition: background-color .2s; }
+    .check:checked { background: var(--ruecklauf); border-color: var(--ruecklauf); }
+    .check:checked::after { content: ""; width: 6px; height: 11px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg) translate(-1px, -1px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-nebel font-sans text-tief antialiased">
+
+  <!-- Notdienst-Leiste -->
+  <div class="bg-tief text-white">
+    <div class="mx-auto flex max-w-7xl items-center justify-center gap-2 px-5 py-2 text-[13px] sm:justify-between md:px-8">
+      <p class="flex items-center gap-2"><i data-lucide="flame" class="h-3.5 w-3.5 text-vorlauf"></i><span>Heizung ausgefallen? <strong class="font-semibold">Notdienst 05151 000 000-99</strong></span></p>
+      <p class="hidden text-white/65 sm:block">Büro: Mo–Do 7–17 Uhr · Fr 7–14 Uhr</p>
+    </div>
+  </div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="top-bar" class="sticky top-0 z-50 border-b border-transparent bg-nebel transition-colors duration-300">
+    <div class="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-5 md:px-8">
+      <a href="#top" class="group flex items-center gap-3" aria-label="Möhring Haustechnik – nach oben">
+        <svg class="h-11 w-11 shrink-0 transition-transform duration-500 group-hover:rotate-[-6deg]" viewBox="0 0 40 40" aria-hidden="true">
+          <rect width="40" height="40" rx="10" fill="#0F1E2A"/>
+          <path d="M10 30V11l10 10" fill="none" stroke="#2F7BD8" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 21l10-10v19" fill="none" stroke="#E2553A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="leading-none">
+          <span class="wide block text-[21px] font-extrabold">Möhring</span>
+          <span class="mt-1 block text-[10px] font-semibold uppercase tracking-[0.2em] text-stahl">Haustechnik · Hameln</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-8 text-[15px] font-medium lg:flex" aria-label="Hauptnavigation">
+        <a class="nav-link" href="#leistungen">Leistungen</a>
+        <a class="nav-link" href="#check">Wärmepumpe</a>
+        <a class="nav-link" href="#ablauf">Ablauf</a>
+        <a class="nav-link" href="#team">Team</a>
+        <a class="nav-link" href="#karriere">Karriere</a>
+        <a class="nav-link" href="#faq">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <a href="#kontakt" class="btn btn-tief hidden !py-3 md:inline-flex">Termin anfragen <i data-lucide="arrow-right"></i></a>
+        <button id="menu-btn" class="grid h-11 w-11 place-items-center rounded-xl border border-tief/20 transition-colors hover:border-ruecklauf hover:text-ruecklauf lg:hidden" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden border-t border-tief/10 bg-nebel lg:hidden">
+      <nav class="mx-auto flex max-w-7xl flex-col px-5 py-4 md:px-8" aria-label="Mobile Navigation">
+        <a class="wide flex items-center justify-between border-b border-tief/10 py-4 text-2xl font-bold" href="#leistungen">Leistungen <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="wide flex items-center justify-between border-b border-tief/10 py-4 text-2xl font-bold" href="#check">Wärmepumpe <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="wide flex items-center justify-between border-b border-tief/10 py-4 text-2xl font-bold" href="#ablauf">Ablauf <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="wide flex items-center justify-between border-b border-tief/10 py-4 text-2xl font-bold" href="#team">Team <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="wide flex items-center justify-between border-b border-tief/10 py-4 text-2xl font-bold" href="#karriere">Karriere <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a class="wide flex items-center justify-between border-b border-tief/10 py-4 text-2xl font-bold" href="#faq">FAQ <i data-lucide="arrow-down-right" class="h-5 w-5"></i></a>
+        <a href="#kontakt" class="btn btn-tief mt-6 w-full">Termin anfragen <i data-lucide="arrow-right"></i></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ 1 · HERO ============ -->
+    <section class="relative overflow-hidden">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 pb-12 pt-14 md:px-8 md:pt-20 lg:grid-cols-12 lg:items-center lg:gap-10">
+        <div class="lg:col-span-7">
+          <p class="label sec-tag fade-in text-stahl" style="--d:60ms">Sanitär · Heizung · Klima in Hameln</p>
+          <h1 class="wide mt-8 text-[clamp(3rem,6vw,6rem)] font-extrabold leading-[0.92]">
+            <span class="word text-vorlauf" style="--d:120ms">Wärme.</span>
+            <span class="word text-ruecklauf" style="--d:260ms">Wasser.</span>
+            <span class="word" style="--d:400ms">Luft.</span>
+            <span class="word block font-light text-stahl" style="--d:560ms">Aus einer Hand.</span>
+          </h1>
+          <p class="fade-in mt-8 max-w-xl text-lg leading-relaxed text-stahl md:text-xl" style="--d:800ms">
+            Möhring Haustechnik plant, baut und wartet Heizungen, Bäder und Klimaanlagen in Hameln und Umgebung. Wir sind 52 Menschen, 38 davon jeden Tag bei unseren Kundinnen und Kunden vor Ort.
+          </p>
+          <div class="fade-in mt-10 flex flex-wrap gap-4" style="--d:950ms">
+            <a href="#check" class="btn btn-tief">Wärmepumpe prüfen <i data-lucide="arrow-right"></i></a>
+            <a href="#kontakt" data-anliegen="Kundendienst / Reparatur" class="btn btn-line"><i data-lucide="wrench" class="!h-4 !w-4"></i> Kundendienst anfragen</a>
+          </div>
+        </div>
+
+        <div class="relative lg:col-span-5">
+          <figure class="fade-in relative aspect-[4/5] overflow-hidden rounded-[6px_72px_6px_6px] bg-ruecklauf-light" style="--d:300ms">
+            <img src="https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=1000&h=1250&q=80" alt="Digitales Raumthermostat an einer hellen Wand" class="h-full w-full object-cover" fetchpriority="high">
+          </figure>
+          <div class="fade-in absolute -left-3 top-10 rounded-2xl bg-white p-4 sm:-left-8" style="--d:1100ms">
+            <p class="wide text-3xl font-extrabold text-vorlauf">~ 60</p>
+            <p class="text-sm text-stahl">Wärmepumpen<br>pro Jahr eingebaut</p>
+          </div>
+          <div class="fade-in absolute -right-2 bottom-10 rounded-2xl bg-tief p-4 text-white sm:-right-6" style="--d:1250ms">
+            <p class="wide text-3xl font-extrabold text-ruecklauf-light">~ 180</p>
+            <p class="text-sm text-white/70">Wartungen<br>pro Monat</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heizkreis: Vorlauf und Rücklauf -->
+      <div class="mx-auto max-w-7xl px-5 pb-16 md:px-8" aria-hidden="true">
+        <div class="grid grid-cols-[5.5rem,1fr] items-center gap-x-4 gap-y-3">
+          <span class="label text-[10.5px] text-vorlauf">Vorlauf</span><div class="pipe pipe-vl"></div>
+          <span class="label text-[10.5px] text-ruecklauf">Rücklauf</span><div class="pipe pipe-rl"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 2 · KENNZAHLEN ============ -->
+    <section aria-label="Möhring in Zahlen" class="border-y border-tief/10 bg-kreide">
+      <dl class="mx-auto grid max-w-7xl grid-cols-2 px-5 md:px-8 lg:grid-cols-5">
+        <div class="reveal flex flex-col-reverse justify-end border-b border-r border-tief/10 py-8 pr-4 lg:border-b-0">
+          <dt class="label mt-2 text-[11px] text-stahl">Beschäftigte</dt>
+          <dd class="wide text-5xl font-extrabold">52</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-tief/10 py-8 pl-5 lg:border-b-0 lg:border-r" style="--d:60ms">
+          <dt class="label mt-2 text-[11px] text-stahl">im Außendienst</dt>
+          <dd class="wide text-5xl font-extrabold">38</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-r border-tief/10 py-8 pr-4 lg:border-b-0 lg:pl-5" style="--d:120ms">
+          <dt class="label mt-2 text-[11px] text-stahl">Meister</dt>
+          <dd class="wide text-5xl font-extrabold">3</dd>
+        </div>
+        <div class="reveal flex flex-col-reverse justify-end border-b border-tief/10 py-8 pl-5 lg:border-b-0 lg:border-r" style="--d:180ms">
+          <dt class="label mt-2 text-[11px] text-stahl">Wärmepumpen pro Jahr</dt>
+          <dd class="wide text-5xl font-extrabold">~60</dd>
+        </div>
+        <div class="reveal col-span-2 flex flex-col-reverse justify-end py-8 lg:col-span-1 lg:pl-5" style="--d:240ms">
+          <dt class="label mt-2 text-[11px] text-stahl">Wartungen pro Monat</dt>
+          <dd class="wide text-5xl font-extrabold">~180</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- ============ 3 · PROBLEM ============ -->
+    <section class="bg-tief text-white">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="label sec-tag text-white/60">01 · Kennen Sie das?</p>
+          <h2 class="wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]">Die Heizung fällt aus, wenn es am <span class="text-vorlauf">kältesten</span> ist.</h2>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-3 lg:col-span-7">
+          <article class="reveal rounded-2xl border border-white/15 p-6" style="--d:80ms">
+            <i data-lucide="thermometer-snowflake" class="h-7 w-7 text-ruecklauf"></i>
+            <h3 class="mt-6 text-xl font-bold">Kaltes Haus, und keiner kommt</h3>
+            <p class="mt-2 text-white/65">Am Telefon laufen nur Ansagen, einen Termin gibt es erst nächste Woche.</p>
+          </article>
+          <article class="reveal rounded-2xl border border-white/15 p-6" style="--d:160ms">
+            <i data-lucide="circle-help" class="h-7 w-7 text-ruecklauf"></i>
+            <h3 class="mt-6 text-xl font-bold">Wärmepumpe: ja oder nein?</h3>
+            <p class="mt-2 text-white/65">Jeder sagt etwas anderes, aber niemand schaut sich Ihr Haus an.</p>
+          </article>
+          <article class="reveal rounded-2xl border border-white/15 p-6" style="--d:240ms">
+            <i data-lucide="layers" class="h-7 w-7 text-ruecklauf"></i>
+            <h3 class="mt-6 text-xl font-bold">Viele Gewerke für ein Bad</h3>
+            <p class="mt-2 text-white/65">Installateur, Fliesenleger, Elektriker: Wer stimmt das eigentlich ab?</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 4 · TRANSFORMATION ============ -->
+    <section class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="reveal label sec-tag text-stahl">02 · Unser Weg</p>
+          <h2 class="reveal wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]" style="--d:80ms">Ein Betrieb, der Ihr Haus von innen kennt.</h2>
+        </div>
+        <p class="reveal text-lg leading-relaxed text-stahl lg:col-span-5" style="--d:140ms">Bei Möhring arbeiten Kundendienst und Baustellenteams Hand in Hand. Drei Meister verantworten Heizung, Sanitär und Kundendienst. Unser Büro koordiniert Termine, Material und Rückfragen.</p>
+      </div>
+
+      <div class="mt-16 grid gap-px overflow-hidden rounded-2xl border border-tief/10 bg-tief/10 md:grid-cols-3">
+        <div class="reveal bg-kreide p-8" style="--d:60ms">
+          <p class="wide text-6xl font-extrabold text-vorlauf">38</p>
+          <p class="label mt-3 text-[11px] text-stahl">Fachleute im Außendienst</p>
+          <p class="mt-5 font-medium">Für Sie heißt das: kurze Wege zu Ihnen, ob Kundendienst oder Baustelle.</p>
+        </div>
+        <div class="reveal bg-kreide p-8" style="--d:140ms">
+          <p class="wide text-6xl font-extrabold text-ruecklauf">9</p>
+          <p class="label mt-3 text-[11px] text-stahl">Kolleginnen und Kollegen im Büro</p>
+          <p class="mt-5 font-medium">Für Sie heißt das: Jemand nimmt Ihr Anliegen an und kümmert sich, bis es erledigt ist.</p>
+        </div>
+        <div class="reveal bg-kreide p-8" style="--d:220ms">
+          <span class="grid h-[60px] w-[60px] place-items-center rounded-2xl bg-tief text-white"><i data-lucide="smartphone" class="h-7 w-7"></i></span>
+          <p class="label mt-3 text-[11px] text-stahl">Diensthandy für jeden Monteur</p>
+          <p class="mt-5 font-medium">Für Sie heißt das: Ihr Monteur weiß schon vorher, welche Anlage bei Ihnen steht.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 5 · LEISTUNGEN ============ -->
+    <section id="leistungen" class="border-t border-tief/10 bg-kreide">
+      <div class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+        <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+          <div class="lg:col-span-8">
+            <p class="label sec-tag text-stahl">03 · Leistungen</p>
+            <h2 class="wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]">Alles, was im Haus heizt, fließt und kühlt.</h2>
+          </div>
+          <p class="text-lg text-stahl lg:col-span-4">Bei jeder Leistung steht, was Sie davon haben.</p>
+        </div>
+
+        <div class="mt-16 grid gap-px overflow-hidden rounded-2xl border border-tief/10 bg-tief/10 md:grid-cols-12">
+          <article class="svc reveal flex flex-col bg-kreide md:col-span-7 md:row-span-2">
+            <div class="svc-img overflow-hidden"><img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1100&h=650&q=80" alt="Helles, gemütliches Wohnzimmer" loading="lazy" class="aspect-[11/6.5] w-full object-cover"></div>
+            <div class="flex flex-1 flex-col p-8">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="wide text-3xl font-extrabold">Wärmepumpe</h3>
+                <span class="rounded-full bg-vorlauf-light px-3 py-1 text-sm font-semibold text-tief">rund 60 Einbauten pro Jahr</span>
+              </div>
+              <p class="mt-3 text-stahl">Beratung, Planung und Einbau von Luft-Wasser-Wärmepumpen, auch als Hybridlösung mit Ihrer bestehenden Heizung.</p>
+              <p class="mt-auto pt-6 font-medium"><span class="label mb-1 block text-[10.5px] text-vorlauf">Für Sie heißt das</span>Sie werden unabhängiger von Öl und Gas, mit einer Anlage, die zu Ihrem Haus passt.</p>
+            </div>
+          </article>
+          <article class="svc reveal bg-kreide p-8 md:col-span-5" style="--d:80ms">
+            <i data-lucide="flame" class="h-7 w-7 text-vorlauf"></i>
+            <h3 class="wide mt-5 text-2xl font-extrabold">Heizung</h3>
+            <p class="mt-2 text-stahl">Modernisierung von Gas- und Ölheizungen, Fußbodenheizung, hydraulischer Abgleich.</p>
+            <p class="mt-5 font-medium"><span class="label mb-1 block text-[10.5px] text-vorlauf">Für Sie heißt das</span>Sie verbrauchen weniger, ohne alles auf einmal umzubauen.</p>
+          </article>
+          <article class="svc reveal bg-kreide p-8 md:col-span-5" style="--d:160ms">
+            <i data-lucide="wind" class="h-7 w-7 text-ruecklauf"></i>
+            <h3 class="wide mt-5 text-2xl font-extrabold">Klima &amp; Lüftung</h3>
+            <p class="mt-2 text-stahl">Split-Klimageräte und kontrollierte Wohnraumlüftung.</p>
+            <p class="mt-5 font-medium"><span class="label mb-1 block text-[10.5px] text-ruecklauf">Für Sie heißt das</span>Ihre Räume bleiben im Sommer kühl, und die Luft ist frisch, auch bei geschlossenem Fenster.</p>
+          </article>
+          <article class="svc reveal grid bg-kreide sm:grid-cols-2 md:col-span-6" style="--d:80ms">
+            <div class="svc-img overflow-hidden"><img src="https://images.unsplash.com/photo-1564540583246-934409427776?auto=format&fit=crop&w=700&h=700&q=80" alt="Modernes Bad mit Doppelwaschtisch und runden Spiegeln" loading="lazy" class="h-full min-h-[220px] w-full object-cover"></div>
+            <div class="p-8">
+              <i data-lucide="bath" class="h-7 w-7 text-ruecklauf"></i>
+              <h3 class="wide mt-5 text-2xl font-extrabold">Bad &amp; Sanitär</h3>
+              <p class="mt-2 text-stahl">Badsanierung, barrierearme Bäder, Trinkwasserinstallation.</p>
+              <p class="mt-5 font-medium"><span class="label mb-1 block text-[10.5px] text-ruecklauf">Für Sie heißt das</span>Sie haben eine Ansprechperson von der Planung bis zur letzten Fuge.</p>
+            </div>
+          </article>
+          <article class="svc reveal grid bg-kreide sm:grid-cols-2 md:col-span-6" style="--d:160ms">
+            <div class="svc-img overflow-hidden"><img src="https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=700&h=700&q=80" alt="Wasser läuft aus einer Küchenarmatur" loading="lazy" class="h-full min-h-[220px] w-full object-cover"></div>
+            <div class="p-8">
+              <i data-lucide="wrench" class="h-7 w-7 text-vorlauf"></i>
+              <h3 class="wide mt-5 text-2xl font-extrabold">Kundendienst &amp; Wartung</h3>
+              <p class="mt-2 text-stahl">Rund 180 Wartungen im Monat, Reparaturen und Notdienst.</p>
+              <p class="mt-5 font-medium"><span class="label mb-1 block text-[10.5px] text-vorlauf">Für Sie heißt das</span>Ihre Anlage läuft sicher, und kleine Mängel fallen auf, bevor es teuer wird.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WÄRMEPUMPEN-CHECK ============ -->
+    <section id="check" class="bg-tief text-white">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <p class="reveal label sec-tag text-white/60">04 · Wärmepumpen-Check</p>
+          <h2 class="reveal wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]" style="--d:80ms">Passt eine Wärmepumpe zu Ihrem Haus?</h2>
+          <p class="reveal mt-6 text-lg text-white/70" style="--d:140ms">Drei Fragen, eine erste Einschätzung. Entscheidend ist vor allem, wie warm Ihre Heizkörper werden müssen.</p>
+          <figure class="reveal mt-10 overflow-hidden rounded-[6px_48px_6px_6px]" style="--d:200ms">
+            <img src="https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?auto=format&fit=crop&w=900&h=560&q=80" alt="Handwerker verlegt Dämmung in einer Wand" loading="lazy" class="aspect-[9/5.6] w-full object-cover">
+          </figure>
+        </div>
+
+        <div class="reveal lg:col-span-7" style="--d:120ms">
+          <form id="hp-check" class="space-y-8 rounded-3xl border border-white/15 bg-tief-2 p-6 md:p-10" onsubmit="return false">
+            <fieldset>
+              <legend class="text-lg font-semibold"><span class="text-white/45">1 /</span> Wie ist der Zustand Ihres Hauses?</legend>
+              <div class="mt-4 grid gap-2 sm:grid-cols-3" role="radiogroup" data-q="0">
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="2">Neubau oder saniert</button>
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="1">Teilweise saniert</button>
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="0">Altbau, unsaniert</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend class="text-lg font-semibold"><span class="text-white/45">2 /</span> Wie wird geheizt?</legend>
+              <div class="mt-4 grid gap-2 sm:grid-cols-3" role="radiogroup" data-q="1">
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="2">Fußbodenheizung</button>
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="1">Große Heizkörper</button>
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="0">Kleine Heizkörper</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend class="text-lg font-semibold"><span class="text-white/45">3 /</span> Wie warm werden die Heizkörper im Winter?</legend>
+              <div class="mt-4 grid gap-2 sm:grid-cols-3" role="radiogroup" data-q="2">
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="2">Handwarm</button>
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="1">Warm</button>
+                <button type="button" class="opt rounded-xl border border-white/20 px-4 py-3 text-left text-[15px]" role="radio" aria-checked="false" data-v="0">Sehr heiß</button>
+              </div>
+            </fieldset>
+
+            <div class="border-t border-white/15 pt-8" aria-live="polite">
+              <div class="flex items-center justify-between text-sm text-white/55"><span>Vor-Ort-Check empfohlen</span><span>Gute Voraussetzungen</span></div>
+              <div class="mt-2 h-3 overflow-hidden rounded-full bg-white/10"><div id="gauge-fill" class="h-full w-0 rounded-full" style="background: var(--grad)"></div></div>
+              <p id="hp-title" class="wide mt-6 text-2xl font-extrabold">Beantworten Sie die drei Fragen.</p>
+              <p id="hp-text" class="mt-2 text-white/70">Ihre Einschätzung erscheint hier. Sie ersetzt keinen Vor-Ort-Termin.</p>
+              <a href="#kontakt" data-anliegen="Wärmepumpe" class="btn btn-hell mt-6">Vor-Ort-Termin anfragen <i data-lucide="arrow-right"></i></a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 6 · ABLAUF ============ -->
+    <section id="ablauf" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal max-w-3xl">
+        <p class="label sec-tag text-stahl">05 · Ablauf</p>
+        <h2 class="wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]">In drei Schritten zur neuen Heizung.</h2>
+      </div>
+
+      <div class="reveal mt-16" style="--d:100ms">
+        <div class="mb-10 hidden gap-3 md:grid" aria-hidden="true">
+          <div class="pipe pipe-vl"></div>
+          <div class="pipe pipe-rl"></div>
+        </div>
+        <ol class="grid gap-6 md:grid-cols-3">
+          <li class="group rounded-2xl border border-tief/10 bg-kreide p-8 transition-colors duration-300 hover:bg-white">
+            <span class="wide text-5xl font-extrabold text-ruecklauf">01</span>
+            <h3 class="mt-6 text-2xl font-bold">Anfrage &amp; Termin</h3>
+            <p class="mt-3 text-stahl">Per Telefon, E-Mail oder Formular. Unser Büro meldet sich und vereinbart einen Termin.</p>
+          </li>
+          <li class="group rounded-2xl border border-tief/10 bg-kreide p-8 transition-colors duration-300 hover:bg-white">
+            <span class="wide text-5xl font-extrabold" style="background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;">02</span>
+            <h3 class="mt-6 text-2xl font-bold">Vor-Ort-Termin &amp; Angebot</h3>
+            <p class="mt-3 text-stahl">Ein Meister sieht sich Ihr Haus an. Danach erhalten Sie ein schriftliches Angebot mit allen Positionen.</p>
+          </li>
+          <li class="group rounded-2xl border border-tief/10 bg-kreide p-8 transition-colors duration-300 hover:bg-white">
+            <span class="wide text-5xl font-extrabold text-vorlauf">03</span>
+            <h3 class="mt-6 text-2xl font-bold">Einbau &amp; Wartung</h3>
+            <p class="mt-3 text-stahl">Unser Baustellenteam baut ein, unser Kundendienst hält die Anlage danach jedes Jahr in Form.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ 7 · STIMMEN ============ -->
+    <section class="border-y border-tief/10 bg-kreide">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <figure class="reveal lg:col-span-7">
+          <i data-lucide="quote" class="h-10 w-10 text-vorlauf"></i>
+          <blockquote class="wide mt-6 text-[clamp(1.9rem,3.6vw,3rem)] font-bold leading-[1.08]">
+            „Im Januar war die Heizung aus. Am selben Abend stand jemand von Möhring bei uns im Keller.“
+          </blockquote>
+          <figcaption class="label mt-8 text-stahl">Familie · Hameln-Klein Berkel</figcaption>
+        </figure>
+        <figure class="reveal self-end border-t-2 border-tief pt-8 lg:col-span-4 lg:col-start-9" style="--d:150ms">
+          <blockquote class="text-xl leading-relaxed">„Die Wärmepumpe läuft jetzt den zweiten Winter. Das Haus ist warm, und die Stromrechnung ist kein Schreck mehr.“</blockquote>
+          <figcaption class="label mt-5 text-stahl">Hausbesitzer · Aerzen</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section id="team" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="reveal grid gap-6 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-7">
+          <p class="label sec-tag text-stahl">06 · Team</p>
+          <h2 class="wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]">52 Menschen. Ein Heizkörper.</h2>
+        </div>
+        <p class="text-lg text-stahl lg:col-span-4 lg:col-start-9">Jede Rippe steht für eine Person. Wählen Sie einen Bereich, um ihn aufzuheizen.</p>
+      </div>
+
+      <!-- Heizkörper-Diagramm -->
+      <div id="radiator-wrap" class="reveal mt-14 grid gap-10 lg:grid-cols-12" style="--d:100ms">
+        <figure class="lg:col-span-8">
+          <div class="relative rounded-2xl border border-tief/10 bg-kreide px-5 py-6 md:px-8">
+            <div class="h-2 rounded-full bg-tief/15" aria-hidden="true"></div>
+            <div id="ribs" class="my-2 flex h-40 gap-[2px] md:h-52 md:gap-1" aria-hidden="true"></div>
+            <div class="h-2 rounded-full bg-tief/15" aria-hidden="true"></div>
+            <span class="absolute -right-2 top-1/2 h-8 w-4 -translate-y-1/2 rounded-md bg-tief" aria-hidden="true"></span>
+          </div>
+          <p id="radiator-detail" class="mt-4 min-h-[3rem] text-stahl" aria-live="polite"></p>
+          <table class="sr-only">
+            <caption>Beschäftigte nach Bereich</caption>
+            <thead><tr><th scope="col">Bereich</th><th scope="col">Anzahl</th></tr></thead>
+            <tbody>
+              <tr><td>Außendienst</td><td>38</td></tr>
+              <tr><td>Büro</td><td>9</td></tr>
+              <tr><td>Leitung</td><td>5</td></tr>
+            </tbody>
+          </table>
+        </figure>
+        <ul id="group-list" class="self-center border-t border-tief/10 lg:col-span-4" role="group" aria-label="Bereiche"></ul>
+      </div>
+
+      <!-- Porträts -->
+      <div class="mt-24 grid gap-x-8 gap-y-14 lg:grid-cols-12">
+        <article class="person reveal lg:col-span-5">
+          <div class="p-frame relative aspect-[4/5] bg-ruecklauf-light"><img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41?auto=format&fit=crop&crop=faces&w=900&h=1125&q=80" alt="Porträt von Claudia Möhring" loading="lazy" class="h-full w-full object-cover"></div>
+          <div class="p-line mt-0 h-1.5 w-full rounded-full"></div>
+          <h3 class="wide mt-5 text-3xl font-extrabold">Claudia Möhring</h3>
+          <p class="label mt-1 text-[11px] text-vorlauf">Geschäftsführerin</p>
+          <p class="mt-3 max-w-md leading-relaxed text-stahl">Führt Möhring Haustechnik und verantwortet Kunden, Personal und die Ausrichtung auf Wärmepumpen und erneuerbare Wärme.</p>
+        </article>
+
+        <div class="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:col-span-7">
+          <article class="person reveal" style="--d:60ms">
+            <div class="p-frame relative aspect-[4/3] bg-ruecklauf-light"><img src="https://images.unsplash.com/photo-1611432579699-484f7990b127?auto=format&fit=crop&crop=faces&w=700&h=525&q=80" alt="Porträt von Nicole Brandes" loading="lazy" class="h-full w-full object-cover"></div>
+            <div class="p-line h-1 w-full rounded-full"></div>
+            <h3 class="wide mt-4 text-2xl font-extrabold">Nicole Brandes</h3>
+            <p class="label mt-1 text-[11px] text-ruecklauf">Büroleiterin</p>
+            <p class="mt-2 leading-relaxed text-stahl">Leitet das Büro mit neun Kolleginnen und Kollegen. Hier laufen Anfragen, Termine und Rechnungen zusammen.</p>
+          </article>
+          <article class="person reveal" style="--d:120ms">
+            <div class="p-frame relative aspect-[4/3] bg-ruecklauf-light"><img src="https://images.unsplash.com/photo-1610216705422-caa3fcb6d158?auto=format&fit=crop&crop=faces&w=700&h=525&q=80" alt="Porträt von Thomas Kruse" loading="lazy" class="h-full w-full object-cover"></div>
+            <div class="p-line h-1 w-full rounded-full"></div>
+            <h3 class="wide mt-4 text-2xl font-extrabold">Thomas Kruse</h3>
+            <p class="label mt-1 text-[11px] text-vorlauf">Meister Heizung &amp; Wärmepumpe</p>
+            <p class="mt-2 leading-relaxed text-stahl">Plant Heizungsanlagen und Wärmepumpen und kommt zum Vor-Ort-Termin zu Ihnen.</p>
+          </article>
+          <article class="person reveal" style="--d:180ms">
+            <div class="p-frame relative aspect-[4/3] bg-ruecklauf-light"><img src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?auto=format&fit=crop&crop=faces&w=700&h=525&q=80" alt="Porträt von Jan Ebeling" loading="lazy" class="h-full w-full object-cover"></div>
+            <div class="p-line h-1 w-full rounded-full"></div>
+            <h3 class="wide mt-4 text-2xl font-extrabold">Jan Ebeling</h3>
+            <p class="label mt-1 text-[11px] text-ruecklauf">Meister Sanitär &amp; Bad</p>
+            <p class="mt-2 leading-relaxed text-stahl">Verantwortet Badsanierungen und Trinkwasserinstallationen, von der Planung bis zur Abnahme.</p>
+          </article>
+          <article class="person reveal" style="--d:240ms">
+            <div class="p-frame relative aspect-[4/3] bg-ruecklauf-light"><img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?auto=format&fit=crop&crop=faces&w=700&h=525&q=80" alt="Porträt von Marco Seidel" loading="lazy" class="h-full w-full object-cover"></div>
+            <div class="p-line h-1 w-full rounded-full"></div>
+            <h3 class="wide mt-4 text-2xl font-extrabold">Marco Seidel</h3>
+            <p class="label mt-1 text-[11px] text-vorlauf">Meister Kundendienst &amp; Klima</p>
+            <p class="mt-2 leading-relaxed text-stahl">Koordiniert Kundendienst, Wartung und Notdienst, dazu Klima- und Lüftungsanlagen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ KARRIERE ============ -->
+    <section id="karriere" class="bg-tief text-white">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <p class="reveal label sec-tag text-white/60">07 · Karriere</p>
+          <h2 class="reveal wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]" style="--d:80ms">Handwerk mit Zukunft. In Hameln.</h2>
+          <p class="reveal mt-6 text-lg text-white/70" style="--d:140ms">Wärmepumpen, moderne Bäder und Aufträge auf dem Diensthandy statt auf dem Zettel. Bei uns arbeiten Sie an der Wärmewende, direkt vor Ihrer Haustür.</p>
+          <figure class="reveal mt-10 overflow-hidden rounded-[6px_48px_6px_6px]" style="--d:200ms">
+            <img src="https://images.unsplash.com/photo-1595844730298-b960ff98fee0?auto=format&fit=crop&w=900&h=560&q=80" alt="Handwerker mit Werkzeuggürtel" loading="lazy" class="aspect-[9/5.6] w-full object-cover">
+          </figure>
+        </div>
+        <ul class="self-center lg:col-span-7">
+          <li class="reveal" style="--d:60ms">
+            <a href="#kontakt" data-anliegen="Bewerbung" class="group flex items-center justify-between gap-6 border-t border-white/15 py-6">
+              <span><span class="wide block text-2xl font-extrabold transition-colors group-hover:text-vorlauf md:text-3xl">Anlagenmechaniker SHK (m/w/d)</span><span class="mt-1 block text-white/55">Baustelle · Vollzeit</span></span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/25 transition-all duration-300 group-hover:border-vorlauf group-hover:bg-vorlauf"><i data-lucide="arrow-up-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+          <li class="reveal" style="--d:120ms">
+            <a href="#kontakt" data-anliegen="Bewerbung" class="group flex items-center justify-between gap-6 border-t border-white/15 py-6">
+              <span><span class="wide block text-2xl font-extrabold transition-colors group-hover:text-vorlauf md:text-3xl">Kundendiensttechniker Heizung (m/w/d)</span><span class="mt-1 block text-white/55">Kundendienst · Vollzeit</span></span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/25 transition-all duration-300 group-hover:border-vorlauf group-hover:bg-vorlauf"><i data-lucide="arrow-up-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+          <li class="reveal" style="--d:180ms">
+            <a href="#kontakt" data-anliegen="Bewerbung" class="group flex items-center justify-between gap-6 border-t border-white/15 py-6">
+              <span><span class="wide block text-2xl font-extrabold transition-colors group-hover:text-vorlauf md:text-3xl">Kaufmännische Mitarbeit Büro (m/w/d)</span><span class="mt-1 block text-white/55">Büro · Teilzeit möglich</span></span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/25 transition-all duration-300 group-hover:border-vorlauf group-hover:bg-vorlauf"><i data-lucide="arrow-up-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+          <li class="reveal" style="--d:240ms">
+            <a href="#kontakt" data-anliegen="Bewerbung" class="group flex items-center justify-between gap-6 border-y border-white/15 py-6">
+              <span><span class="wide block text-2xl font-extrabold transition-colors group-hover:text-vorlauf md:text-3xl">Ausbildung Anlagenmechaniker SHK</span><span class="mt-1 block text-white/55">Start August · m/w/d</span></span>
+              <span class="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-white/25 transition-all duration-300 group-hover:border-vorlauf group-hover:bg-vorlauf"><i data-lucide="arrow-up-right" class="h-5 w-5"></i></span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ 8 · ANGEBOT / KONTAKT ============ -->
+    <section id="kontakt" class="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-32">
+      <div class="grid gap-14 lg:grid-cols-12">
+        <div class="reveal lg:col-span-5">
+          <p class="label sec-tag text-stahl">08 · Termin anfragen</p>
+          <h2 class="wide mt-6 text-[clamp(2.4rem,4.6vw,4.2rem)] font-extrabold leading-[0.98]">Schreiben Sie uns. Wir melden uns.</h2>
+          <ul class="mt-10 space-y-5">
+            <li class="flex gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-vorlauf-light"><i data-lucide="house" class="h-5 w-5 text-vorlauf"></i></span><span><strong class="font-semibold">Vor-Ort-Termin:</strong> Bei Wärmepumpe und Bad kommt ein Meister zu Ihnen.</span></li>
+            <li class="flex gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ruecklauf-light"><i data-lucide="file-text" class="h-5 w-5 text-ruecklauf"></i></span><span><strong class="font-semibold">Schriftliches Angebot</strong> mit allen Positionen und ohne versteckte Pauschalen.</span></li>
+            <li class="flex gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-vorlauf-light"><i data-lucide="calendar-check" class="h-5 w-5 text-vorlauf"></i></span><span><strong class="font-semibold">Wartungsvertrag:</strong> Wir erinnern Sie jedes Jahr an den nächsten Termin.</span></li>
+            <li class="flex gap-4"><span class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-ruecklauf-light"><i data-lucide="phone-call" class="h-5 w-5 text-ruecklauf"></i></span><span><strong class="font-semibold">Notdienst</strong> außerhalb der Bürozeiten: 05151 000 000-99</span></li>
+          </ul>
+        </div>
+
+        <form id="contact-form" class="reveal rounded-3xl border border-tief/10 bg-kreide p-6 md:p-10 lg:col-span-7" style="--d:120ms" novalidate>
+          <div class="grid gap-5 sm:grid-cols-2">
+            <label class="block sm:col-span-2">
+              <span class="label mb-2 block text-[11px] text-stahl">Ihr Anliegen</span>
+              <select id="anliegen" class="field" name="anliegen">
+                <option>Wärmepumpe</option>
+                <option>Heizung modernisieren</option>
+                <option>Bad &amp; Sanitär</option>
+                <option>Klima &amp; Lüftung</option>
+                <option>Kundendienst / Reparatur</option>
+                <option>Wartung</option>
+                <option>Bewerbung</option>
+              </select>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-[11px] text-stahl">Name</span>
+              <input class="field" type="text" name="name" placeholder="Vor- und Nachname" required>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-[11px] text-stahl">Telefon</span>
+              <input class="field" type="tel" name="telefon" placeholder="Für den Rückruf" required>
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-[11px] text-stahl">E-Mail</span>
+              <input class="field" type="email" name="email" placeholder="name@beispiel.de">
+            </label>
+            <label class="block">
+              <span class="label mb-2 block text-[11px] text-stahl">PLZ und Ort</span>
+              <input class="field" type="text" name="ort" placeholder="31785 Hameln">
+            </label>
+            <label class="block sm:col-span-2">
+              <span class="label mb-2 block text-[11px] text-stahl">Ihre Nachricht</span>
+              <textarea class="field resize-none" name="nachricht" rows="4" placeholder="Was ist passiert oder was planen Sie?"></textarea>
+            </label>
+            <label class="flex items-start gap-3 sm:col-span-2">
+              <input class="check mt-0.5" type="checkbox" name="rueckruf" checked>
+              <span class="text-[15px]">Bitte rufen Sie mich zurück.</span>
+            </label>
+          </div>
+          <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <button type="submit" class="btn btn-tief">Anfrage senden <i data-lucide="send"></i></button>
+            <p class="text-sm text-stahl">Bei einem Heizungsausfall bitte anrufen.</p>
+          </div>
+          <p id="form-note" class="mt-6 hidden rounded-xl border-l-4 border-ruecklauf bg-white px-4 py-3 text-sm" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 9 · FAQ ============ -->
+    <section id="faq" class="border-t border-tief/10 bg-kreide">
+      <div class="mx-auto grid max-w-7xl gap-14 px-5 py-24 md:px-8 md:py-32 lg:grid-cols-12">
+        <div class="reveal lg:col-span-4">
+          <p class="label sec-tag text-stahl">09 · Fragen</p>
+          <h2 class="wide mt-6 text-[clamp(2.4rem,4.4vw,4rem)] font-extrabold leading-[0.98]">Gut zu wissen.</h2>
+        </div>
+        <div class="lg:col-span-8">
+          <details class="reveal border-t border-tief/10 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-bold transition-colors">Was tue ich, wenn die Heizung ausfällt?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-tief/20"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-stahl">Prüfen Sie zuerst, ob die Heizung Strom hat und genug Wasserdruck anzeigt. Hilft das nicht, rufen Sie uns an. Außerhalb der Bürozeiten erreichen Sie den Notdienst unter 05151 000 000-99.</p>
+          </details>
+          <details class="reveal border-t border-tief/10 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-bold transition-colors">Ist mein Haus für eine Wärmepumpe geeignet?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-tief/20"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-stahl">Häufiger, als viele denken. Eine erste Einschätzung gibt Ihnen unser Wärmepumpen-Check. Die verlässliche Antwort bekommen Sie beim Vor-Ort-Termin mit einem unserer Meister.</p>
+          </details>
+          <details class="reveal border-t border-tief/10 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-bold transition-colors">Helfen Sie bei Fördermitteln?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-tief/20"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-stahl">Ja. Wir sagen Ihnen, welche Förderprogramme für Ihr Vorhaben in Frage kommen, und liefern die Angaben, die Sie für den Antrag brauchen.</p>
+          </details>
+          <details class="reveal border-t border-tief/10 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-bold transition-colors">Wie oft sollte meine Heizung gewartet werden?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-tief/20"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-stahl">Wir empfehlen eine Wartung einmal im Jahr, am besten vor der Heizperiode. Mit einem Wartungsvertrag erinnern wir Sie automatisch daran.</p>
+          </details>
+          <details class="reveal border-y border-tief/10 py-6">
+            <summary class="flex items-start justify-between gap-6"><h3 class="text-2xl font-bold transition-colors">In welchem Gebiet sind Sie unterwegs?</h3><span class="faq-icon grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-tief/20"><i data-lucide="plus" class="h-4 w-4"></i></span></summary>
+            <p class="faq-body mt-4 max-w-2xl text-stahl">In Hameln und im Landkreis Hameln-Pyrmont, zum Beispiel in Aerzen, Emmerthal, Bad Münder und Hessisch Oldendorf.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ 10 · FOOTER & FINAL CTA ============ -->
+  <footer class="bg-tief text-white">
+    <div class="mx-auto max-w-7xl px-5 pt-24 md:px-8 md:pt-32">
+      <div class="reveal grid items-end gap-10 border-b border-white/15 pb-20 lg:grid-cols-12">
+        <h2 class="wide text-[clamp(2.8rem,6.4vw,6rem)] font-extrabold leading-[0.95] lg:col-span-8">Ihr Zuhause soll einfach <span class="text-vorlauf">funktionieren.</span></h2>
+        <div class="flex flex-wrap gap-4 lg:col-span-4 lg:justify-end">
+          <a href="#kontakt" class="btn btn-hell">Termin anfragen <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <a href="#top" class="flex items-center gap-3" aria-label="Möhring Haustechnik – nach oben">
+            <svg class="h-11 w-11" viewBox="0 0 40 40" aria-hidden="true">
+              <rect width="40" height="40" rx="10" fill="#FFFFFF"/>
+              <path d="M10 30V11l10 10" fill="none" stroke="#2F7BD8" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20 21l10-10v19" fill="none" stroke="#E2553A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="wide text-[21px] font-extrabold">Möhring</span>
+          </a>
+          <address class="mt-6 not-italic leading-relaxed text-white/60">
+            Möhring Haustechnik GmbH<br>
+            Gewerbestraße 7<br>
+            31785 Hameln
+          </address>
+        </div>
+        <div class="lg:col-span-2">
+          <p class="label text-[11px] text-white/45">Seite</p>
+          <ul class="mt-5 space-y-3 text-white/75">
+            <li><a class="nav-link" href="#leistungen">Leistungen</a></li>
+            <li><a class="nav-link" href="#check">Wärmepumpe</a></li>
+            <li><a class="nav-link" href="#team">Team</a></li>
+            <li><a class="nav-link" href="#karriere">Karriere</a></li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="label text-[11px] text-white/45">Kontakt</p>
+          <ul class="mt-5 space-y-3 text-white/75">
+            <li class="flex items-center gap-3"><i data-lucide="phone" class="h-4 w-4 text-white/40"></i>05151 000 000-0</li>
+            <li class="flex items-center gap-3"><i data-lucide="flame" class="h-4 w-4 text-white/40"></i>Notdienst 05151 000 000-99</li>
+            <li class="flex items-center gap-3"><i data-lucide="mail" class="h-4 w-4 text-white/40"></i>info@moehring-haustechnik.de</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-3">
+          <p class="label text-[11px] text-white/45">Rechtliches</p>
+          <ul class="mt-5 space-y-3 text-white/75">
+            <li><a class="nav-link" href="#">Impressum</a></li>
+            <li><a class="nav-link" href="#">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-3 border-t border-white/10 py-8 text-[13px] text-white/45 md:flex-row md:justify-between">
+        <p>© <span data-year>2026</span> Möhring Haustechnik GmbH</p>
+        <p>Fiktives Unternehmen aus einem Lehrfall · Namen, Kontaktdaten und Fotos sind Platzhalter</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // ---------- Header & Menü ----------
+    const bar = document.getElementById('top-bar');
+    const setBar = () => bar.classList.toggle('is-solid', window.scrollY > 60);
+    setBar();
+    window.addEventListener('scroll', setBar, { passive: true });
+
+    const menuBtn = document.getElementById('menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Links mit data-anliegen wählen das passende Anliegen im Formular vor
+    const anliegen = document.getElementById('anliegen');
+    document.querySelectorAll('[data-anliegen]').forEach(link => link.addEventListener('click', () => {
+      anliegen.value = link.dataset.anliegen;
+    }));
+
+    // ---------- Wärmepumpen-Check ----------
+    const answers = [null, null, null];
+    const RESULTS = [
+      { min: 5, title: 'Gute Voraussetzungen', text: 'Ihr Haus bringt viel mit, was eine Wärmepumpe braucht. Beim Vor-Ort-Termin prüfen wir die Details.' },
+      { min: 3, title: 'Gut möglich, mit Prüfung', text: 'Oft reicht es, einzelne Heizkörper zu tauschen oder den hydraulischen Abgleich zu machen. Das klären wir vor Ort.' },
+      { min: 0, title: 'Vor-Ort-Check empfohlen', text: 'Eine Wärmepumpe kann trotzdem passen, zum Beispiel als Hybridlösung. Wir sehen uns Ihr Haus gemeinsam an.' }
+    ];
+    const updateCheck = () => {
+      const done = answers.filter(a => a !== null);
+      const score = done.reduce((s, a) => s + a, 0);
+      document.getElementById('gauge-fill').style.width = done.length ? `${Math.max(8, score / 6 * 100)}%` : '0';
+      if (done.length < 3) {
+        document.getElementById('hp-title').textContent = `Noch ${3 - done.length} ${3 - done.length === 1 ? 'Frage' : 'Fragen'}.`;
+        return;
+      }
+      const r = RESULTS.find(x => score >= x.min);
+      document.getElementById('hp-title').textContent = r.title;
+      document.getElementById('hp-text').textContent = r.text + ' Diese Einschätzung ersetzt keinen Vor-Ort-Termin.';
+    };
+    document.querySelectorAll('#hp-check [role="radiogroup"]').forEach(group => {
+      const q = Number(group.dataset.q);
+      const opts = [...group.querySelectorAll('.opt')];
+      opts.forEach(opt => opt.addEventListener('click', () => {
+        opts.forEach(o => o.setAttribute('aria-checked', String(o === opt)));
+        answers[q] = Number(opt.dataset.v);
+        updateCheck();
+      }));
+    });
+
+    // ---------- Heizkörper: 52 Rippen ----------
+    const GROUPS = [
+      { id: 'aussen', name: 'Außendienst', n: 38, detail: 'Kundendienst und Baustellen: Monteure mit Diensthandy, jeden Tag bei Kundinnen und Kunden vor Ort.' },
+      { id: 'buero', name: 'Büro', n: 9, detail: 'Anfragen, Termine, Material und Rechnungen. Hier laufen alle Fäden zusammen.' },
+      { id: 'leitung', name: 'Leitung', n: 5, detail: 'Geschäftsführerin, Büroleiterin und drei Meister für Heizung, Sanitär und Kundendienst.' }
+    ];
+    const ribsEl = document.getElementById('ribs');
+    const listEl = document.getElementById('group-list');
+    const detailEl = document.getElementById('radiator-detail');
+    let pinned = 'aussen';
+
+    GROUPS.forEach(g => {
+      for (let i = 0; i < g.n; i++) {
+        const r = document.createElement('span');
+        r.className = 'rib';
+        r.dataset.group = g.id;
+        r.title = g.name;
+        ribsEl.appendChild(r);
+      }
+      const li = document.createElement('li');
+      li.innerHTML = `<button class="group-btn grid w-full grid-cols-[auto,1fr,auto] items-center gap-4 rounded-xl border-b border-tief/10 py-4 pr-3 text-left" data-group="${g.id}" aria-pressed="false">
+        <span class="g-dot h-4 w-4 rounded-full border-2 border-tief/30"></span>
+        <span class="text-lg font-semibold">${g.name}</span>
+        <span class="text-stahl"><strong class="text-tief">${g.n}</strong> · ${Math.round(g.n / 52 * 100)} %</span>
+      </button>`;
+      listEl.appendChild(li);
+    });
+    const ribs = [...ribsEl.children];
+    const heat = id => {
+      const g = GROUPS.find(x => x.id === id);
+      let k = 0;
+      ribs.forEach(r => {
+        const on = r.dataset.group === id;
+        r.style.setProperty('--rd', on ? `${(k++) * 12}ms` : '0ms');
+        r.classList.toggle('on', on);
+      });
+      listEl.querySelectorAll('.group-btn').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.group === pinned)));
+      detailEl.innerHTML = `<strong class="font-semibold text-tief">${g.name} · ${g.n} Beschäftigte.</strong> ${g.detail}`;
+    };
+    listEl.querySelectorAll('.group-btn').forEach(b => {
+      b.addEventListener('click', () => { pinned = b.dataset.group; heat(pinned); });
+      b.addEventListener('mouseenter', () => heat(b.dataset.group));
+      b.addEventListener('focus', () => heat(b.dataset.group));
+      b.addEventListener('mouseleave', () => heat(pinned));
+      b.addEventListener('blur', () => heat(pinned));
+    });
+    ribs.forEach(r => {
+      r.addEventListener('mouseenter', () => heat(r.dataset.group));
+      r.addEventListener('mouseleave', () => heat(pinned));
+    });
+
+    // ---------- Scroll-Reveal ----------
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        if (entry.target.id === 'radiator-wrap') setTimeout(() => heat(pinned), 400);
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // ---------- Kontaktformular (Demo, keine Übermittlung) ----------
+    const form = document.getElementById('contact-form');
+    const note = document.getElementById('form-note');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const missing = [...form.querySelectorAll('[required]')].filter(f => !f.value.trim());
+      note.classList.remove('hidden');
+      if (missing.length) {
+        note.textContent = 'Bitte geben Sie Ihren Namen und eine Telefonnummer für den Rückruf an.';
+        missing[0].focus();
+        return;
+      }
+      note.textContent = 'Danke! Dies ist eine Demo-Seite, Ihre Anfrage wurde nicht versendet.';
+      form.reset();
+    });
+
+    document.querySelectorAll('[data-year]').forEach(n => n.textContent = new Date().getFullYear());
+  </script>
+</body>
+</html>
